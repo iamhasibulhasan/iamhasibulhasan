@@ -1,5 +1,12 @@
-### Hi there 👋
-### I am Ridu
+## Hi there 👋
+>I am Ridu.I create web applications. I love to write code in the middle of the night, share my knowledge with my friends. During my free time, I like to eat various foods.
+
+🌱 I’m currently learning React Js, Firebase, Mongo, Laravel etc.
+
+📫 How to reach me [Click Here](https://eff.org) .
+
+⚡ Fun fact: I am always free 😃
+
 
 <!--
 **iamhasibulhasan/iamhasibulhasan** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
