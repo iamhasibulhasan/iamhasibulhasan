@@ -1,7 +1,7 @@
 ## Hi there 👋
 >I am Ridu.I create web applications. I love to write code in the middle of the night, share my knowledge with my friends. During my free time, I like to eat various foods.
 
-🌱 I’m currently learning React Js, Firebase, Mongo, Laravel etc.
+🌱 I’m currently learning MERN, Laravel etc.
 
 📫 How to reach me [Click Here](https://hasibul-hasan.netlify.app/) .
 
