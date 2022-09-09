@@ -31,10 +31,10 @@ Here are some ideas to get you started:
         <img src="https://github-readme-streak-stats.herokuapp.com/?user=iamhasibulhasan&theme=radical&hide_border=true" width="49.5%">
     </a>
     <a height="180em" href="https://github.com/iamhasibulhasan">
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&layout=compact&langs_count=8" width="40%">
+        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&layout=compact&langs_count=8" width="35%">
     </a>
 </div>
-
+<hr>
 <p align="center">
 <a href="https://wakatime.com/@iamhasibulhasan"><img src="https://github-readme-stats.vercel.app/api/wakatime?username=iamhasibulhasan&theme=gotham&hide_border=true&layout=compact&hide_title=true&langs_count=14"  width="58%" alt="@Hasibul's wakatime stats"/></a>
 <a href="https://github.com/iamhasibulhasan?tab=achievements"><img src="https://github-profile-trophy.vercel.app/?username=iamhasibulhasan&theme=onestar&no-frame=true&column=3&row=2"  width="38%" alt="@Hasibul's trophy stats"/></a>
