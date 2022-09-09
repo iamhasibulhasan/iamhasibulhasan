@@ -27,10 +27,10 @@ Here are some ideas to get you started:
 <img src="img/border-img/border.png" width="100%">
 <p align="center">
     <a height="180em" href="https://github.com/iamhasibulhasan">
-        <img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&count_private=true">
+        <img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&count_private=true" width="50%">
     </a>
     <a height="180em" href="https://github.com/iamhasibulhasan">
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&layout=compact&langs_count=8">
+        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&layout=compact&langs_count=8" width="50%">
     </a>
     
 </p>
