@@ -54,7 +54,7 @@ Here are some ideas to get you started:
 </p>
 
 <p align="center">
-<a href="https://github.com/iamhasibulhasan"><img style="width:100%;border-radius:80%" src="https://readme-typing-svg.herokuapp.com?font=Comfortaa&size=12&duration=3000&pause=500&color=F78509&center=true&vCenter=true&width=435&lines=Hey%2C+it's+Hasibul+Hasan;Freelancer;Open-Source+Enthusiast;Problem+Solver;Fullstack+Developer" alt="Hasibul :: Visitor's Count" /></a>
+<a href="https://github.com/iamhasibulhasan"><img src="https://readme-typing-svg.herokuapp.com?font=Comfortaa&size=10&duration=3000&pause=500&color=F78509&center=true&vCenter=true&width=435&lines=Hey%2C+it's+Hasibul+Hasan;Freelancer;Open-Source+Enthusiast;Problem+Solver;Fullstack+Developer" alt="Hasibul :: Visitor's Count" /></a>
 </p>
 
 
