@@ -1,5 +1,5 @@
 ## Hi there 👋
->I am Ridu.I create web applications. I love to write code in the middle of the night, share my knowledge with my friends. During my free time, I like to eat various foods.
+>I am Hasibul Hasan.I create web applications. I love to write code in the middle of the night, share my knowledge with my friends. During my free time, I like to eat various foods.
 
 🌱 I’m currently learning .Net, Angular, SQL etc.
 
@@ -54,7 +54,7 @@ Here are some ideas to get you started:
 </p>
 
 <p align="center">
-<a href="https://github.com/iamhasibulhasan"><img src="https://readme-typing-svg.herokuapp.com?font=Comfortaa&size=18&duration=3000&pause=500&color=1BA94C&center=true&vCenter=true&width=435&lines=Hey%2C+it's+Hasibul+Hasan;Freelancer;Open-Source+Enthusiast;Problem+Solver;Fullstack+Developer"/></a>
+<a href="https://github.com/iamhasibulhasan"><img src="https://readme-typing-svg.herokuapp.com?font=Comfortaa&size=18&duration=3000&pause=500&color=1BA94C&center=true&vCenter=true&width=435&lines=Hey%2C+it's+Hasibul+Hasan+👋;Freelancer;Open-Source+Enthusiast;Problem+Solver;Fullstack+Developer"/></a>
 </p>
 
 
