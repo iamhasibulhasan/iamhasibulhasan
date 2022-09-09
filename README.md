@@ -22,7 +22,7 @@ Here are some ideas to get you started:
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
-<hr>
+<img src="img/border-img/colored.png"  width="100%" alt="Hi fellow"/>
 <div align="center">
     <a height="180em" href="https://github.com/iamhasibulhasan">
         <img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&count_private=true" width="49.5%">
@@ -34,7 +34,7 @@ Here are some ideas to get you started:
         <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&layout=compact&langs_count=8" width="35%">
     </a>
 </div>
-<hr>
+<img src="img/border-img/colored.png"  width="100%" alt="Hi fellow"/>
 <p align="center">
 <a href="https://wakatime.com/@iamhasibulhasan"><img src="https://github-readme-stats.vercel.app/api/wakatime?username=iamhasibulhasan&theme=gotham&hide_border=true&layout=compact&hide_title=true&langs_count=14"  width="58%" alt="@Hasibul's wakatime stats"/></a>
 <a href="https://github.com/iamhasibulhasan?tab=achievements"><img src="https://github-profile-trophy.vercel.app/?username=iamhasibulhasan&theme=onestar&no-frame=true&column=3&row=2"  width="38%" alt="@Hasibul's trophy stats"/></a>
