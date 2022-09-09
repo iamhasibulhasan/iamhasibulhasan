@@ -25,7 +25,7 @@ Here are some ideas to get you started:
 
 
 <p align="center">
-    <img src="img/border-img/border.png">
+    <img src="img/border-img/border.png" width="100%">
     <a height="180em" href="https://github.com/iamhasibulhasan">
         <img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&count_private=true"  width="31%">
     </a>
