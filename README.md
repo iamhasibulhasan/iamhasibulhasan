@@ -23,8 +23,9 @@ Here are some ideas to get you started:
 - ⚡ Fun fact: ...
 -->
 
-<img src="img/border-img/border.png">
+
 <div style="display:flex;" align="center">
+    <img width="100%" src="img/border-img/border.png">
     <a height="180em" href="https://github.com/iamhasibulhasan">
         <img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&count_private=true">
     </a>
