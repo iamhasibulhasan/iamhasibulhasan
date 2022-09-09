@@ -32,9 +32,9 @@ Here are some ideas to get you started:
     <a height="180em" href="https://github.com/iamhasibulhasan">
         <img src="https://github-readme-streak-stats.herokuapp.com/?user=iamhasibulhasan&theme=radical&hide_border=true">
     </a>
-    <a height="180em" href="https://github.com/iamhasibulhasan">
+    <!-- <a height="180em" href="https://github.com/iamhasibulhasan">
         <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&layout=compact&langs_count=8">
-    </a>
+    </a> -->
 </div>
 <p align="center" style="padding:10px 0 5px 0;border-bottom:1px solid #30363d">
 <a href="https://wakatime.com/@iamhasibulhasan"><img src="https://github-readme-stats.vercel.app/api/wakatime?username=iamhasibulhasan&theme=gotham&hide_border=true&layout=compact&hide_title=true&langs_count=14"  width="58%" alt="@Hasibul's wakatime stats"/></a>
