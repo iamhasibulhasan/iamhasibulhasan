@@ -26,6 +26,10 @@ Here are some ideas to get you started:
 
 <img src="img/border-img/border.png" width="100%">
 <p align="center">
+<a href="https://github.com/iamhasibulhasan"><img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&count_private=true"  width="31%" alt="@Hasibul's productive-time"/></a>
+<a href="https://github.com/iamhasibulhasan"><img src="https://github-readme-streak-stats.herokuapp.com/?user=iamhasibulhasan&theme=radical&hide_border=true"  width="64%" alt="@Hasibul's profile-details"/></a>
+</p>
+<p align="center">
     <a href="https://github.com/iamhasibulhasan">
         <img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&count_private=true"  width="30%">
     </a>
@@ -41,7 +45,7 @@ Here are some ideas to get you started:
 <a href="https://github.com/iamhasibulhasan?tab=achievements"><img src="https://github-profile-trophy.vercel.app/?username=iamhasibulhasan&theme=onestar&no-frame=true&column=3&row=2"  width="38%" alt="@Hasibul's trophy stats"/></a>
 </p>
 
-<p align="center" style="padding:0px 0 5px 0;border-bottom:1px solid #30363d;">
+<p align="center">
 <a href="https://github.com/iamhasibulhasan"><img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=iamhasibulhasan&theme=github_dark&utcOffset=4"  width="31%" alt="@Hasibul's productive-time"/></a>
 <a href="https://github.com/iamhasibulhasan"><img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=iamhasibulhasan&theme=github_dark&hide_border=true"  width="64%" alt="@Hasibul's profile-details"/></a>
 </p>
