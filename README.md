@@ -25,18 +25,18 @@ Here are some ideas to get you started:
 <img src="img/border-img/colored.png"  width="100%" alt="Hi fellow"/>
 <div align="center">
     <a height="180em" href="https://github.com/iamhasibulhasan">
-        <img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&count_private=true" width="49.5%">
+        <img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=dark&show_icons=true&hide_border=true&count_private=true" width="49.5%">
     </a>
     <a height="180em" href="https://github.com/iamhasibulhasan">
-        <img src="https://github-readme-streak-stats.herokuapp.com/?user=iamhasibulhasan&theme=radical&hide_border=true" width="49.5%">
+        <img src="https://github-readme-streak-stats.herokuapp.com/?user=iamhasibulhasan&theme=dark&hide_border=true" width="49.5%">
     </a>
     <a height="180em" href="https://github.com/iamhasibulhasan">
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&layout=compact&langs_count=8" width="35%">
+        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=dark&show_icons=true&hide_border=true&layout=compact&langs_count=8" width="35%">
     </a>
 </div>
 <img src="img/border-img/colored.png"  width="100%" alt="Hi fellow"/>
 <p align="center">
-<a href="https://wakatime.com/@iamhasibulhasan"><img src="https://github-readme-stats.vercel.app/api/wakatime?username=iamhasibulhasan&theme=gotham&hide_border=true&layout=compact&hide_title=true&langs_count=14"  width="58%" alt="@Hasibul's wakatime stats"/></a>
+<a href="https://wakatime.com/@iamhasibulhasan"><img src="https://github-readme-stats.vercel.app/api/wakatime?username=iamhasibulhasan&theme=gotham&hide_border=true&layout=compact&hide_title=true&langs_count=8"  width="58%" alt="@Hasibul's wakatime stats"/></a>
 <a href="https://github.com/iamhasibulhasan?tab=achievements"><img src="https://github-profile-trophy.vercel.app/?username=iamhasibulhasan&theme=onestar&no-frame=true&column=3&row=2"  width="38%" alt="@Hasibul's trophy stats"/></a>
 </p>
 <img src="img/border-img/colored.png"  width="100%" alt="Hi fellow"/>
@@ -54,7 +54,7 @@ Here are some ideas to get you started:
 </p>
 
 <p align="center">
-<a href="https://github.com/iamhasibulhasan"><img src="https://readme-typing-svg.herokuapp.com?font=Comfortaa&size=15&duration=3000&pause=500&color=F78509&center=true&vCenter=true&width=435&lines=Hey%2C+it's+Hasibul+Hasan;Freelancer;Open-Source+Enthusiast;Problem+Solver;Fullstack+Developer" alt="Hasibul :: Visitor's Count" /></a>
+<a href="https://github.com/iamhasibulhasan"><img src="https://readme-typing-svg.herokuapp.com?font=Comfortaa&size=18&duration=3000&pause=500&color=1BA94C&center=true&vCenter=true&width=435&lines=Hey%2C+it's+Hasibul+Hasan;Freelancer;Open-Source+Enthusiast;Problem+Solver;Fullstack+Developer"/></a>
 </p>
 
 
@@ -72,5 +72,5 @@ Here are some ideas to get you started:
 </div>
 <br>
 <p align="center" style="margin-top:10px">
-<a href="https://github.com/iamhasibulhasan"><img src="https://profile-counter.glitch.me/{iamhasibulhasan}/count.svg" alt="Hasibul :: Visitor's Count" /></a>
+<a href="https://github.com/iamhasibulhasan"><img src="https://profile-counter.glitch.me/{iamhasibulhasan}/count.svg" alt="Hasibul : Visitor's Count" /></a>
 </p>
