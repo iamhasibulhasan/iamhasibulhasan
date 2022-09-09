@@ -39,7 +39,7 @@ Here are some ideas to get you started:
 <a href="https://wakatime.com/@iamhasibulhasan"><img src="https://github-readme-stats.vercel.app/api/wakatime?username=iamhasibulhasan&theme=gotham&hide_border=true&layout=compact&hide_title=true&langs_count=14"  width="58%" alt="@Hasibul's wakatime stats"/></a>
 <a href="https://github.com/iamhasibulhasan?tab=achievements"><img src="https://github-profile-trophy.vercel.app/?username=iamhasibulhasan&theme=onestar&no-frame=true&column=3&row=2"  width="38%" alt="@Hasibul's trophy stats"/></a>
 </p>
-
+<img src="img/border-img/colored.png"  width="100%" alt="Hi fellow"/>
 <p align="center">
 <a href="https://github.com/iamhasibulhasan"><img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=iamhasibulhasan&theme=github_dark&utcOffset=4"  width="31%" alt="@Hasibul's productive-time"/></a>
 <a href="https://github.com/iamhasibulhasan"><img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=iamhasibulhasan&theme=github_dark&hide_border=true"  width="64%" alt="@Hasibul's profile-details"/></a>
@@ -52,6 +52,9 @@ Here are some ideas to get you started:
 <p align="center" style="margin-top:10px">
 <a href="https://github.com/iamhasibulhasan"><img style="width:20%;border-radius:80%" src="img/about/hasibul.png" alt="Hasibul :: Visitor's Count" /></a>
 </p>
+
+[![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Comfortaa&size=17&duration=3000&pause=500&color=F78509&center=true&vCenter=true&width=435&lines=Hey%2C+it's+Hasibul+Hasan;Freelancer;Open-Source+Enthusiast;Problem+Solver;Fullstack+Developer)](https://git.io/typing-svg)
+ 
 <div align="center">
     <a href="https://hasibul-hasan.netlify.app/"><img src="https://img.shields.io/badge/my_portfolio-000?style=flat&logo=ko-fi&logoColor=white"  target="_blank" alt="Portfolio"></a>
     <a href="https://www.linkedin.com/in/iam-hasibulhasan/"><img src="https://img.shields.io/badge/linkedin-0A66C2?style=flat&logo=linkedin&logoColor=white"  target="_blank" alt="Linkedin"></a>
