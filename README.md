@@ -53,7 +53,13 @@ Here are some ideas to get you started:
 <a href="https://github.com/iamhasibulhasan"><img style="width:20%;border-radius:80%" src="img/about/hasibul.png" alt="Hasibul :: Visitor's Count" /></a>
 </p>
 
+<p align="center">
+
 [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Comfortaa&size=17&duration=3000&pause=500&color=F78509&center=true&vCenter=true&width=435&lines=Hey%2C+it's+Hasibul+Hasan;Freelancer;Open-Source+Enthusiast;Problem+Solver;Fullstack+Developer)](https://git.io/typing-svg)
+
+</p>
+
+
  
 <div align="center">
     <a href="https://hasibul-hasan.netlify.app/"><img src="https://img.shields.io/badge/my_portfolio-000?style=flat&logo=ko-fi&logoColor=white"  target="_blank" alt="Portfolio"></a>
