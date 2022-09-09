@@ -24,19 +24,19 @@ Here are some ideas to get you started:
 -->
 
 
-<div style="display:flex;" align="center">
+<p align="center">
     <img src="img/border-img/border.png">
     <a height="180em" href="https://github.com/iamhasibulhasan">
-        <img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&count_private=true">
+        <img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&count_private=true"  width="31%">
     </a>
     <a height="180em" href="https://github.com/iamhasibulhasan">
-        <img src="https://github-readme-streak-stats.herokuapp.com/?user=iamhasibulhasan&theme=radical&hide_border=true">
+        <img src="https://github-readme-streak-stats.herokuapp.com/?user=iamhasibulhasan&theme=radical&hide_border=true"  width="64%">
     </a>
     <!-- <a height="180em" href="https://github.com/iamhasibulhasan">
         <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&layout=compact&langs_count=8">
     </a> -->
-</div>
-<p align="center" style="padding:10px 0 5px 0;border-bottom:1px solid #30363d">
+</p>
+<p align="center">
 <a href="https://wakatime.com/@iamhasibulhasan"><img src="https://github-readme-stats.vercel.app/api/wakatime?username=iamhasibulhasan&theme=gotham&hide_border=true&layout=compact&hide_title=true&langs_count=14"  width="58%" alt="@Hasibul's wakatime stats"/></a>
 <a href="https://github.com/iamhasibulhasan?tab=achievements"><img src="https://github-profile-trophy.vercel.app/?username=iamhasibulhasan&theme=onestar&no-frame=true&column=3&row=2"  width="38%" alt="@Hasibul's trophy stats"/></a>
 </p>
