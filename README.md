@@ -50,7 +50,7 @@ Here are some ideas to get you started:
 
 
 <p align="center" style="margin-top:10px">
-<a href="https://github.com/iamhasibulhasan"><img style="width:30%;border-radius:80%" src="img/about/hasibul.png" alt="Hasibul :: Visitor's Count" /></a>
+<a href="https://github.com/iamhasibulhasan"><img style="width:20%;border-radius:80%" src="img/about/hasibul.png" alt="Hasibul :: Visitor's Count" /></a>
 </p>
 <div align="center">
     <a href="https://hasibul-hasan.netlify.app/"><img src="https://img.shields.io/badge/my_portfolio-000?style=flat&logo=ko-fi&logoColor=white"  target="_blank" alt="Portfolio"></a>
