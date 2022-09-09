@@ -22,22 +22,46 @@ Here are some ideas to get you started:
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
-### Numbers
-![iamhasibulhasan's Stats](https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&count_private=true)
 
-![iamhasibulhasan's Streak](https://github-readme-streak-stats.herokuapp.com/?user=iamhasibulhasan&theme=radical&hide_border=true)
+<div style="display:flex;border-top:1px solid #30363d;border-bottom:1px solid #30363d;padding:10px 0 5px 0;" align="center">
+    <a height="180em" href="https://github.com/iamhasibulhasan">
+        <img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&count_private=true">
+    </a>
+    <a height="180em" href="https://github.com/iamhasibulhasan">
+        <img src="https://github-readme-streak-stats.herokuapp.com/?user=iamhasibulhasan&theme=radical&hide_border=true">
+    </a>
+    <a height="180em" href="https://github.com/iamhasibulhasan">
+        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&layout=compact&langs_count=8">
+    </a>
+</div>
+<p align="center" style="padding:10px 0 5px 0;border-bottom:1px solid #30363d">
+<a href="https://wakatime.com/@iamhasibulhasan"><img src="https://github-readme-stats.vercel.app/api/wakatime?username=iamhasibulhasan&theme=gotham&hide_border=true&layout=compact&hide_title=true&langs_count=14"  width="58%" alt="@Hasibul's wakatime stats"/></a>
+<a href="https://github.com/iamhasibulhasan?tab=achievements"><img src="https://github-profile-trophy.vercel.app/?username=iamhasibulhasan&theme=onestar&no-frame=true&column=3&row=2"  width="38%" alt="@Hasibul's trophy stats"/></a>
+</p>
 
-![iamhasibulhasan's Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=radical&show_icons=true&hide_border=true&layout=compact)
+<p align="center" style="padding:0px 0 5px 0;border-bottom:1px solid #30363d;">
+<a href="https://github.com/iamhasibulhasan"><img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=iamhasibulhasan&theme=github_dark&utcOffset=4"  width="31%" alt="@Hasibul's productive-time"/></a>
+<a href="https://github.com/iamhasibulhasan"><img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=iamhasibulhasan&theme=github_dark&hide_border=true"  width="64%" alt="@Hasibul's profile-details"/></a>
+</p>
 
-Where to find me
+
+
+
+<p align="center" style="margin-top:10px">
+<a href="https://github.com/iamhasibulhasan"><img style="width:15%;border-radius:80%" src="img/about/1.jpg" alt="Hasibul :: Visitor's Count" /></a>
+</p>
 <div align="center">
-    <a href="https://hasibul-hasan.netlify.app/"><img src="https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white"  target="_blank" alt="Portfolio"></a>
-    <a href="https://www.linkedin.com/in/iam-hasibulhasan/"><img src="https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white"  target="_blank" alt="Linkedin"></a>
-    <a href="https://github.com/iamhasibulhasan"><img src="https://img.shields.io/badge/github-000?style=for-the-badge&logo=github&logoColor=white"  target="_blank" alt="GitHub"></a>
-    <a href="https://www.instagram.com/iamtheridu/"><img src="https://img.shields.io/badge/instagram-F56040?style=for-the-badge&logo=instagram&logoColor=white"  target="_blank" alt="Instagram"></a>
-    <a href="https://www.facebook.com/iamtheridu/"><img src="https://img.shields.io/badge/facebook-025FB1?style=for-the-badge&logo=facebook&logoColor=white"  target="_blank" alt="Facebook"></a>
-    <a href="https://www.hackerrank.com/Hasibul"><img src="https://img.shields.io/badge/hackerrank-1BA94C?style=for-the-badge&logo=hackerrank&logoColor=white"  target="_blank" alt="Hackerrank"></a>
-    <a href="mailto:mdhasibulhasan.dev@gmail.com"><img src="https://img.shields.io/badge/gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white"  target="_blank" alt="Gmail"></a>
-    <a href="https://wa.me/+8801747979703"><img src="https://img.shields.io/badge/whatsapp-1BA93B?style=for-the-badge&logo=whatsapp&logoColor=white"  target="_blank" alt="Whatsapp"></a>
+    <a href="https://hasibul-hasan.netlify.app/"><img src="https://img.shields.io/badge/my_portfolio-000?style=flat&logo=ko-fi&logoColor=white"  target="_blank" alt="Portfolio"></a>
+    <a href="https://www.linkedin.com/in/iam-hasibulhasan/"><img src="https://img.shields.io/badge/linkedin-0A66C2?style=flat&logo=linkedin&logoColor=white"  target="_blank" alt="Linkedin"></a>
+    <a href="https://github.com/iamhasibulhasan"><img src="https://img.shields.io/badge/github-000?style=flat&logo=github&logoColor=white"  target="_blank" alt="GitHub"></a>
+    <a href="https://www.instagram.com/iamtheridu/"><img src="https://img.shields.io/badge/instagram-F56040?style=flat&logo=instagram&logoColor=white"  target="_blank" alt="Instagram"></a>
+    <a href="https://www.facebook.com/iamtheridu/"><img src="https://img.shields.io/badge/facebook-025FB1?style=flat&logo=facebook&logoColor=white"  target="_blank" alt="Facebook"></a>
+    <a href="https://www.hackerrank.com/Hasibul"><img src="https://img.shields.io/badge/hackerrank-1BA94C?style=flat&logo=hackerrank&logoColor=white"  target="_blank" alt="Hackerrank"></a>
+    <a href="mailto:mdhasibulhasan.dev@gmail.com"><img src="https://img.shields.io/badge/gmail-D14836?style=flat&logo=gmail&logoColor=white"  target="_blank" alt="Gmail"></a>
+    <a href="https://wakatime.com/@iamhasibulhasan"><img src="https://img.shields.io/badge/wakaTime-CCC?style=flat&logo=wakatime&logoColor=black"  target="_blank" alt="WakaTime"></a>
 
 </div>
+
+<p align="center" style="margin-top:10px">
+<a href="https://github.com/iamhasibulhasan"><img src="https://profile-counter.glitch.me/{iamhasibulhasan}/count.svg" alt="Hasibul :: Visitor's Count" /></a>
+</p>
