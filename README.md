@@ -30,9 +30,15 @@ Here are some ideas to get you started:
     <a height="180em" href="https://github.com/iamhasibulhasan">
         <img src="https://github-readme-streak-stats.herokuapp.com/?user=iamhasibulhasan&theme=gruvbox&hide_border=true" width="49.5%">
     </a>
+    </div>
+    <div align="center">
     <a height="180em" href="https://github.com/iamhasibulhasan">
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=gruvbox&show_icons=true&hide_border=true&layout=compact&langs_count=8" width="35%">
+        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=gruvbox&show_icons=true&hide_border=true&layout=compact&langs_count=8" width="49.5%">
     </a>
+    <a href="https://github.com/iamhasibulhasan">
+        <img src="https://github-readme-stats.vercel.app/api/wakatime?username=iamhasibulhasan&theme=gruvbox&hide_border=true&layout=compact" width="49.5%">
+    </a>
+
 </div>
 <!-- <img src="img/border-img/colored.png"  width="100%" alt="Hi fellow"/> -->
 <p align="center">
