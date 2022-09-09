@@ -40,16 +40,17 @@ Here are some ideas to get you started:
 <a href="https://github.com/iamhasibulhasan?tab=achievements"><img src="https://github-profile-trophy.vercel.app/?username=iamhasibulhasan&theme=onestar&no-frame=true&column=3&row=2"  width="38%" alt="@Hasibul's trophy stats"/></a>
 </p>
 
-<p align="center" style="padding:0px 0 5px 0;border-bottom:1px solid #30363d;">
+<p align="center">
 <a href="https://github.com/iamhasibulhasan"><img src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username=iamhasibulhasan&theme=github_dark&utcOffset=4"  width="31%" alt="@Hasibul's productive-time"/></a>
 <a href="https://github.com/iamhasibulhasan"><img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=iamhasibulhasan&theme=github_dark&hide_border=true"  width="64%" alt="@Hasibul's profile-details"/></a>
 </p>
+<img src="img/border-img/colored.png"  width="100%" alt="Hi fellow"/>
 
 
 
 
 <p align="center" style="margin-top:10px">
-<a href="https://github.com/iamhasibulhasan"><img style="width:15%;border-radius:80%" src="img/about/1.jpg" alt="Hasibul :: Visitor's Count" /></a>
+<a href="https://github.com/iamhasibulhasan"><img style="width:30%;border-radius:80%" src="img/about/hasibul.png" alt="Hasibul :: Visitor's Count" /></a>
 </p>
 <div align="center">
     <a href="https://hasibul-hasan.netlify.app/"><img src="https://img.shields.io/badge/my_portfolio-000?style=flat&logo=ko-fi&logoColor=white"  target="_blank" alt="Portfolio"></a>
