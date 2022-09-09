@@ -24,14 +24,14 @@ Here are some ideas to get you started:
 -->
 <!-- <img src="img/border-img/colored.png"  width="100%" alt="Hi fellow"/> -->
 <div align="center">
-<a height="180em" href="https://github.com/iamhasibulhasan">
-        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=gruvbox&show_icons=true&hide_border=true&layout=compact&langs_count=8" width="49.5%">
-    </a>
     <a height="180em" href="https://github.com/iamhasibulhasan">
         <img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=gruvbox&show_icons=true&hide_border=true&count_private=true" width="49.5%">
     </a>
     <a height="180em" href="https://github.com/iamhasibulhasan">
         <img src="https://github-readme-streak-stats.herokuapp.com/?user=iamhasibulhasan&theme=gruvbox&hide_border=true" width="49.5%">
+    </a>
+    <a height="180em" href="https://github.com/iamhasibulhasan">
+        <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=gruvbox&show_icons=true&hide_border=true&layout=compact&langs_count=8" width="35%">
     </a>
 </div>
 <!-- <img src="img/border-img/colored.png"  width="100%" alt="Hi fellow"/> -->
