@@ -8,6 +8,37 @@
 ⚡ Fun fact: I am always free 😃
 
 
+<div align="center" style="margin-top:10px">
+
+<img src="https://img.shields.io/badge/.NET-5C2D91?style=flat&logo=.net&logoColor=white" />
+<img src="https://img.shields.io/badge/Angular-DD0031?style=flat&logo=angular&logoColor=white" /> 
+<img src="https://img.shields.io/badge/ReactJs-0FAAFF?style=flat&logo=react&logoColor=white" />
+<img src="https://img.shields.io/badge/Laravel-E34F26?style=flat&logo=laravel&logoColor=white" /> 
+<img src="https://img.shields.io/badge/WordPress-3498DB?style=flat&logo=wordpress&logoColor=white" /> 
+
+<img src="https://img.shields.io/badge/Bootstrap-563D7C?style=flat&logo=bootstrap&logoColor=white" />
+<img src="https://img.shields.io/badge/MUI-0FAAFF?style=flat&logo=mui&logoColor=white"/>
+<img src="https://img.shields.io/badge/Tailwind-3498DB?style=flat&logo=tailwindcss&logoColor=white"/>
+<img src="https://img.shields.io/badge/jQuery-0769AD?style=flat&logo=jquery&logoColor=white" />
+
+<img src="https://img.shields.io/badge/Microsoft_SQL_Server-CC2927?style=flat&logo=microsoft-sql-server&logoColor=white" />
+<img src="https://img.shields.io/badge/MySQL-00000F?style=flat&logo=mysql&logoColor=white" />
+<img src="https://img.shields.io/badge/MongoDB-023430?style=flat&logo=mongodb&logoColor=white" />
+
+<img src="https://img.shields.io/badge/C%23-239120?style=flat&logo=c-sharp&logoColor=white" />
+<img src="https://img.shields.io/badge/C%2B%2B-00599C?style=flat&logo=c%2B%2B&logoColor=white" />
+<img src="https://img.shields.io/badge/Java-ED8B00?style=flat&logo=java&logoColor=white" />
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black" />
+<img src="https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white" />
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white" />
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white" />
+<img src="https://img.shields.io/badge/PHP-777BB4?style=flat&logo=php&logoColor=white" />
+
+<img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white" />
+<img src="https://img.shields.io/badge/Visual Studio Code-2CA5E0?style=flat&logo=visual-studio-code&logoColor=white"/>
+<img src="https://img.shields.io/badge/Visual Studio-777BB4?style=flat&logo=visual-studio&logoColor=white"/>
+<img src="https://img.shields.io/badge/PhpStorm-D545F1?style=flat&logo=phpstorm&logoColor=white"/>
+</div>
 <!--
 **iamhasibulhasan/iamhasibulhasan** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
@@ -63,8 +94,6 @@ Here are some ideas to get you started:
 <a href="https://github.com/iamhasibulhasan"><img src="https://readme-typing-svg.herokuapp.com?font=Comfortaa&size=18&duration=3000&pause=500&color=1BA94C&center=true&vCenter=true&width=435&lines=Hey%2C+it's+Hasibul+Hasan+👋;Freelancer;Open-Source+Enthusiast;Problem+Solver;Fullstack+Developer"/></a>
 </p>
 
-
- 
 <div align="center">
     <a href="https://hasibul-hasan.netlify.app/"><img src="https://img.shields.io/badge/my_portfolio-000?style=flat&logo=ko-fi&logoColor=white"  target="_blank" alt="Portfolio"></a>
     <a href="https://www.linkedin.com/in/iam-hasibulhasan/"><img src="https://img.shields.io/badge/linkedin-0A66C2?style=flat&logo=linkedin&logoColor=white"  target="_blank" alt="Linkedin"></a>
@@ -76,6 +105,8 @@ Here are some ideas to get you started:
     <a href="https://wakatime.com/@iamhasibulhasan"><img src="https://img.shields.io/badge/wakaTime-CCC?style=flat&logo=wakatime&logoColor=black"  target="_blank" alt="WakaTime"></a>
 
 </div>
+
+
 <br>
 <p align="center" style="margin-top:10px">
 <a href="https://github.com/iamhasibulhasan"><img src="https://profile-counter.glitch.me/{iamhasibulhasan}/count.svg" alt="Hasibul : Visitor's Count" /></a>
