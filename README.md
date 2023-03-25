@@ -1,7 +1,7 @@
 ## Hi there 👋
 >I am Hasibul Hasan.I create web applications. I love to write code in the middle of the night, share my knowledge with my friends. During my free time, I like to eat various foods.
 
-🌱 I’m currently learning .Net, Angular, SQL etc.
+🌱 I’m currently learning .Net core, Angular, SQL etc.
 
 📫 How to reach me [Click Here](https://hasibul-hasan.netlify.app/) .
 
