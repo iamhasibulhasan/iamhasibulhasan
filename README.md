@@ -13,8 +13,6 @@
 <img src="https://img.shields.io/badge/.NET-5C2D91?style=flat&logo=.net&logoColor=white" />
 <img src="https://img.shields.io/badge/Angular-DD0031?style=flat&logo=angular&logoColor=white" /> 
 <img src="https://img.shields.io/badge/ReactJs-0FAAFF?style=flat&logo=react&logoColor=white" />
-<img src="https://img.shields.io/badge/Laravel-E34F26?style=flat&logo=laravel&logoColor=white" /> 
-<img src="https://img.shields.io/badge/WordPress-3498DB?style=flat&logo=wordpress&logoColor=white" /> 
 
 <img src="https://img.shields.io/badge/Bootstrap-563D7C?style=flat&logo=bootstrap&logoColor=white" />
 <img src="https://img.shields.io/badge/MUI-0FAAFF?style=flat&logo=mui&logoColor=white"/>
@@ -23,11 +21,9 @@
 
 <img src="https://img.shields.io/badge/Microsoft_SQL_Server-CC2927?style=flat&logo=microsoft-sql-server&logoColor=white" />
 <img src="https://img.shields.io/badge/MySQL-00000F?style=flat&logo=mysql&logoColor=white" />
-<img src="https://img.shields.io/badge/MongoDB-023430?style=flat&logo=mongodb&logoColor=white" />
+<img src="https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white" />
 
 <img src="https://img.shields.io/badge/C%23-239120?style=flat&logo=c-sharp&logoColor=white" />
-<img src="https://img.shields.io/badge/C%2B%2B-00599C?style=flat&logo=c%2B%2B&logoColor=white" />
-<img src="https://img.shields.io/badge/Java-ED8B00?style=flat&logo=java&logoColor=white" />
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black" />
 <img src="https://img.shields.io/badge/TypeScript-007ACC?style=flat&logo=typescript&logoColor=white" />
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white" />
@@ -37,7 +33,6 @@
 <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white" />
 <img src="https://img.shields.io/badge/Visual Studio Code-2CA5E0?style=flat&logo=visual-studio-code&logoColor=white"/>
 <img src="https://img.shields.io/badge/Visual Studio-777BB4?style=flat&logo=visual-studio&logoColor=white"/>
-<img src="https://img.shields.io/badge/PhpStorm-D545F1?style=flat&logo=phpstorm&logoColor=white"/>
 </div>
 <!--
 **iamhasibulhasan/iamhasibulhasan** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
