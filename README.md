@@ -1,9 +1,16 @@
 ## Hi there 👋
->I am Hasibul Hasan.I create web applications. I love to write code in the middle of the night, share my knowledge with my friends. During my free time, I like to eat various foods.
+>Software Engineer with over 2.5 years of experience in
+building and implementing scalable software solutions.
+Specialized in .NetCore with Entity Framework Core, I excel
+in solving complex problems and have a strong commitment
+to continuous learning in the field. I work well in team
+environments, can lead projects when necessary, and
+collaborate closely with stakeholders to define technical
+roadmaps and align them with business goals.
 
 🌱 I’m currently learning .Net core, Angular, SQL etc.
 
-📫 How to reach me [Click Here](https://hasibul-hasan.netlify.app/) .
+📫 How to reach me [Click Here](https://abouthasibul.com/) .
 
 ⚡ Fun fact: I am always free 😃
 
@@ -12,7 +19,6 @@
 
 <img src="https://img.shields.io/badge/.NET-5C2D91?style=flat&logo=.net&logoColor=white" />
 <img src="https://img.shields.io/badge/Angular-DD0031?style=flat&logo=angular&logoColor=white" /> 
-<img src="https://img.shields.io/badge/ReactJs-0FAAFF?style=flat&logo=react&logoColor=white" />
 
 <img src="https://img.shields.io/badge/Bootstrap-563D7C?style=flat&logo=bootstrap&logoColor=white" />
 <img src="https://img.shields.io/badge/MUI-0FAAFF?style=flat&logo=mui&logoColor=white"/>
@@ -21,7 +27,7 @@
 
 <img src="https://img.shields.io/badge/Microsoft_SQL_Server-CC2927?style=flat&logo=microsoft-sql-server&logoColor=white" />
 <img src="https://img.shields.io/badge/MySQL-00000F?style=flat&logo=mysql&logoColor=white" />
-<img src="https://img.shields.io/badge/Oracle-F80000?style=flat&logo=oracle&logoColor=white" />
+<img src="https://img.shields.io/badge/pgSql-326690?style=flat&logo=pgSql&logoColor=white" />
 
 <img src="https://img.shields.io/badge/C%23-239120?style=flat&logo=c-sharp&logoColor=white" />
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black" />
@@ -31,8 +37,10 @@
 <img src="https://img.shields.io/badge/PHP-777BB4?style=flat&logo=php&logoColor=white" />
 
 <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=git&logoColor=white" />
-<img src="https://img.shields.io/badge/Visual Studio Code-2CA5E0?style=flat&logo=visual-studio-code&logoColor=white"/>
-<img src="https://img.shields.io/badge/Visual Studio-777BB4?style=flat&logo=visual-studio&logoColor=white"/>
+<img src="https://img.shields.io/badge/Visual Studio Code-2CA5E0?style=flat&logo=visualstudiocode&logoColor=white"/>
+<img src="https://img.shields.io/badge/Visual Studio-777BB4?style=flat&logo=visualstudio&logoColor=white"/>
+<img src="https://img.shields.io/badge/DataGrip-ee00ae?style=flat&logo=datagrip&logoColor=white"/>
+<img src="https://img.shields.io/badge/PgAdmin-326690?style=flat&logo=pgAdmin&logoColor=white"/>
 </div>
 <!--
 **iamhasibulhasan/iamhasibulhasan** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
