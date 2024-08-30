@@ -8,7 +8,7 @@ environments, can lead projects when necessary, and
 collaborate closely with stakeholders to define technical
 roadmaps and align them with business goals.
 
-🌱 I’m currently learning .Net core, Angular, SQL etc.
+🌱 I’m currently learning .Net core, Angular, msSQL, pgSql etc.
 
 📫 How to reach me [Click Here](https://abouthasibul.com/) .
 
@@ -98,7 +98,7 @@ Here are some ideas to get you started:
 </p>
 
 <div align="center">
-    <a href="https://hasibul-hasan.netlify.app/"><img src="https://img.shields.io/badge/my_portfolio-000?style=flat&logo=ko-fi&logoColor=white"  target="_blank" alt="Portfolio"></a>
+    <a href="https://abouthasibul.com/"><img src="https://img.shields.io/badge/my_profile-000?style=flat&logo=ko-fi&logoColor=white"  target="_blank" alt="Portfolio"></a>
     <a href="https://www.linkedin.com/in/iam-hasibulhasan/"><img src="https://img.shields.io/badge/linkedin-0A66C2?style=flat&logo=linkedin&logoColor=white"  target="_blank" alt="Linkedin"></a>
     <a href="https://github.com/iamhasibulhasan"><img src="https://img.shields.io/badge/github-000?style=flat&logo=github&logoColor=white"  target="_blank" alt="GitHub"></a>
     <a href="https://www.instagram.com/iamtheridu/"><img src="https://img.shields.io/badge/instagram-F56040?style=flat&logo=instagram&logoColor=white"  target="_blank" alt="Instagram"></a>
