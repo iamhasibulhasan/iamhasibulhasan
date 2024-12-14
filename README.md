@@ -1,5 +1,5 @@
 ## Hi there 👋
->Software Engineer with over 2.5 years of experience in
+>Software Engineer with 3+ years of experience in
 building and implementing scalable software solutions.
 Specialized in .NetCore with Entity Framework Core, I excel
 in solving complex problems and have a strong commitment
@@ -8,7 +8,7 @@ environments, can lead projects when necessary, and
 collaborate closely with stakeholders to define technical
 roadmaps and align them with business goals.
 
-🌱 I’m currently learning .Net core, Angular, msSQL, pgSql etc.
+🌱 I’m currently learning .Net core, FastEndpoints, Minimal API,  msSQL, PostgreSQL etc.
 
 📫 How to reach me [Click Here](https://abouthasibul.com/) .
 
