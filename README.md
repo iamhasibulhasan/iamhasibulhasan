@@ -1,18 +1,19 @@
-## Hi there 👋
->Software Engineer with 3+ years of experience in
-building and implementing scalable software solutions.
-Specialized in .NetCore with Entity Framework Core, I excel
-in solving complex problems and have a strong commitment
-to continuous learning in the field. I work well in team
-environments, can lead projects when necessary, and
-collaborate closely with stakeholders to define technical
-roadmaps and align them with business goals.
+# Hi there, I'm Hasibul Hasan 👋
 
-🌱 I’m currently learning .Net core, FastEndpoints, Minimal API,  msSQL, PostgreSQL etc.
+Software Engineer with 3+ years of experience in building and implementing scalable software solutions. Specialized in .NET Core with Entity Framework Core, I excel in solving complex problems and have a strong commitment to continuous learning in the field. I work well in team environments, can lead projects when necessary, and collaborate closely with stakeholders to define technical roadmaps and align them with business goals.
 
-📫 How to reach me [Click Here](https://abouthasibul.com/) .
+## 🛠️ Technologies & Expertise
+- **Backend**: .NET Core, FastEndpoints, Minimal APIs
+- **Databases**: MS SQL, PostgreSQL
+- **Architecture**: Clean Architecture, Microservices
+- **API Technologies**: REST, gRPC (currently learning)
+- **DevOps**: Docker (basic)
 
-⚡ Fun fact: I am always free 😃
+## 🌱 Currently Learning
+- Advanced .NET Core concepts
+- gRPC implementation in .NET
+- NuGet package development (recently published [PatronusR](https://www.nuget.org/packages/PatronusR))
+- Performance optimization techniques
 
 
 <div align="center" style="margin-top:10px">
@@ -100,6 +101,7 @@ Here are some ideas to get you started:
 <div align="center">
     <a href="https://abouthasibul.com/"><img src="https://img.shields.io/badge/my_profile-000?style=flat&logo=ko-fi&logoColor=white"  target="_blank" alt="Portfolio"></a>
     <a href="https://www.linkedin.com/in/iam-hasibulhasan/"><img src="https://img.shields.io/badge/linkedin-0A66C2?style=flat&logo=linkedin&logoColor=white"  target="_blank" alt="Linkedin"></a>
+    <a href="https://www.nuget.org/profiles/iamhasibulhasan"><img src="https://img.shields.io/badge/NuGet-004880?style=flat&logo=nuget&logoColor=white" target="_blank" alt="NuGet"></a>
     <a href="https://github.com/iamhasibulhasan"><img src="https://img.shields.io/badge/github-000?style=flat&logo=github&logoColor=white"  target="_blank" alt="GitHub"></a>
     <a href="https://www.instagram.com/iamtheridu/"><img src="https://img.shields.io/badge/instagram-F56040?style=flat&logo=instagram&logoColor=white"  target="_blank" alt="Instagram"></a>
     <a href="https://www.facebook.com/iamtheridu/"><img src="https://img.shields.io/badge/facebook-025FB1?style=flat&logo=facebook&logoColor=white"  target="_blank" alt="Facebook"></a>
