@@ -23,17 +23,33 @@ const SOCIAL_ICONS: Record<string, (props: { size?: number }) => React.ReactElem
   Facebook: FacebookIcon,
 }
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mjybdbyl"
+
+type SubmitStatus = "idle" | "sending" | "sent" | "error"
+
 export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", message: "" })
-  const [sent, setSent] = useState(false)
+  const [status, setStatus] = useState<SubmitStatus>("idle")
   const whatsappHref = `https://wa.me/${profile.phone.replace(/\D/g, "")}`
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const subject = encodeURIComponent(`Portfolio inquiry from ${form.name || "a visitor"}`)
-    const body = encodeURIComponent(`${form.message}\n\n— ${form.name} (${form.email})`)
-    window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`
-    setSent(true)
+    setStatus("sending")
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(e.currentTarget),
+      })
+      if (res.ok) {
+        setStatus("sent")
+        setForm({ name: "", email: "", message: "" })
+      } else {
+        setStatus("error")
+      }
+    } catch {
+      setStatus("error")
+    }
   }
 
   return (
@@ -124,6 +140,7 @@ export default function Contact() {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <input
                 required
+                name="name"
                 placeholder="Your name"
                 value={form.name}
                 onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
@@ -132,6 +149,7 @@ export default function Contact() {
               />
               <input
                 required
+                name="email"
                 type="email"
                 placeholder="Your email"
                 value={form.email}
@@ -142,6 +160,7 @@ export default function Contact() {
             </div>
             <textarea
               required
+              name="message"
               rows={5}
               placeholder="Tell me about your project..."
               value={form.message}
@@ -151,15 +170,21 @@ export default function Contact() {
             />
             <button
               type="submit"
-              className="flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-transform hover:scale-[1.02]"
+              disabled={status === "sending"}
+              className="flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition-transform hover:scale-[1.02] disabled:opacity-60 disabled:hover:scale-100"
               style={{ background: "var(--accent)", color: "var(--accent-contrast)" }}
             >
               <Send size={16} />
-              Send message
+              {status === "sending" ? "Sending..." : "Send message"}
             </button>
-            {sent && (
+            {status === "sent" && (
               <p className="text-xs" style={{ color: "var(--accent)" }}>
-                Opening your mail client... if nothing happened, email me directly at {profile.email}.
+                Message sent — thanks for reaching out! I'll get back to you soon.
+              </p>
+            )}
+            {status === "error" && (
+              <p className="text-xs" style={{ color: "#ef4444" }}>
+                Something went wrong. Please email me directly at {profile.email}.
               </p>
             )}
           </form>
