@@ -5,7 +5,7 @@
 [build.environment]
   NODE_VERSION = "22"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# No catch-all SPA redirect here on purpose: this site has no client-side routing
+# (single page, anchor-scroll navigation only). A blanket "/* -> /index.html" rule
+# would mask missing static assets (like a not-yet-uploaded CV PDF) by silently
+# serving the homepage HTML in their place instead of a clean 404.
