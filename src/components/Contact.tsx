@@ -137,6 +137,16 @@ export default function Contact() {
             className="flex flex-col gap-4 rounded-2xl border p-6"
             style={{ borderColor: "var(--border)", background: "var(--bg-elevated)" }}
           >
+            {/* Honeypot — invisible to real visitors, bots fill it, Formspree silently drops the submission */}
+            <input
+              type="text"
+              name="_gotcha"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="absolute h-0 w-0 opacity-0"
+              style={{ left: "-9999px" }}
+            />
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <input
                 required
