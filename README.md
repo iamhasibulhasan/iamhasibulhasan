@@ -1,6 +1,6 @@
 # Hi there, I'm Hasibul Hasan 👋
 
-Software Engineer with 3+ years of experience in building and implementing scalable software solutions. Specialized in .NET Core with Entity Framework Core, I excel in solving complex problems and have a strong commitment to continuous learning in the field. I work well in team environments, can lead projects when necessary, and collaborate closely with stakeholders to define technical roadmaps and align them with business goals.
+Software Engineer with 4.5+ years of experience in building and implementing scalable software solutions. Specialized in .NET Core with Entity Framework Core, I excel in solving complex problems and have a strong commitment to continuous learning in the field. I work well in team environments, can lead projects when necessary, and collaborate closely with stakeholders to define technical roadmaps and align them with business goals.
 
 ## 🛠️ Technologies & Expertise
 - **Backend**: .NET Core, FastEndpoints, Minimal APIs
@@ -60,12 +60,11 @@ Here are some ideas to get you started:
 <!-- <img src="img/border-img/colored.png"  width="100%" alt="Hi fellow"/> -->
 <div align="center">
     <a height="180em" href="https://github.com/iamhasibulhasan">
-        <img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=gruvbox&show_icons=true&hide_border=true&count_private=true" width="49.5%">
-    </a>
-    <a height="180em" href="https://github.com/iamhasibulhasan">
-        <img src="https://github-readme-streak-stats.herokuapp.com/?user=iamhasibulhasan&theme=gruvbox&hide_border=true" width="49.5%">
+        <img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=gruvbox&show_icons=true&hide_border=true&count_private=true" width="60%">
     </a>
     </div>
+    <!-- Streak-stats badge removed: github-readme-streak-stats.herokuapp.com is dead (Heroku free-tier
+         shutdown, 2022). No verified-working replacement fork was found — re-add one if you find a reliable host. -->
     <div align="center">
     <a height="180em" href="https://github.com/iamhasibulhasan">
         <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=gruvbox&show_icons=true&hide_border=true&layout=compact&langs_count=8" width="49.5%">
@@ -115,5 +114,5 @@ Here are some ideas to get you started:
 
 <br>
 <p align="center" style="margin-top:10px">
-<a href="https://github.com/iamhasibulhasan"><img src="https://profile-counter.glitch.me/{iamhasibulhasan}/count.svg" alt="Hasibul : Visitor's Count" /></a>
+<a href="https://github.com/iamhasibulhasan"><img src="https://komarev.com/ghpvc/?username=iamhasibulhasan&color=1BA94C&style=flat" alt="Hasibul : Visitor's Count" /></a>
 </p>
