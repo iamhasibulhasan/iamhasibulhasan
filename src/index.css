@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --accent: #22c55e;
+  --accent-contrast: #05170c;
+  --font-scale: 1;
+  --font-sans: "General Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --bg: #f7f7f5;
+  --bg-elevated: #ffffff;
+  --bg-inset: #efefec;
+  --text: #12130f;
+  --text-muted: #57594f;
+  --border: #e1e1db;
+}
+
+.dark {
+  --bg: #0a0b09;
+  --bg-elevated: #131410;
+  --bg-inset: #191a15;
+  --text: #f3f4ef;
+  --text-muted: #9a9c90;
+  --border: #24261f;
+}
+
+html {
+  font-size: calc(16px * var(--font-scale));
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  transition: background-color 0.35s ease, color 0.35s ease;
+}
+
+::selection {
+  background-color: var(--accent);
+  color: var(--accent-contrast);
+}
+
+/* Custom cursor states */
+body.cursor-dot,
+body.cursor-crosshair,
+body.cursor-trail {
+  cursor: none;
+}
+
+body.cursor-dot a,
+body.cursor-dot button,
+body.cursor-crosshair a,
+body.cursor-crosshair button,
+body.cursor-trail a,
+body.cursor-trail button {
+  cursor: none;
+}
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 18s linear infinite;
+}
+
+@keyframes caret-blink {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.typing-cursor {
+  display: inline-block;
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee-scroll 32s linear infinite;
+}
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+    overflow-x: auto;
+  }
+}
