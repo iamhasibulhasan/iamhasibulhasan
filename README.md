@@ -13,7 +13,7 @@ Software Engineer with 4.5+ years of experience in building and implementing sca
 - Advanced .NET Core concepts
 - gRPC implementation in .NET
 - NuGet package development (recently published [PatronusR](https://www.nuget.org/packages/PatronusR))
-- Performance optimization techniques
+- Performance optimization techniques 
 
 
 <div align="center" style="margin-top:10px">
