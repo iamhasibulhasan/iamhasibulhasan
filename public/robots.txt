@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hasibul-hasan.netlify.app/sitemap.xml
