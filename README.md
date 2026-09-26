@@ -1,4 +1,6 @@
-# Hi there, I'm Hasibul Hasan 👋
+<div align="center">
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=0:023e8a,25:0077b6,50:00b4d8,75:48cae4,100:90e0ef&height=220&section=header&text=Hi%20there,%20I'm%20Hasibul%20Hasan%20%F0%9F%91%8B&fontSize=38&fontColor=ffffff&animation=fadeIn&fontAlignY=40"/>
+</div>
 
 Software Engineer with 4.5+ years of experience in building and implementing scalable software solutions. Specialized in .NET Core with Entity Framework Core, I excel in solving complex problems and have a strong commitment to continuous learning in the field. I work well in team environments, can lead projects when necessary, and collaborate closely with stakeholders to define technical roadmaps and align them with business goals.
 
@@ -90,7 +92,7 @@ Here are some ideas to get you started:
 
 
 <p align="center" style="margin-top:10px">
-<a href="https://github.com/iamhasibulhasan"><img style="width:20%;border-radius:80%" src="img/about/hasibul.png" alt="Hasibul :: Visitor's Count" /></a>
+<a href="https://github.com/iamhasibulhasan"><img style="width:20%;border-radius:00%" src="public/profile.png" alt="Hasibul :: Visitor's Count" /></a>
 </p>
 
 <p align="center">
