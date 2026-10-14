@@ -5,6 +5,7 @@ import { profile } from "../data/resume"
 import { GithubIcon, LinkedinIcon } from "./BrandIcons"
 import { useTypewriter } from "../hooks/useTypewriter"
 import AvailableTag from "./AvailableTag"
+import LogoMark from "./LogoMark"
 import GeneratedPortrait from "./GeneratedPortrait"
 
 const ROLES = ["Fullstack Developer", "Hasibul Hasan", "Freelancer", "Open-Source Enthusiast", "Problem Solver"]
@@ -46,7 +47,7 @@ export default function Sidebar() {
             className="pointer-events-none absolute inset-0 z-[1]"
             style={{
               background:
-                "linear-gradient(to top, color-mix(in srgb, var(--bg) 96%, transparent) 4%, color-mix(in srgb, var(--bg) 82%, transparent) 22%, transparent 46%), linear-gradient(to bottom, color-mix(in srgb, var(--bg) 72%, transparent) 0%, transparent 26%)",
+                "linear-gradient(to top, color-mix(in srgb, var(--bg) 96%, transparent) 6%, color-mix(in srgb, var(--bg) 88%, transparent) 34%, transparent 62%), linear-gradient(to bottom, color-mix(in srgb, var(--bg) 72%, transparent) 0%, transparent 26%)",
             }}
           />
 
@@ -55,7 +56,7 @@ export default function Sidebar() {
             className="absolute left-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full text-xs font-bold backdrop-blur-md"
             style={{ background: "color-mix(in srgb, var(--bg-elevated) 82%, transparent)", color: "var(--accent)" }}
           >
-            HH
+            <LogoMark size={22} />
           </div>
 
           {/* Vertical social rail */}
@@ -91,8 +92,8 @@ export default function Sidebar() {
           <AvailableTag />
 
           {/* Bottom text overlay */}
-          <div className="absolute inset-x-0 bottom-0 z-10 p-6 pb-9" style={{ color: "var(--text)" }}>
-            <p className="min-h-10 text-3xl font-medium tracking-tight">
+          <div className="absolute inset-x-0 bottom-0 z-10 p-5 pb-8 sm:p-6 sm:pb-9" style={{ color: "var(--text)", textShadow: "0 1px 12px color-mix(in srgb, var(--bg) 70%, transparent)" }}>
+            <p className="min-h-[3.5rem] text-2xl font-medium leading-tight tracking-tight sm:text-3xl lg:min-h-10">
               Hey, I'm {typed}
               <span className="typing-cursor" style={{ color: "var(--accent)" }}>
                 |
