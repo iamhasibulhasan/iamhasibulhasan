@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="590" height="270" viewBox="0 0 590 270" fill="none">
+<style>
+  .sans { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Inter, Arial, sans-serif; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; }
+</style>
+
+<defs><clipPath id="c"><rect width="590" height="270" rx="20"/></clipPath></defs>
+<g clip-path="url(#c)">
+  <rect width="590" height="270" fill="#131410"/>
+  
+<defs>
+  <radialGradient id="g" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#22c55e" stop-opacity="0.16"/>
+    <stop offset="1" stop-color="#22c55e" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+<circle cx="590" cy="0" r="220" fill="url(#g)">
+  <animate attributeName="opacity" values="0.7;1;0.7" dur="6s" repeatCount="indefinite"/>
+</circle>
+</g>
+<rect x="0.5" y="0.5" width="589" height="269" rx="19.5" stroke="#252720"/>
+<text class="mono" x="32" y="46" font-size="12" letter-spacing="1.6" fill="#22c55e">RESEARCH PUBLICATION · 2022</text>
+<text class="sans" x="32" y="88" font-size="26" font-weight="700" letter-spacing="-0.3" fill="#f4f5f0">Bone Cancer Diagnosis</text>
+<text class="sans" x="32" y="124" font-size="16" fill="#9b9d90">A Capsule Network that classifies bone cancer</text>
+<text class="sans" x="32" y="149" font-size="16" fill="#9b9d90">from MRI and CT images with limited data.</text>
+<rect x="32" y="186" width="134" height="28" rx="14" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="99" y="204" font-size="12" fill="#9b9d90" text-anchor="middle">95.26% accuracy</text>
+<rect x="174" y="186" width="119" height="28" rx="14" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="233.5" y="204" font-size="12" fill="#9b9d90" text-anchor="middle">Deep learning</text>
+<rect x="301" y="186" width="134" height="28" rx="14" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="368" y="204" font-size="12" fill="#9b9d90" text-anchor="middle">Medical imaging</text>
+<text class="sans" x="32" y="246" font-size="15" font-weight="600" fill="#4ade80">More on my portfolio  ↗</text>
+
+</svg>

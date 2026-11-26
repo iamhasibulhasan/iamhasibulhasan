@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="84" viewBox="0 0 1200 84" fill="none">
+<style>
+  .sans { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Inter, Arial, sans-serif; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; }
+
+  .title { fill: #f4f5f0; }
+  @media (prefers-color-scheme: light) { .title { fill: #111310; } }
+</style>
+
+<defs>
+  <linearGradient id="rule" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#22c55e" stop-opacity="0.7"/>
+    <stop offset="1" stop-color="#22c55e" stop-opacity="0"/>
+  </linearGradient>
+</defs>
+<text class="mono" x="2" y="22" font-size="13" letter-spacing="1.8" fill="#22c55e">03 / STACK</text>
+<text class="sans title" x="0" y="64" font-size="34" font-weight="700" letter-spacing="-0.5">What I build with</text>
+<rect x="0" y="80" width="1200" height="2" fill="url(#rule)"/>
+
+</svg>

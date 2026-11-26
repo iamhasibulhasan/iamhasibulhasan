@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="260" viewBox="0 0 1200 260" fill="none">
+<style>
+  .sans { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Inter, Arial, sans-serif; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; }
+</style>
+
+<defs><clipPath id="f"><rect width="1200" height="260" rx="24"/></clipPath></defs>
+<g clip-path="url(#f)">
+  <rect width="1200" height="260" fill="#0a0b09"/>
+  
+<defs>
+  <pattern id="foot-p" width="40" height="40" patternUnits="userSpaceOnUse">
+    <path d="M40 0H0V40" stroke="#ffffff" stroke-opacity="0.05"/>
+  </pattern>
+  <radialGradient id="foot-fade" cx="0.5" cy="1" r="0.9">
+    <stop offset="0" stop-color="#fff" stop-opacity="1"/>
+    <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+  </radialGradient>
+  <mask id="foot-m"><rect width="1200" height="260" fill="url(#foot-fade)"/></mask>
+</defs>
+<rect width="1200" height="260" fill="url(#foot-p)" mask="url(#foot-m)"/>
+  
+<defs>
+  <radialGradient id="foot-glow" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#22c55e" stop-opacity="0.3"/>
+    <stop offset="1" stop-color="#22c55e" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+<circle cx="600" cy="300" r="380" fill="url(#foot-glow)">
+  <animate attributeName="opacity" values="0.7;1;0.7" dur="6s" repeatCount="indefinite"/>
+</circle>
+</g>
+<rect x="0.5" y="0.5" width="1199" height="259" rx="23.5" stroke="#252720"/>
+<text class="mono" x="600" y="70" font-size="13" letter-spacing="2" fill="#22c55e" text-anchor="middle">06 / LET'S TALK</text>
+<text class="sans" x="600" y="128" font-size="44" font-weight="700" letter-spacing="-1" fill="#f4f5f0" text-anchor="middle">Have a role or a project in mind?</text>
+<text class="sans" x="600" y="168" font-size="20" fill="#9b9d90" text-anchor="middle">I'm open to Software Engineer roles building .NET services, APIs and enterprise systems.</text>
+<text class="mono" x="600" y="214" font-size="16" fill="#4ade80" text-anchor="middle">mdhasibulhasan.dev@gmail.com  →</text>
+
+</svg>

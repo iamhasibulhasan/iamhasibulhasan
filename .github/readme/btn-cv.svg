@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="135" height="34" viewBox="0 0 135 34" fill="none">
+<style>
+  .sans { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Inter, Arial, sans-serif; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; }
+</style>
+
+<rect x="0.5" y="0.5" width="134" height="33" rx="16.5" fill="#131410" stroke="#2f3229"/>
+<text class="sans" x="67.5" y="22" font-size="13" font-weight="600" fill="#f4f5f0" text-anchor="middle">Download CV ↓</text>
+
+</svg>

@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="330" viewBox="0 0 1200 330" fill="none">
+<style>
+  .sans { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Inter, Arial, sans-serif; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; }
+</style>
+
+<defs><clipPath id="about-clip"><rect width="1200" height="330" rx="20"/></clipPath></defs>
+<g clip-path="url(#about-clip)">
+  <rect width="1200" height="330" fill="#131410"/>
+  
+<defs>
+  <radialGradient id="about-glow" cx="0.5" cy="0.5" r="0.5">
+    <stop offset="0" stop-color="#22c55e" stop-opacity="0.14"/>
+    <stop offset="1" stop-color="#22c55e" stop-opacity="0"/>
+  </radialGradient>
+</defs>
+<circle cx="0" cy="0" r="300" fill="url(#about-glow)">
+  <animate attributeName="opacity" values="0.7;1;0.7" dur="6s" repeatCount="indefinite"/>
+</circle>
+</g>
+<rect x="0.5" y="0.5" width="1199" height="329" rx="19.5" stroke="#252720"/>
+<text class="sans" x="48" y="80" font-size="21" fill="#f4f5f0">Software Engineer with 4.5+ years of experience</text>
+<text class="sans" x="48" y="114" font-size="21" fill="#f4f5f0">building scalable software. I specialise in</text>
+<text class="sans" x="48" y="148" font-size="21" fill="#f4f5f0">.NET Core and Entity Framework Core, and I bring</text>
+<text class="sans" x="48" y="182" font-size="21" fill="#9b9d90">problem-solving, leadership, teamwork and</text>
+<text class="sans" x="48" y="216" font-size="21" fill="#9b9d90">stakeholder collaboration to every project.</text>
+<path d="M620 40V290" stroke="#252720"/>
+
+<rect x="660" y="52" width="8" height="8" rx="2" fill="#22c55e"/>
+<text class="mono" x="682" y="60" font-size="11" letter-spacing="1.6" fill="#22c55e">ROLE</text>
+<text class="sans" x="682" y="84" font-size="18" font-weight="600" fill="#f4f5f0">Software Engineer</text>
+<text class="sans" x="682" y="106" font-size="15" fill="#9b9d90">Backend systems with .NET Core</text>
+<rect x="660" y="116" width="8" height="8" rx="2" fill="#22c55e"/>
+<text class="mono" x="682" y="124" font-size="11" letter-spacing="1.6" fill="#22c55e">OPEN SOURCE</text>
+<text class="sans" x="682" y="148" font-size="18" font-weight="600" fill="#f4f5f0">PatronusR on NuGet</text>
+<text class="sans" x="682" y="170" font-size="15" fill="#9b9d90">A mediator library for .NET</text>
+<rect x="660" y="180" width="8" height="8" rx="2" fill="#22c55e"/>
+<text class="mono" x="682" y="188" font-size="11" letter-spacing="1.6" fill="#22c55e">RESEARCH</text>
+<text class="sans" x="682" y="212" font-size="18" font-weight="600" fill="#f4f5f0">Bone cancer diagnosis</text>
+<text class="sans" x="682" y="234" font-size="15" fill="#9b9d90">Capsule Networks on MRI and CT images</text>
+<rect x="660" y="244" width="8" height="8" rx="2" fill="#22c55e"/>
+<text class="mono" x="682" y="252" font-size="11" letter-spacing="1.6" fill="#22c55e">LEARNING</text>
+<text class="sans" x="682" y="276" font-size="18" font-weight="600" fill="#f4f5f0">gRPC in .NET</text>
+<text class="sans" x="682" y="298" font-size="15" fill="#9b9d90">And performance optimisation</text>
+
+</svg>

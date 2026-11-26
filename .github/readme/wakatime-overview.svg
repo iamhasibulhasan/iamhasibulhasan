@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="150" viewBox="0 0 1200 150" fill="none">
+<style>
+  .sans { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Inter, Arial, sans-serif; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; }
+</style>
+
+<defs>
+  <linearGradient id="wnum" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#4ade80"/>
+    <stop offset="1" stop-color="#22c55e"/>
+  </linearGradient>
+</defs>
+<rect x="0.5" y="0.5" width="1199" height="149" rx="20" fill="#131410" stroke="#252720"/>
+
+<text class="sans" x="150" y="76" font-size="40" font-weight="700" letter-spacing="-1" fill="url(#wnum)" text-anchor="middle">2,504 hrs</text>
+<text class="mono" x="150" y="108" font-size="12" letter-spacing="1.6" fill="#9b9d90" text-anchor="middle">TOTAL CODING TIME</text>
+
+<text class="sans" x="450" y="76" font-size="40" font-weight="700" letter-spacing="-1" fill="url(#wnum)" text-anchor="middle">2h 33m</text>
+<text class="mono" x="450" y="108" font-size="12" letter-spacing="1.6" fill="#9b9d90" text-anchor="middle">DAILY AVERAGE</text>
+<path d="M300 36V114" stroke="#252720"/>
+<text class="sans" x="750" y="76" font-size="40" font-weight="700" letter-spacing="-1" fill="url(#wnum)" text-anchor="middle">978</text>
+<text class="mono" x="750" y="108" font-size="12" letter-spacing="1.6" fill="#9b9d90" text-anchor="middle">ACTIVE DAYS</text>
+<path d="M600 36V114" stroke="#252720"/>
+<text class="sans" x="1050" y="76" font-size="40" font-weight="700" letter-spacing="-1" fill="url(#wnum)" text-anchor="middle">C#</text>
+<text class="mono" x="1050" y="108" font-size="12" letter-spacing="1.6" fill="#9b9d90" text-anchor="middle">TOP LANGUAGE</text>
+<path d="M900 36V114" stroke="#252720"/>
+
+</svg>
