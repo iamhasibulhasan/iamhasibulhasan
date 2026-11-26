@@ -19,18 +19,18 @@
 </circle>
 </g>
 <rect x="0.5" y="0.5" width="589" height="223" rx="19.5" stroke="#252720"/>
-<text class="mono" x="32" y="40" font-size="12" letter-spacing="1.6" fill="#22c55e">E-COMMERCE · MICROSERVICES</text>
+<text class="mono" x="32" y="40" font-size="13" letter-spacing="1.6" fill="#22c55e">E-COMMERCE · MICROSERVICES</text>
 <text class="sans" x="32" y="74" font-size="25" font-weight="700" letter-spacing="-0.3" fill="#f4f5f0">E-commerce Inventory Service</text>
-<text class="sans" x="32" y="102" font-size="15" fill="#9b9d90">The full inventory system of a microservice-based</text>
-<text class="sans" x="32" y="124" font-size="15" fill="#9b9d90">e-commerce platform, run as its own service.</text>
-<rect x="32" y="142" width="90" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
-<text class="mono" x="77" y="159" font-size="12" fill="#9b9d90" text-anchor="middle">.NET Core</text>
-<rect x="130" y="142" width="119" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
-<text class="mono" x="189.5" y="159" font-size="12" fill="#9b9d90" text-anchor="middle">Microservices</text>
-<rect x="257" y="142" width="75" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
-<text class="mono" x="294.5" y="159" font-size="12" fill="#9b9d90" text-anchor="middle">EF Core</text>
-<rect x="340" y="142" width="97" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
-<text class="mono" x="388.5" y="159" font-size="12" fill="#9b9d90" text-anchor="middle">SQL Server</text>
-<text class="sans" x="32" y="198" font-size="14" font-weight="600" fill="#4ade80">Read the case study  →</text>
+<text class="sans" x="32" y="102" font-size="16" fill="#b8baae">The full inventory system of a microservice-based</text>
+<text class="sans" x="32" y="124" font-size="16" fill="#b8baae">e-commerce platform, run as its own service.</text>
+<rect x="32" y="142" width="101" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="82.5" y="159" font-size="14" fill="#b8baae" text-anchor="middle">.NET Core</text>
+<rect x="141" y="142" width="136" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="209" y="159" font-size="14" fill="#b8baae" text-anchor="middle">Microservices</text>
+<rect x="285" y="142" width="84" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="327" y="159" font-size="14" fill="#b8baae" text-anchor="middle">EF Core</text>
+<rect x="377" y="142" width="110" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="432" y="159" font-size="14" fill="#b8baae" text-anchor="middle">SQL Server</text>
+<text class="sans" x="32" y="198" font-size="15" font-weight="600" fill="#4ade80">Read the case study  →</text>
 
 </svg>

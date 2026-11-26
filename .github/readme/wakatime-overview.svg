@@ -13,16 +13,16 @@
 <rect x="0.5" y="0.5" width="1199" height="115" rx="20" fill="#131410" stroke="#252720"/>
 
 <text class="sans" x="150" y="62" font-size="36" font-weight="700" letter-spacing="-1" fill="url(#wnum)" text-anchor="middle">2,504 hrs</text>
-<text class="mono" x="150" y="90" font-size="12" letter-spacing="1.6" fill="#9b9d90" text-anchor="middle">TOTAL CODING TIME</text>
+<text class="mono" x="150" y="90" font-size="14" letter-spacing="1.6" fill="#b8baae" text-anchor="middle">TOTAL CODING TIME</text>
 
 <text class="sans" x="450" y="62" font-size="36" font-weight="700" letter-spacing="-1" fill="url(#wnum)" text-anchor="middle">2h 33m</text>
-<text class="mono" x="450" y="90" font-size="12" letter-spacing="1.6" fill="#9b9d90" text-anchor="middle">DAILY AVERAGE</text>
+<text class="mono" x="450" y="90" font-size="14" letter-spacing="1.6" fill="#b8baae" text-anchor="middle">DAILY AVERAGE</text>
 <path d="M300 28V88" stroke="#252720"/>
 <text class="sans" x="750" y="62" font-size="36" font-weight="700" letter-spacing="-1" fill="url(#wnum)" text-anchor="middle">978</text>
-<text class="mono" x="750" y="90" font-size="12" letter-spacing="1.6" fill="#9b9d90" text-anchor="middle">ACTIVE DAYS</text>
+<text class="mono" x="750" y="90" font-size="14" letter-spacing="1.6" fill="#b8baae" text-anchor="middle">ACTIVE DAYS</text>
 <path d="M600 28V88" stroke="#252720"/>
 <text class="sans" x="1050" y="62" font-size="36" font-weight="700" letter-spacing="-1" fill="url(#wnum)" text-anchor="middle">C#</text>
-<text class="mono" x="1050" y="90" font-size="12" letter-spacing="1.6" fill="#9b9d90" text-anchor="middle">TOP LANGUAGE</text>
+<text class="mono" x="1050" y="90" font-size="14" letter-spacing="1.6" fill="#b8baae" text-anchor="middle">TOP LANGUAGE</text>
 <path d="M900 28V88" stroke="#252720"/>
 
 </svg>

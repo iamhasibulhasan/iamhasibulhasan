@@ -40,7 +40,7 @@
 
 <div align="center">
 <a href="https://github.com/iamhasibulhasan"><img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&show_icons=true&bg_color=131410&title_color=22c55e&text_color=f4f5f0&icon_color=22c55e&hide_border=true&count_private=true&hide_rank=true&border_radius=20" width="39.5%" alt="Hasibul's GitHub stats"/></a>
-<a href="https://github.com/iamhasibulhasan"><img src="https://github-readme-activity-graph.vercel.app/graph?username=iamhasibulhasan&bg_color=131410&color=9b9d90&title_color=22c55e&line=22c55e&point=f4f5f0&area_color=22c55e&area=true&hide_border=true&radius=20" width="59.5%" alt="Hasibul's contribution activity graph"/></a>
+<a href="https://github.com/iamhasibulhasan"><img src="https://github-readme-activity-graph.vercel.app/graph?username=iamhasibulhasan&bg_color=131410&color=b8baae&title_color=22c55e&line=22c55e&point=f4f5f0&area_color=22c55e&area=true&hide_border=true&radius=20" width="59.5%" alt="Hasibul's contribution activity graph"/></a>
 </div>
 
 <details>

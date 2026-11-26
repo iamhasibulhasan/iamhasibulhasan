@@ -23,13 +23,13 @@
   <rect x="0" y="18" width="4" height="40" rx="2" fill="#22c55e"/>
 </g>
 <rect x="0.5" y="0.5" width="1199" height="75" rx="17.5" stroke="#252720"/>
-<text class="mono" x="28" y="28" font-size="12" letter-spacing="1.8" fill="#22c55e">03 / STACK</text>
+<text class="mono" x="28" y="28" font-size="13" letter-spacing="1.8" fill="#22c55e">03 / STACK</text>
 <text class="sans" x="26" y="58" font-size="26" font-weight="700" letter-spacing="-0.5" fill="#f4f5f0">What I build with</text>
 
 <!-- Solvorn's tip -->
 <g>
-  <path d="M663 20H1098Q1110 20 1110 32V32L1120 38L1110 44Q1110 56 1098 56H663Q651 56 651 44V32Q651 20 663 20Z" fill="#1a1c16" stroke="#252720"/>
-  <text class="sans" x="669" y="43" font-size="14" fill="#f4f5f0">Backend first: .NET Core and EF Core do the heavy lifting.</text>
+  <path d="M599 20H1098Q1110 20 1110 32V32L1120 38L1110 44Q1110 56 1098 56H599Q587 56 587 44V32Q587 20 599 20Z" fill="#1a1c16" stroke="#252720"/>
+  <text class="sans" x="605" y="43" font-size="16" fill="#f4f5f0">Backend first: .NET Core and EF Core do the heavy lifting.</text>
 </g>
 <g>
   <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="3s" repeatCount="indefinite"/>

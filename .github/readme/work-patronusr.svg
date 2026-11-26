@@ -19,16 +19,16 @@
 </circle>
 </g>
 <rect x="0.5" y="0.5" width="589" height="223" rx="19.5" stroke="#252720"/>
-<text class="mono" x="32" y="40" font-size="12" letter-spacing="1.6" fill="#22c55e">OPEN SOURCE · NUGET</text>
+<text class="mono" x="32" y="40" font-size="13" letter-spacing="1.6" fill="#22c55e">OPEN SOURCE · NUGET</text>
 <text class="sans" x="32" y="74" font-size="25" font-weight="700" letter-spacing="-0.3" fill="#f4f5f0">PatronusR</text>
-<text class="sans" x="32" y="102" font-size="15" fill="#9b9d90">A simple mediator for .NET: request/response,</text>
-<text class="sans" x="32" y="124" font-size="15" fill="#9b9d90">commands and queries via C# generic variance.</text>
-<rect x="32" y="142" width="53" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
-<text class="mono" x="58.5" y="159" font-size="12" fill="#9b9d90" text-anchor="middle">.NET</text>
-<rect x="93" y="142" width="39" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
-<text class="mono" x="112.5" y="159" font-size="12" fill="#9b9d90" text-anchor="middle">C#</text>
-<rect x="140" y="142" width="61" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
-<text class="mono" x="170.5" y="159" font-size="12" fill="#9b9d90" text-anchor="middle">NuGet</text>
-<text class="sans" x="32" y="198" font-size="14" font-weight="600" fill="#4ade80">View on NuGet  ↗</text>
+<text class="sans" x="32" y="102" font-size="16" fill="#b8baae">A simple mediator for .NET: request/response,</text>
+<text class="sans" x="32" y="124" font-size="16" fill="#b8baae">commands and queries via C# generic variance.</text>
+<rect x="32" y="142" width="58" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="61" y="159" font-size="14" fill="#b8baae" text-anchor="middle">.NET</text>
+<rect x="98" y="142" width="41" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="118.5" y="159" font-size="14" fill="#b8baae" text-anchor="middle">C#</text>
+<rect x="147" y="142" width="67" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="180.5" y="159" font-size="14" fill="#b8baae" text-anchor="middle">NuGet</text>
+<text class="sans" x="32" y="198" font-size="15" font-weight="600" fill="#4ade80">View on NuGet  ↗</text>
 
 </svg>

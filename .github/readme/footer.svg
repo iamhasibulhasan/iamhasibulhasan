@@ -34,9 +34,9 @@
 </circle>
 </g>
 <rect x="0.5" y="0.5" width="1199" height="189" rx="23.5" stroke="#252720"/>
-<text class="mono" x="600" y="44" font-size="12" letter-spacing="2" fill="#22c55e" text-anchor="middle">06 / LET'S TALK</text>
+<text class="mono" x="600" y="44" font-size="13" letter-spacing="2" fill="#22c55e" text-anchor="middle">06 / LET'S TALK</text>
 <text class="sans" x="600" y="92" font-size="38" font-weight="700" letter-spacing="-1" fill="#f4f5f0" text-anchor="middle">Have a role or a project in mind?</text>
-<text class="sans" x="600" y="126" font-size="18" fill="#9b9d90" text-anchor="middle">I'm open to Software Engineer roles building .NET services, APIs and enterprise systems.</text>
+<text class="sans" x="600" y="126" font-size="18" fill="#b8baae" text-anchor="middle">I'm open to Software Engineer roles building .NET services, APIs and enterprise systems.</text>
 <text class="mono" x="600" y="162" font-size="15" fill="#4ade80" text-anchor="middle">mdhasibulhasan.dev@gmail.com  →</text>
 <path d="M1004 26H1150Q1162 26 1162 38V50Q1162 62 1150 62H1112L1102 72L1092 62H1004Q992 62 992 50V38Q992 26 1004 26Z" fill="#131410" stroke="#252720"/>
 <text class="sans" x="1077" y="49" font-size="14" fill="#f4f5f0" text-anchor="middle">Thanks for visiting!</text>

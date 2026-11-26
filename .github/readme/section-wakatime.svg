@@ -23,13 +23,13 @@
   <rect x="0" y="18" width="4" height="40" rx="2" fill="#22c55e"/>
 </g>
 <rect x="0.5" y="0.5" width="1199" height="75" rx="17.5" stroke="#252720"/>
-<text class="mono" x="28" y="28" font-size="12" letter-spacing="1.8" fill="#22c55e">05 / CODE TIME</text>
+<text class="mono" x="28" y="28" font-size="13" letter-spacing="1.8" fill="#22c55e">05 / CODE TIME</text>
 <text class="sans" x="26" y="58" font-size="26" font-weight="700" letter-spacing="-0.5" fill="#f4f5f0">Where my hours go</text>
 
 <!-- Solvorn's tip -->
 <g>
-  <path d="M801 20H1098Q1110 20 1110 32V32L1120 38L1110 44Q1110 56 1098 56H801Q789 56 789 44V32Q789 20 801 20Z" fill="#1a1c16" stroke="#252720"/>
-  <text class="sans" x="807" y="43" font-size="14" fill="#f4f5f0">Tracked by WakaTime. C# wins by a mile.</text>
+  <path d="M758 20H1098Q1110 20 1110 32V32L1120 38L1110 44Q1110 56 1098 56H758Q746 56 746 44V32Q746 20 758 20Z" fill="#1a1c16" stroke="#252720"/>
+  <text class="sans" x="764" y="43" font-size="16" fill="#f4f5f0">Tracked by WakaTime. C# wins by a mile.</text>
 </g>
 <g>
   <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="3.1s" repeatCount="indefinite"/>

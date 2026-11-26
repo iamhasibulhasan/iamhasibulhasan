@@ -19,16 +19,16 @@
 </circle>
 </g>
 <rect x="0.5" y="0.5" width="589" height="223" rx="19.5" stroke="#252720"/>
-<text class="mono" x="32" y="40" font-size="12" letter-spacing="1.6" fill="#22c55e">PROPERTY · MARKETPLACE</text>
+<text class="mono" x="32" y="40" font-size="13" letter-spacing="1.6" fill="#22c55e">PROPERTY · MARKETPLACE</text>
 <text class="sans" x="32" y="74" font-size="25" font-weight="700" letter-spacing="-0.3" fill="#f4f5f0">Land Asset Platform</text>
-<text class="sans" x="32" y="102" font-size="15" fill="#9b9d90">A platform for buying and selling land property,</text>
-<text class="sans" x="32" y="124" font-size="15" fill="#9b9d90">backed by a .NET Core API.</text>
-<rect x="32" y="142" width="119" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
-<text class="mono" x="91.5" y="159" font-size="12" fill="#9b9d90" text-anchor="middle">.NET Core API</text>
-<rect x="159" y="142" width="97" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
-<text class="mono" x="207.5" y="159" font-size="12" fill="#9b9d90" text-anchor="middle">PostgreSQL</text>
-<rect x="264" y="142" width="112" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
-<text class="mono" x="320" y="159" font-size="12" fill="#9b9d90" text-anchor="middle">Tailwind CSS</text>
-<text class="sans" x="32" y="198" font-size="14" font-weight="600" fill="#4ade80">Read the case study  →</text>
+<text class="sans" x="32" y="102" font-size="16" fill="#b8baae">A platform for buying and selling land property,</text>
+<text class="sans" x="32" y="124" font-size="16" fill="#b8baae">backed by a .NET Core API.</text>
+<rect x="32" y="142" width="136" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="100" y="159" font-size="14" fill="#b8baae" text-anchor="middle">.NET Core API</text>
+<rect x="176" y="142" width="110" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="231" y="159" font-size="14" fill="#b8baae" text-anchor="middle">PostgreSQL</text>
+<rect x="294" y="142" width="127" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="357.5" y="159" font-size="14" fill="#b8baae" text-anchor="middle">Tailwind CSS</text>
+<text class="sans" x="32" y="198" font-size="15" font-weight="600" fill="#4ade80">Read the case study  →</text>
 
 </svg>

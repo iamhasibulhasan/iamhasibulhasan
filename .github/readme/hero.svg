@@ -70,16 +70,16 @@
 </g>
 
 <!-- tagline -->
-<text class="sans" x="72" y="208" font-size="23" fill="#9b9d90">Software Engineer building scalable backend</text>
-<text class="sans" x="72" y="240" font-size="23" fill="#9b9d90">systems with <tspan fill="#f4f5f0" font-weight="600">.NET Core</tspan> and <tspan fill="#f4f5f0" font-weight="600">EF Core</tspan>.</text>
+<text class="sans" x="72" y="208" font-size="23" fill="#b8baae">Software Engineer building scalable backend</text>
+<text class="sans" x="72" y="240" font-size="23" fill="#b8baae">systems with <tspan fill="#f4f5f0" font-weight="600">.NET Core</tspan> and <tspan fill="#f4f5f0" font-weight="600">EF Core</tspan>.</text>
 
 <!-- meta -->
-<g class="mono" font-size="13" letter-spacing="1.4" fill="#9b9d90">
+<g class="mono" font-size="14" letter-spacing="1.4" fill="#b8baae">
   <text x="72" y="290">DHAKA, BANGLADESH</text>
-  <text x="250" y="290" fill="#252720">/</text>
-  <text x="272" y="290">SOFTWARE ENGINEER</text>
-  <text x="434" y="290" fill="#252720">/</text>
-  <text x="456" y="290" fill="#4ade80">4.5+ YEARS</text>
+  <text x="258" y="290" fill="#252720">/</text>
+  <text x="282" y="290">SOFTWARE ENGINEER</text>
+  <text x="466" y="290" fill="#252720">/</text>
+  <text x="490" y="290" fill="#4ade80">4.5+ YEARS</text>
 </g>
 
 <!-- code window -->
@@ -90,14 +90,14 @@
   <circle cx="776" cy="63" r="5.5" fill="#3a3d33"/>
   <circle cx="796" cy="63" r="5.5" fill="#3a3d33"/>
   <circle cx="816" cy="63" r="5.5" fill="#22c55e"/>
-  <text class="mono" x="1112" y="67" font-size="12" fill="#9b9d90" text-anchor="end">Engineer.cs</text>
-  <text class="mono" x="784" y="112" font-size="14" xml:space="preserve"><tspan fill="#22c55e">var </tspan><tspan fill="#f4f5f0">engineer </tspan><tspan fill="#9b9d90">= </tspan><tspan fill="#22c55e">new </tspan><tspan fill="#86efac">Engineer</tspan></text>
-<text class="mono" x="784" y="136" font-size="14" xml:space="preserve"><tspan fill="#9b9d90">{</tspan></text>
-<text class="mono" x="784" y="160" font-size="14" xml:space="preserve"><tspan fill="#f4f5f0">    Name   </tspan><tspan fill="#9b9d90">= </tspan><tspan fill="#bef264">"Hasibul Hasan"</tspan><tspan fill="#9b9d90">,</tspan></text>
-<text class="mono" x="784" y="184" font-size="14" xml:space="preserve"><tspan fill="#f4f5f0">    Stack  </tspan><tspan fill="#9b9d90">= [</tspan><tspan fill="#bef264">".NET"</tspan><tspan fill="#9b9d90">, </tspan><tspan fill="#bef264">"EF Core"</tspan><tspan fill="#9b9d90">, </tspan><tspan fill="#bef264">"SQL"</tspan><tspan fill="#9b9d90">],</tspan></text>
-<text class="mono" x="784" y="208" font-size="14" xml:space="preserve"><tspan fill="#f4f5f0">    Focus  </tspan><tspan fill="#9b9d90">= </tspan><tspan fill="#bef264">"Scalable systems"</tspan><tspan fill="#9b9d90">,</tspan></text>
-<text class="mono" x="784" y="232" font-size="14" xml:space="preserve"><tspan fill="#f4f5f0">    OpenTo </tspan><tspan fill="#9b9d90">= </tspan><tspan fill="#86efac">Roles</tspan><tspan fill="#9b9d90">.</tspan><tspan fill="#f4f5f0">SoftwareEngineer</tspan></text>
-<text class="mono" x="784" y="256" font-size="14" xml:space="preserve"><tspan fill="#9b9d90">};</tspan></text>
+  <text class="mono" x="1112" y="67" font-size="12" fill="#b8baae" text-anchor="end">Engineer.cs</text>
+  <text class="mono" x="784" y="112" font-size="14" xml:space="preserve"><tspan fill="#22c55e">var </tspan><tspan fill="#f4f5f0">engineer </tspan><tspan fill="#b8baae">= </tspan><tspan fill="#22c55e">new </tspan><tspan fill="#86efac">Engineer</tspan></text>
+<text class="mono" x="784" y="136" font-size="14" xml:space="preserve"><tspan fill="#b8baae">{</tspan></text>
+<text class="mono" x="784" y="160" font-size="14" xml:space="preserve"><tspan fill="#f4f5f0">    Name   </tspan><tspan fill="#b8baae">= </tspan><tspan fill="#bef264">"Hasibul Hasan"</tspan><tspan fill="#b8baae">,</tspan></text>
+<text class="mono" x="784" y="184" font-size="14" xml:space="preserve"><tspan fill="#f4f5f0">    Stack  </tspan><tspan fill="#b8baae">= [</tspan><tspan fill="#bef264">".NET"</tspan><tspan fill="#b8baae">, </tspan><tspan fill="#bef264">"EF Core"</tspan><tspan fill="#b8baae">, </tspan><tspan fill="#bef264">"SQL"</tspan><tspan fill="#b8baae">],</tspan></text>
+<text class="mono" x="784" y="208" font-size="14" xml:space="preserve"><tspan fill="#f4f5f0">    Focus  </tspan><tspan fill="#b8baae">= </tspan><tspan fill="#bef264">"Scalable systems"</tspan><tspan fill="#b8baae">,</tspan></text>
+<text class="mono" x="784" y="232" font-size="14" xml:space="preserve"><tspan fill="#f4f5f0">    OpenTo </tspan><tspan fill="#b8baae">= </tspan><tspan fill="#86efac">Roles</tspan><tspan fill="#b8baae">.</tspan><tspan fill="#f4f5f0">SoftwareEngineer</tspan></text>
+<text class="mono" x="784" y="256" font-size="14" xml:space="preserve"><tspan fill="#b8baae">};</tspan></text>
   <rect x="806" y="262" width="8" height="2" fill="#22c55e">
     <animate attributeName="opacity" values="1;0;1" dur="1.1s" repeatCount="indefinite"/>
   </rect>

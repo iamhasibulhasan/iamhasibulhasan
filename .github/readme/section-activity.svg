@@ -23,13 +23,13 @@
   <rect x="0" y="18" width="4" height="40" rx="2" fill="#22c55e"/>
 </g>
 <rect x="0.5" y="0.5" width="1199" height="75" rx="17.5" stroke="#252720"/>
-<text class="mono" x="28" y="28" font-size="12" letter-spacing="1.8" fill="#22c55e">04 / ACTIVITY</text>
+<text class="mono" x="28" y="28" font-size="13" letter-spacing="1.8" fill="#22c55e">04 / ACTIVITY</text>
 <text class="sans" x="26" y="58" font-size="26" font-weight="700" letter-spacing="-0.5" fill="#f4f5f0">On GitHub</text>
 
 <!-- Solvorn's tip -->
 <g>
-  <path d="M765 20H1098Q1110 20 1110 32V32L1120 38L1110 44Q1110 56 1098 56H765Q753 56 753 44V32Q753 20 765 20Z" fill="#1a1c16" stroke="#252720"/>
-  <text class="sans" x="771" y="43" font-size="14" fill="#f4f5f0">Live numbers, fresh from GitHub every visit.</text>
+  <path d="M716 20H1098Q1110 20 1110 32V32L1120 38L1110 44Q1110 56 1098 56H716Q704 56 704 44V32Q704 20 716 20Z" fill="#1a1c16" stroke="#252720"/>
+  <text class="sans" x="722" y="43" font-size="16" fill="#f4f5f0">Live numbers, fresh from GitHub every visit.</text>
 </g>
 <g>
   <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="3.4s" repeatCount="indefinite"/>

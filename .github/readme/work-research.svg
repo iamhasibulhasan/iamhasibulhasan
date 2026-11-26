@@ -19,16 +19,16 @@
 </circle>
 </g>
 <rect x="0.5" y="0.5" width="589" height="223" rx="19.5" stroke="#252720"/>
-<text class="mono" x="32" y="40" font-size="12" letter-spacing="1.6" fill="#22c55e">RESEARCH PUBLICATION · 2022</text>
+<text class="mono" x="32" y="40" font-size="13" letter-spacing="1.6" fill="#22c55e">RESEARCH PUBLICATION · 2022</text>
 <text class="sans" x="32" y="74" font-size="25" font-weight="700" letter-spacing="-0.3" fill="#f4f5f0">Bone Cancer Diagnosis</text>
-<text class="sans" x="32" y="102" font-size="15" fill="#9b9d90">A Capsule Network that classifies bone cancer</text>
-<text class="sans" x="32" y="124" font-size="15" fill="#9b9d90">from MRI and CT images with limited data.</text>
-<rect x="32" y="142" width="134" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
-<text class="mono" x="99" y="159" font-size="12" fill="#9b9d90" text-anchor="middle">95.26% accuracy</text>
-<rect x="174" y="142" width="119" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
-<text class="mono" x="233.5" y="159" font-size="12" fill="#9b9d90" text-anchor="middle">Deep learning</text>
-<rect x="301" y="142" width="134" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
-<text class="mono" x="368" y="159" font-size="12" fill="#9b9d90" text-anchor="middle">Medical imaging</text>
-<text class="sans" x="32" y="198" font-size="14" font-weight="600" fill="#4ade80">More on my portfolio  ↗</text>
+<text class="sans" x="32" y="102" font-size="16" fill="#b8baae">A Capsule Network that classifies bone cancer</text>
+<text class="sans" x="32" y="124" font-size="16" fill="#b8baae">from MRI and CT images with limited data.</text>
+<rect x="32" y="142" width="153" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="108.5" y="159" font-size="14" fill="#b8baae" text-anchor="middle">95.26% accuracy</text>
+<rect x="193" y="142" width="136" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="261" y="159" font-size="14" fill="#b8baae" text-anchor="middle">Deep learning</text>
+<rect x="337" y="142" width="153" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="413.5" y="159" font-size="14" fill="#b8baae" text-anchor="middle">Medical imaging</text>
+<text class="sans" x="32" y="198" font-size="15" font-weight="600" fill="#4ade80">More on my portfolio  ↗</text>
 
 </svg>
