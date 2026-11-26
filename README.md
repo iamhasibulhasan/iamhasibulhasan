@@ -55,8 +55,8 @@ Currently a Software Engineer at **Cartup** (a concern of US Bangla Group), wher
 </div>
 
 <div align="center">
-<a href="https://github.com/iamhasibulhasan"><img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=gruvbox&hide_border=true&layout=compact&langs_count=8&hide=php,blade" width="49.5%" alt="Hasibul's top languages"/></a>
-<a href="https://wakatime.com/@iamhasibulhasan"><img src="https://github-readme-stats.vercel.app/api/wakatime?username=iamhasibulhasan&theme=gruvbox&hide_border=true" width="49.5%" alt="Hasibul's WakaTime stats"/></a>
+<a href="https://github.com/iamhasibulhasan"><img src="https://github-readme-stats.vercel.app/api/top-langs/?username=iamhasibulhasan&theme=gruvbox&hide_border=true&layout=compact&langs_count=8&hide=php,blade" width="37.5%" alt="Hasibul's top languages"/></a>
+<a href="https://wakatime.com/@iamhasibulhasan"><img src="https://github-readme-stats.vercel.app/api/wakatime?username=iamhasibulhasan&theme=gruvbox&hide_border=true&layout=compact&langs_count=8" width="61.5%" alt="Hasibul's WakaTime stats"/></a>
 </div>
 
 <p align="center">
