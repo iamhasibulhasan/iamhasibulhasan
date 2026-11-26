@@ -132,12 +132,14 @@ function ExperienceItem({
           <ul className="space-y-3 text-sm leading-relaxed text-muted-foreground md:text-base">
             {/* The summary is a point like any other, so it gets the same
                 affordance — it was the one bullet in every card without one. */}
-            <li className="flex gap-3 text-foreground/90">
-              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-              <div className="flex-1">
-                <p>{exp.summary}</p>
-              </div>
-            </li>
+            {exp.summary && (
+              <li className="flex gap-3 text-foreground/90">
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                <div className="flex-1">
+                  <p>{exp.summary}</p>
+                </div>
+              </li>
+            )}
             {exp.bullets.map((bullet) => {
               const text = bulletText(bullet);
               const studySlug = bulletStudySlug(bullet);

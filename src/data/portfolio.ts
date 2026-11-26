@@ -65,16 +65,6 @@ export const about = {
       label: "Classification accuracy",
       detail: "Published research: a Capsule Network classifying bone cancer from MRI and CT images with limited data reached 95.26% accuracy.",
     },
-    {
-      metric: "3.75",
-      label: "CGPA in CSE",
-      detail: "BSc in Computer Science & Engineering, American International University-Bangladesh (2017–2021).",
-    },
-    {
-      metric: "5.00",
-      label: "GPA, HSC and SSC",
-      detail: "GPA 5.00 in both the HSC (Ideal College, Dhanmondi) and the SSC, recognised with the GPA 5 Award.",
-    },
   ] satisfies Highlight[],
 };
 
@@ -122,7 +112,7 @@ export const experiences: Experience[] = [
     role: "Secondary School Certificate",
     period: "2013",
     type: "education",
-    summary: "GPA 5.00 / 5.00.",
+    summary: "",
     bullets: [],
   },
   {
@@ -130,7 +120,7 @@ export const experiences: Experience[] = [
     role: "Higher Secondary Certificate",
     period: "2015",
     type: "education",
-    summary: "GPA 5.00 / 5.00, recognised with the GPA 5 Award.",
+    summary: "",
     bullets: [],
   },
   {
@@ -138,7 +128,7 @@ export const experiences: Experience[] = [
     role: "BSc in Computer Science & Engineering",
     period: "2017 – 2021",
     type: "education",
-    summary: "CGPA 3.75 / 4.00. Published research on bone cancer diagnosis with Capsule Networks.",
+    summary: "Published research on bone cancer diagnosis with Capsule Networks.",
     bullets: [],
   },
   {
