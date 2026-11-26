@@ -116,13 +116,16 @@ export function GuideAvatarSlot({
 /** A still drawing of the guide's face: shown before load and on low-power devices. */
 export function StaticGuideMark({ size }: { size: number }) {
   return (
-    <svg aria-hidden="true" width={size} height={size} viewBox="-150 -170 300 320" className="overflow-visible">
-      <rect x="-113" y="-107" width="226" height="214" rx="34" style={{ fill: "var(--guide-body)" }} stroke="#0a0b09" strokeWidth="6" />
-      <rect x="91" y="-137" width="42" height="42" rx="9" transform="rotate(18 112 -116)" style={{ fill: "var(--guide-ears)" }} stroke="#0a0b09" strokeWidth="5" />
-      <rect x="129" y="-161" width="22" height="22" rx="5" transform="rotate(32 140 -150)" style={{ fill: "var(--guide-ears)" }} stroke="#0a0b09" strokeWidth="4" />
+    // The robot, face on: a round head, a disc "ear" on each side and the square antenna (matches solvorn.avatar.json).
+    <svg aria-hidden="true" width={size} height={size} viewBox="-160 -160 320 310" className="overflow-visible">
+      <rect x="-138" y="-25" width="34" height="66" rx="10" style={{ fill: "var(--guide-ears)" }} stroke="#0a0b09" strokeWidth="5" />
+      <rect x="104" y="-25" width="34" height="66" rx="10" style={{ fill: "var(--guide-ears)" }} stroke="#0a0b09" strokeWidth="5" />
+      <ellipse cx="0" cy="0" rx="118" ry="112" style={{ fill: "var(--guide-body)" }} stroke="#0a0b09" strokeWidth="6" />
+      <rect x="63" y="-111" width="42" height="42" rx="9" transform="rotate(18 84 -90)" style={{ fill: "var(--guide-ears)" }} stroke="#0a0b09" strokeWidth="5" />
+      <rect x="101" y="-135" width="22" height="22" rx="5" transform="rotate(32 112 -124)" style={{ fill: "var(--guide-ears)" }} stroke="#0a0b09" strokeWidth="4" />
       <ellipse cx="-40" cy="-12" rx="19" ry="28" fill="#0a0b09" />
       <ellipse cx="40" cy="-12" rx="19" ry="28" fill="#0a0b09" />
-      <rect x="-9" y="32" width="18" height="5" rx="2.5" fill="#0a0b09" />
+      <rect x="-9" y="34" width="18" height="5" rx="2.5" fill="#0a0b09" />
     </svg>
   );
 }

@@ -75,15 +75,19 @@ function start() {
   scheduleTransientExpiry();
 
   // Any real input wakes a dozing guide. Throttled: one event per second is plenty.
+  // Once fully asleep (the sleep screen) a moving mouse no longer does: it
+  // takes a slap (a click or tap on the sleep screen), a key or a scroll.
   let lastActivity = 0;
-  const onActivity = () => {
+  const onActivity = (event: Event) => {
+    if (event.type === "pointermove" && model.idle === 3) return;
     const now = Date.now();
-    if (now - lastActivity < 1000) return;
+    // A slap always wakes at once, whatever the throttle says.
+    if (event.type !== "pointerdown" && now - lastActivity < 1000) return;
     lastActivity = now;
     dispatch({ type: "page/activity" });
     scheduleIdle();
   };
-  const events = ["pointermove", "keydown", "scroll", "touchstart"] as const;
+  const events = ["pointermove", "pointerdown", "keydown", "scroll", "touchstart"] as const;
   events.forEach((name) => window.addEventListener(name, onActivity, { passive: true }));
   detachActivity = () => events.forEach((name) => window.removeEventListener(name, onActivity));
   scheduleIdle();
@@ -112,6 +116,11 @@ export function subscribeGuide(listener: () => void) {
 
 export function getGuideView() {
   return view;
+}
+
+/** The idle ladder's stage: 0 awake, 1 bored, 2 drowsy, 3 asleep (the sleep screen). */
+export function getIdleStage() {
+  return model.idle;
 }
 
 const serverView = selectGuideView(initialGuideModel);

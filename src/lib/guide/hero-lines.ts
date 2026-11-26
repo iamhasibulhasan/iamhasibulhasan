@@ -7,10 +7,11 @@ import { GUIDE_NAME, OWNER_FIRST_NAME } from "@/lib/guide/identity";
  * a rotating banner.
  */
 export function greetingFor(hour: number) {
-  if (hour < 5) return `Up late? I'm ${GUIDE_NAME}, ${OWNER_FIRST_NAME}'s guide. Take the tour, or just scroll.`;
-  if (hour < 12) return `Morning. I'm ${GUIDE_NAME}. I'll show you around ${OWNER_FIRST_NAME}'s .NET work.`;
-  if (hour < 17) return `Hi, I'm ${GUIDE_NAME}, ${OWNER_FIRST_NAME}'s guide. Want the 60-second tour?`;
-  return `Evening. I'm ${GUIDE_NAME}. Everything here comes straight from ${OWNER_FIRST_NAME}'s résumé.`;
+  // Kept short enough to sit on one line under the hero.
+  if (hour < 5) return `Up late? I'm ${GUIDE_NAME}, ${OWNER_FIRST_NAME}'s guide.`;
+  if (hour < 12) return `Morning! I'm ${GUIDE_NAME}, ${OWNER_FIRST_NAME}'s guide.`;
+  if (hour < 17) return `Hi, I'm ${GUIDE_NAME}, ${OWNER_FIRST_NAME}'s guide.`;
+  return `Evening! I'm ${GUIDE_NAME}, ${OWNER_FIRST_NAME}'s guide.`;
 }
 
 /** Lines for the click streak, in the same order as `PET_STREAK`. */

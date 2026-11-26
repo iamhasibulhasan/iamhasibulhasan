@@ -43,8 +43,39 @@ import { NAVBAR_CLEARANCE as NAVBAR } from "@/lib/scroll";
 
 const SIZE = 68;
 const MOBILE_SIZE = 56;
-/** How long the glide between two sections' spots takes. */
+/** How long the glide between two sections' spots takes (a catch-up glide; a move to a new spot varies, see wanderGlide). */
 const GLIDE_MS = 650;
+
+/**
+ * A glide from one place to the next spot. `bend` curves the route to one
+ * side (px at the middle of the trip, signed), so the guide doesn't travel
+ * the same straight line between the same two spots every time.
+ */
+type Glide = { from: Point; start: number; ms: number; bend: number };
+
+/** A move to a new spot: always to that spot, but by a random curve and at a random pace. */
+function wanderGlide(from: Point, start: number): Glide {
+  const side = Math.random() < 0.5 ? -1 : 1;
+  return { from, start, ms: 700 + Math.random() * 500, bend: side * (70 + Math.random() * 170) };
+}
+
+/**
+ * Along a curve from `from` to `to`: a quadratic bezier whose control point
+ * sits `bend` px off the middle of the straight line. Short trips bend less,
+ * so a small hop never swings wide.
+ */
+function curvedBlend(from: Point, to: Point, u: number, bend: number): Point {
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const length = Math.hypot(dx, dy);
+  if (!bend || length < 1) return blendPoint(from, to, u);
+  const amount = bend * Math.min(1, length / 300);
+  const control = { x: (from.x + to.x) / 2 - (dy / length) * amount, y: (from.y + to.y) / 2 + (dx / length) * amount };
+  const a = (1 - u) * (1 - u);
+  const b = 2 * (1 - u) * u;
+  const c = u * u;
+  return { x: a * from.x + b * control.x + c * to.x, y: a * from.y + b * control.y + c * to.y };
+}
 /** The hand-off progress at which the conversation leaves the hero for the companion's own bubble. */
 const HANDOFF_SWAP_AT = 0.22;
 /**
@@ -217,13 +248,14 @@ export default function GuideCompanion() {
   // It reads a few rects and writes two motion values, so it is cheap, and
   // because the read and the write happen in the same frame nothing trails.
   const ruleRef = useRef(rule);
-  const glideRef = useRef<{ from: Point; start: number } | null>(null);
+  const glideRef = useRef<Glide | null>(null);
   const lastPointRef = useRef<Point | null>(null);
   const kindRef = useRef<"ride" | "corner">("ride");
   useLayoutEffect(() => {
     if (ruleRef.current.key === rule.key) return;
     // Start the glide from wherever the avatar is now.
-    if (lastPointRef.current && !reduceMotion) glideRef.current = { from: lastPointRef.current, start: performance.now() };
+    // A new spot: a fresh, random route there (a curve to one side or the other, at its own pace).
+    if (lastPointRef.current && !reduceMotion) glideRef.current = wanderGlide(lastPointRef.current, performance.now());
     ruleRef.current = rule;
   }, [reduceMotion, rule]);
 
@@ -617,12 +649,12 @@ export default function GuideCompanion() {
       let point = target;
       const glide = glideRef.current;
       if (glide) {
-        const t = (now - glide.start) / GLIDE_MS;
+        const t = (now - glide.start) / glide.ms;
         if (t >= 1) glideRef.current = null;
         // Off the homepage the jumps are across the page (the right strip to
         // under the contents): a hop up over the content, the same arc as a
         // page change, rather than a slide through the text.
-        else point = routeRef.current !== "home" ? routeTravelFrame({ t, from: glide.from, to: target }).position : blendPoint(glide.from, target, easeInOutCubic(t));
+        else point = routeRef.current !== "home" ? routeTravelFrame({ t, from: glide.from, to: target }).position : curvedBlend(glide.from, target, easeInOutCubic(t), glide.bend);
       }
       const last = lastPointRef.current;
       if (leavingHero && heroBox) {
@@ -654,7 +686,7 @@ export default function GuideCompanion() {
         // engaging). Then catch up with a short eased glide instead of a snap.
         const step = Math.hypot(point.x - last.x, point.y - last.y);
         if (step > MAX_RIDE_STEP && !reduceMotionRef.current) {
-          glideRef.current = { from: last, start: now };
+          glideRef.current = { from: last, start: now, ms: GLIDE_MS, bend: 0 };
           point = blendPoint(last, target, easeInOutCubic(16 / GLIDE_MS));
         }
       }

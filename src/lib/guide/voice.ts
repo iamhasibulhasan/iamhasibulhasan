@@ -158,6 +158,105 @@ export function speak(text: string) {
   }, end);
 }
 
+/**
+ * A soft cartoon snore for the sleep screen: a rattly, low "zzz" breathing in,
+ * then a quiet whistle breathing out. Same switch and volume as the voice.
+ * Never plays before the visitor has clicked (the browser wouldn't allow it).
+ */
+export function snore() {
+  if (!isEnabled() || typeof document === "undefined" || document.hidden || !ctx || !master || ctx.state !== "running") return;
+  const context = ctx;
+  const t = context.currentTime + 0.02;
+
+  // Breathing in: filtered noise, with a fast wobble for the rattle.
+  const breathIn = noiseSource(context, 1.3);
+  const band = context.createBiquadFilter();
+  band.type = "bandpass";
+  band.frequency.value = 220;
+  band.Q.value = 1.4;
+  const breath = context.createGain();
+  breath.gain.setValueAtTime(0.0001, t);
+  breath.gain.exponentialRampToValueAtTime(2.4, t + 0.75);
+  breath.gain.exponentialRampToValueAtTime(0.0001, t + 1.25);
+  const rattle = context.createGain();
+  rattle.gain.value = 0.6;
+  const lfo = context.createOscillator();
+  lfo.frequency.value = 26;
+  const depth = context.createGain();
+  depth.gain.value = 0.4;
+  lfo.connect(depth);
+  depth.connect(rattle.gain);
+  breathIn.connect(band);
+  band.connect(rattle);
+  rattle.connect(breath);
+  breath.connect(master);
+  breathIn.start(t);
+  breathIn.stop(t + 1.3);
+  lfo.start(t);
+  lfo.stop(t + 1.3);
+
+  // Breathing out: a small falling whistle.
+  const out = context.createOscillator();
+  out.type = "sine";
+  const sigh = context.createGain();
+  const at = t + 1.45;
+  out.frequency.setValueAtTime(680, at);
+  out.frequency.exponentialRampToValueAtTime(430, at + 0.7);
+  sigh.gain.setValueAtTime(0.0001, at);
+  sigh.gain.exponentialRampToValueAtTime(0.3, at + 0.12);
+  sigh.gain.exponentialRampToValueAtTime(0.0001, at + 0.75);
+  out.connect(sigh);
+  sigh.connect(master);
+  out.start(at);
+  out.stop(at + 0.8);
+}
+
+/**
+ * The slap that wakes the guide: a sharp crack of noise with a low thump under
+ * it. Called from the click itself, so it can start the audio if needed.
+ */
+export async function slapSound() {
+  if (!isEnabled() || typeof document === "undefined") return;
+  await unlock();
+  if (!ctx || !master || ctx.state !== "running") return;
+  const context = ctx;
+  const t = context.currentTime + 0.005;
+  const crack = noiseSource(context, 0.2);
+  const high = context.createBiquadFilter();
+  high.type = "highpass";
+  high.frequency.value = 1400;
+  const crackGain = context.createGain();
+  crackGain.gain.setValueAtTime(2.2, t);
+  crackGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.12);
+  crack.connect(high);
+  high.connect(crackGain);
+  crackGain.connect(master);
+  crack.start(t);
+  crack.stop(t + 0.2);
+  const thump = context.createOscillator();
+  thump.type = "sine";
+  thump.frequency.setValueAtTime(180, t);
+  thump.frequency.exponentialRampToValueAtTime(60, t + 0.12);
+  const thumpGain = context.createGain();
+  thumpGain.gain.setValueAtTime(1.2, t);
+  thumpGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.15);
+  thump.connect(thumpGain);
+  thumpGain.connect(master);
+  thump.start(t);
+  thump.stop(t + 0.16);
+}
+
+/** White noise, for the breathing and the slap. */
+function noiseSource(context: AudioContext, seconds: number) {
+  const length = Math.floor(context.sampleRate * seconds);
+  const buffer = context.createBuffer(1, length, context.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < length; i++) data[i] = Math.random() * 2 - 1;
+  const source = context.createBufferSource();
+  source.buffer = buffer;
+  return source;
+}
+
 function chirp(context: AudioContext, out: AudioNode, pitch: number, at: number) {
   const osc = context.createOscillator();
   const env = context.createGain();

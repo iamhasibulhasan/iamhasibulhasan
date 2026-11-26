@@ -131,6 +131,24 @@ export function applyAppearance(
     "--guide-body": "hsl(" + t(h, Math.min(S, 80), 66) + ")",
     "--guide-ears": "hsl(" + t(h, Math.min(S, 80), 30) + ")",
   };
+
+  // The default cursors: an arrow, a pointing hand (links, buttons) and a text
+  // bar (fields), filled with the accent and outlined to stand out on the page:
+  // light on the dark theme, ink on the light one. Drawn here as SVG so they
+  // follow the customizer's accent. Used by the rules in globals.css.
+  var edge = dark ? "#f4f5f0" : "#0a0b09";
+  var cursor = function (d: string, hotX: number, hotY: number) {
+    var svg =
+      '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22">' +
+      '<path d="' + d + '" fill="' + hex + '" stroke="' + edge + '" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>';
+    return 'url("data:image/svg+xml,' + encodeURIComponent(svg) + '") ' + hotX + " " + hotY;
+  };
+  vars["--cursor-arrow"] = cursor("M3.5 2.5L18.5 10.2L11.6 12L8.6 18.6Z", 3, 2);
+  vars["--cursor-hand"] = cursor(
+    "M8 3.4a1.6 1.6 0 0 1 3.2 0V9l4.1.7a2.2 2.2 0 0 1 1.8 2.5l-.6 4.1a3.2 3.2 0 0 1-3.2 2.7H10a3.2 3.2 0 0 1-2.6-1.3l-3.2-4.3a1.5 1.5 0 0 1 2.2-2l1.6 1.5Z",
+    9, 2
+  );
+  vars["--cursor-text"] = cursor("M6.5 2.5h9v2.4h-3.3v12.2h3.3v2.4h-9v-2.4h3.3V4.9H6.5Z", 11, 11);
   for (var key in vars) root.style.setProperty(key, vars[key]);
 }
 

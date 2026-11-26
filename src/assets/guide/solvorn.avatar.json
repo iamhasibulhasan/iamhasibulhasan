@@ -1,27 +1,125 @@
 {
   "name": "Solvorn",
   "body": {
-    "primary": { "type": "cube", "width": 226, "height": 214, "depth": 216, "roundness": 0.32 },
+    "primary": {
+      "type": "sphere",
+      "width": 236,
+      "height": 224,
+      "depth": 214,
+      "roundness": 1
+    },
     "nodes": [
       {
         "color": "#15803d",
-        "surface": { "type": "cube", "width": 42, "height": 42, "depth": 42, "roundness": 0.3 },
-        "position": [112, -116, 0],
-        "rotation": [0, 0, 18]
+        "surface": {
+          "type": "cylinder",
+          "width": 66,
+          "height": 30,
+          "depth": 66,
+          "roundness": 0.35
+        },
+        "position": [
+          -118,
+          8,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          90
+        ]
       },
       {
         "color": "#15803d",
-        "surface": { "type": "cube", "width": 22, "height": 22, "depth": 22, "roundness": 0.3 },
-        "position": [140, -150, 0],
-        "rotation": [0, 0, 32]
+        "surface": {
+          "type": "cylinder",
+          "width": 66,
+          "height": 30,
+          "depth": 66,
+          "roundness": 0.35
+        },
+        "position": [
+          118,
+          8,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          90
+        ]
+      },
+      {
+        "color": "#15803d",
+        "surface": {
+          "type": "cube",
+          "width": 42,
+          "height": 42,
+          "depth": 42,
+          "roundness": 0.3
+        },
+        "position": [
+          84,
+          -90,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          18
+        ]
+      },
+      {
+        "color": "#15803d",
+        "surface": {
+          "type": "cube",
+          "width": 22,
+          "height": 22,
+          "depth": 22,
+          "roundness": 0.3
+        },
+        "position": [
+          112,
+          -124,
+          0
+        ],
+        "rotation": [
+          0,
+          0,
+          32
+        ]
       }
     ]
   },
-  "colors": { "body": "#6ee7a0", "eyes": "#0a0b09" },
-  "style": { "outline": { "enabled": true, "color": "#0a0b09", "width": 6, "opacity": 0.9 } },
+  "colors": {
+    "body": "#6ee7a0",
+    "eyes": "#0a0b09"
+  },
+  "style": {
+    "outline": {
+      "enabled": true,
+      "color": "#0a0b09",
+      "width": 6,
+      "opacity": 0.9
+    }
+  },
   "face": {
-    "eyes": { "width": 0.9, "height": 1.25, "gap": 1.15, "shiftY": -0.04 },
-    "mouth": { "enabled": true, "shape": "rounded", "curve": 0, "width": 18, "height": 5, "x": 0, "y": 36, "angle": 0 },
+    "eyes": {
+      "width": 0.9,
+      "height": 1.25,
+      "gap": 1.15,
+      "shiftY": -0.02
+    },
+    "mouth": {
+      "enabled": true,
+      "shape": "rounded",
+      "curve": 0,
+      "width": 18,
+      "height": 5,
+      "x": 0,
+      "y": 38,
+      "angle": 0
+    },
     "perspective": 1
   }
 }

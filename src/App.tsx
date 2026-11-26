@@ -9,13 +9,17 @@ import ScrollProgress from "@/components/ScrollProgress";
 import { QuietBoundary } from "@/components/QuietBoundary";
 import { GuideCompanionMount } from "@/components/guide/GuideCompanionMount";
 import HomePage from "@/pages/HomePage";
-import WorkIndex from "@/pages/WorkIndex";
-import CaseStudyPage from "@/pages/CaseStudyPage";
-import NotFound from "@/pages/NotFound";
+
+// The other pages are their own chunks, so the homepage doesn't download them.
+const WorkIndex = dynamic(() => import("@/pages/WorkIndex"));
+const CaseStudyPage = dynamic(() => import("@/pages/CaseStudyPage"));
+const NotFound = dynamic(() => import("@/pages/NotFound"));
 
 // Background layer on every route. Self-gates on a fine pointer, >=1280px and reduced motion.
 const FluidCursor = dynamic(() => import("@/components/FluidCursor"));
 const CommandPalette = dynamic(() => import("@/components/CommandPalette"));
+// After a minute with no input: the site blurs and the guide naps (GuideSleepScreen).
+const GuideSleepScreen = dynamic(() => import("@/components/guide/GuideSleepScreen"));
 
 export default function App() {
   return (
@@ -48,6 +52,9 @@ export default function App() {
           </QuietBoundary>
           <QuietBoundary name="Guide">
             <GuideCompanionMount />
+          </QuietBoundary>
+          <QuietBoundary name="Sleep screen">
+            <GuideSleepScreen />
           </QuietBoundary>
           <QuietBoundary name="Command palette">
             <CommandPalette />

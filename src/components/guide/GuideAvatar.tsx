@@ -1,33 +1,43 @@
 
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { createAvatar, type AvatarHandle } from "@bible-strong/avatar-react";
-import character from "@/assets/guide/solvorn.avatar.json";
+import { Avatar, type AvatarHandle } from "@bible-strong/avatar-react";
+import { readCharacter, type AvatarCharacter } from "@bible-strong/avatar-core";
+import round from "@/assets/guide/solvorn.avatar.json";
+import square from "@/assets/guide/solvorn-square.avatar.json";
 import { lookToward } from "@/lib/guide/gaze";
 import type { ViewportPoint } from "@/lib/guide/types";
 import { useGuideView } from "@/lib/guide/useGuideView";
 import { useSettings } from "@/lib/settings";
 import { guideColors } from "@/lib/appearance";
+import { useGuideShape, type GuideShape } from "@/lib/guide/shape";
 
 /*
  * The renderer reads `window` while rendering, so this module is only ever
- * loaded lazily, on the client. One avatar component per accent colour: the
- * body and ears follow the visitor's accent; the outline and eyes stay ink.
+ * loaded lazily, on the client. The guide has two shapes (round robot, and the
+ * original square), switched now and then mid-spin (lib/guide/shape.ts). Each
+ * is tinted per accent: the body and ears follow the visitor's accent; the
+ * outline and eyes stay ink.
  */
-type Character = typeof character;
-const byAccent = new Map<string, ReturnType<typeof createAvatar>>();
-function avatarFor(accent: string) {
-  let avatar = byAccent.get(accent);
-  if (!avatar) {
+const SHAPES = { round, square } as const;
+type Character = AvatarCharacter;
+const characters = new Map<string, Character>();
+function characterFor(accent: string, shape: GuideShape): Character {
+  const key = `${shape}:${accent}`;
+  let character = characters.get(key);
+  if (!character) {
+    const source = SHAPES[shape];
     const { body, ears } = guideColors(accent);
-    const tinted: Character = {
-      ...character,
-      colors: { ...character.colors, body },
-      body: { ...character.body, nodes: character.body.nodes.map((node) => ({ ...node, color: ears })) },
+    const tinted = {
+      ...source,
+      colors: { ...source.colors, body },
+      body: { ...source.body, nodes: source.body.nodes.map((node) => ({ ...node, color: ears })) },
     };
-    avatar = createAvatar(tinted as Parameters<typeof createAvatar>[0]);
-    byAccent.set(accent, avatar);
+    const read = readCharacter(tinted);
+    if (!read.ok) throw new Error(`Invalid guide character (${shape})`);
+    character = read.value;
+    characters.set(key, character);
   }
-  return avatar;
+  return character;
 }
 
 export type GuideAvatarProps = {
@@ -52,9 +62,18 @@ export type GuideAvatarProps = {
  */
 export default function GuideAvatar({ size, followPointer = false, lookAt = null, settleAfterMs, paused = false, className }: GuideAvatarProps) {
   const { accent } = useSettings();
-  const Guide = useMemo(() => avatarFor(accent), [accent]);
+  const { shape, spinAt } = useGuideShape();
+  const character = useMemo(() => characterFor(accent, shape), [accent, shape]);
   const view = useGuideView();
   const ref = useRef<AvatarHandle>(null);
+
+  // A change of shape: spin now; the shape switches mid-spin (see shape.ts).
+  const lastSpin = useRef(spinAt);
+  useEffect(() => {
+    if (spinAt === lastSpin.current) return;
+    lastSpin.current = spinAt;
+    ref.current?.poke("spin");
+  }, [spinAt]);
   const boxRef = useRef<HTMLSpanElement>(null);
   const lastPoke = useRef(view.poke?.nonce ?? 0);
   // Measured gaze, remembered with the point it was measured for.
@@ -85,10 +104,13 @@ export default function GuideAvatar({ size, followPointer = false, lookAt = null
       ref={boxRef}
       aria-hidden="true"
       data-guide-avatar
+      // Asleep: the eyes close (globals.css squashes them to lines).
+      data-guide-asleep={view.state === "sleeping" ? "" : undefined}
       className={className}
       style={{ display: "inline-flex", width: size, height: size, pointerEvents: "none" }}
     >
-      <Guide
+      <Avatar
+        character={character}
         ref={ref}
         size={size}
         state={view.state}

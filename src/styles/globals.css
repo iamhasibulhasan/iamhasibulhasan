@@ -186,6 +186,25 @@
   }
 }
 
+/*
+ * The default cursor (customizer: "Default"): an accent-filled arrow, a hand on
+ * anything clickable and a text bar in fields, drawn in appearance.ts
+ * (--cursor-*). Mouse and trackpad only; the other cursor styles replace it.
+ */
+@media (pointer: fine) {
+  body:not(.cursor-dot):not(.cursor-crosshair):not(.cursor-trail) {
+    cursor: var(--cursor-arrow), auto;
+  }
+  body:not(.cursor-dot):not(.cursor-crosshair):not(.cursor-trail)
+    :is(a[href], button, select, label, summary, [role="button"], [role="combobox"], [role="option"], [role="tab"], [role="menuitem"], input[type="submit"], input[type="button"], input[type="checkbox"], input[type="radio"], .cursor-pointer):not(:disabled):not([aria-disabled="true"]) {
+    cursor: var(--cursor-hand), pointer;
+  }
+  body:not(.cursor-dot):not(.cursor-crosshair):not(.cursor-trail)
+    :is(input:not([type]), input[type="text"], input[type="email"], input[type="search"], input[type="password"], input[type="url"], input[type="tel"], input[type="number"], textarea, [contenteditable="true"], .cursor-text) {
+    cursor: var(--cursor-text), text;
+  }
+}
+
 /* Custom cursors from the customizer: the system cursor hides while one is drawn. */
 body.cursor-dot,
 body.cursor-crosshair,
@@ -839,4 +858,36 @@ html[data-restoring] body { visibility: hidden; animation: restore-failsafe 0s 0
 }
 @media (prefers-reduced-motion: reduce) {
   .hero-z { animation: none; }
+}
+
+/* The sleep screen's Zs (GuideSleepScreen): each drifts up and to the right, growing and fading. */
+.guide-zzz {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  opacity: 0;
+  animation: guide-zzz 2.7s ease-out infinite;
+}
+@keyframes guide-zzz {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.6); }
+  25% { opacity: 1; }
+  100% { opacity: 0; transform: translate(26px, -64px) scale(1.15); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .guide-zzz { animation: none; opacity: 0.8; }
+}
+/* While the guide naps on the sleep screen, the one in the page hides, so there is only one. */
+html[data-guide-napping] [data-guide-avatar] { opacity: 0; transition: opacity 0.4s; }
+html[data-guide-napping] [data-guide-sleep-screen] [data-guide-avatar] { opacity: 1; }
+
+/* The guide's eyes close while it sleeps: the library has no closed-eye face, so its eyes are squashed to lines. */
+[data-guide-avatar] [data-part="left"],
+[data-guide-avatar] [data-part="right"] {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.35s ease;
+}
+[data-guide-asleep] [data-part="left"],
+[data-guide-asleep] [data-part="right"] {
+  transform: scaleY(0.12);
 }
