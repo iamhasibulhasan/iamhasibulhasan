@@ -10,6 +10,7 @@ import { guideTargetSelector } from "@/lib/guide/targets";
 import { START_TOUR_EVENT } from "@/lib/guide/tour-control";
 import { planTourScroll, resolveTargetBox } from "@/lib/guide/tour-plan";
 import { stepsFor, type VisitorId } from "@/lib/guide/paths";
+import { hushVoice, speak } from "@/lib/guide/voice";
 import type { TourStep } from "@/lib/guide/tour";
 import type { StartTourDetail } from "@/lib/guide/tour-control";
 import { scrollToOffset, NAVBAR_CLEARANCE as NAVBAR } from "@/lib/scroll";
@@ -119,6 +120,7 @@ export function useGuideTour(isMobile: boolean) {
       dispatchCompanion({ type: "tour/open" });
       emitGuide({ type: "tour/start" });
       setAnnouncement(`Step ${next + 1} of ${stepsRef.current.length}: ${step.title}. ${step.line}`);
+      speak(step.line);
       runStep(next);
     },
     [runStep]
@@ -138,6 +140,7 @@ export function useGuideTour(isMobile: boolean) {
   const end = useCallback(
     (completed: boolean) => {
       stopRun();
+      hushVoice();
       setIndex(null);
       setDrifted(false);
       setAnnouncement(completed ? "Tour complete." : "Tour closed.");

@@ -1,6 +1,7 @@
 
 import { useSyncExternalStore } from "react";
 import { PET_LINES } from "@/lib/guide/hero-lines";
+import { speak } from "@/lib/guide/voice";
 
 /**
  * The line the guide is saying right now, shared by every place that shows it (the
@@ -15,6 +16,7 @@ const listeners = new Set<() => void>();
 function set(next: string | null) {
   if (spoken === next) return;
   spoken = next;
+  if (next) speak(next);
   listeners.forEach((listener) => listener());
 }
 

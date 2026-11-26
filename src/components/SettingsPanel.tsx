@@ -1,6 +1,7 @@
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { Check, Moon, RotateCcw, Sun, X } from "lucide-react";
+import { Check, Moon, RotateCcw, Sun, Volume2, VolumeX, X } from "lucide-react";
 import { useSettings } from "@/lib/settings";
+import { setGuideVoice, useGuideVoice } from "@/lib/guide/voice";
 import { useLenisLock } from "@/hooks/useLenisLock";
 import { ACCENT_PRESETS, CURSOR_STYLES, FONT_STACKS, type FontFamilyKey, type FontSizeKey } from "@/lib/appearance";
 import { cn } from "@/lib/utils";
@@ -25,6 +26,7 @@ const choiceState = (on: boolean) =>
  */
 export default function SettingsPanel({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
   const { theme, setTheme, accent, setAccent, fontSize, setFontSize, fontFamily, setFontFamily, cursorStyle, setCursorStyle, reset } = useSettings();
+  const guideVoice = useGuideVoice();
   // Hand wheel control back to the browser so the panel scrolls and the page does not.
   useLenisLock(open);
 
@@ -150,6 +152,20 @@ export default function SettingsPanel({ open, onOpenChange }: { open: boolean; o
               ))}
             </div>
             <p className="mt-2 text-xs text-muted-foreground">Custom cursors are turned off automatically on touch devices.</p>
+          </section>
+
+          {/* Guide voice */}
+          <section className="mb-8">
+            <h3 className={SECTION_LABEL}>Guide voice</h3>
+            <div className="grid grid-cols-2 gap-2">
+              {([true, false] as const).map((on) => (
+                <button key={String(on)} type="button" aria-pressed={guideVoice === on} onClick={() => setGuideVoice(on)} className={cn(CHOICE, "flex items-center justify-center gap-2", choiceState(guideVoice === on))}>
+                  {on ? <Volume2 className="h-3.5 w-3.5" /> : <VolumeX className="h-3.5 w-3.5" />}
+                  {on ? "On" : "Off"}
+                </button>
+              ))}
+            </div>
+            <p className="mt-2 text-xs text-muted-foreground">The guide chirps as it talks.</p>
           </section>
 
           <button

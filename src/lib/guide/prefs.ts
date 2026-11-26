@@ -13,9 +13,11 @@ export type GuidePrefs = {
   celebrated: boolean;
   /** The visitor path last chosen (sent with chat requests, preselected in the chooser). */
   visitor: VisitorId | null;
+  /** The guide's chirping voice. On unless turned off in the customizer. */
+  voice: boolean;
 };
 
-const DEFAULTS: GuidePrefs = { tourDone: false, tipsMuted: false, celebrated: false, visitor: null };
+const DEFAULTS: GuidePrefs = { tourDone: false, tipsMuted: false, celebrated: false, visitor: null, voice: true };
 
 export function readGuidePrefs(): GuidePrefs {
   try {
@@ -28,6 +30,7 @@ export function readGuidePrefs(): GuidePrefs {
       tipsMuted: parsed.tipsMuted === true,
       celebrated: parsed.celebrated === true,
       visitor: isVisitorId(parsed.visitor) ? parsed.visitor : null,
+      voice: parsed.voice !== false,
     };
   } catch {
     return DEFAULTS;

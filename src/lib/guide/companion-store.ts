@@ -7,6 +7,7 @@ import { emitGuide } from "@/lib/guide/bus";
 import "@/lib/guide/store";
 import { readGuidePrefs, writeGuidePrefs } from "@/lib/guide/prefs";
 import { resolveAskHost } from "@/lib/guide/ask-hosts";
+import { speak } from "@/lib/guide/voice";
 
 /**
  * UI state shared by the companion avatar, its bubble and the full chat panel:
@@ -38,7 +39,9 @@ function set(next: CompanionState) {
   if (next === state) return;
   const wasOpen = state.panelOpen || state.bubble === "ask";
   const isOpen = next.panelOpen || next.bubble === "ask";
+  const newTip = next.bubble === "tip" && next.tip && (state.bubble !== "tip" || state.tip?.text !== next.tip.text) ? next.tip.text : null;
   state = next;
+  if (newTip) speak(newTip);
   // The avatar listens while any conversation surface is open.
   if (wasOpen !== isOpen) emitGuide({ type: isOpen ? "chat/open" : "chat/close" });
   listeners.forEach((listener) => listener());
