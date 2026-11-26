@@ -19,19 +19,19 @@
 </circle>
 </g>
 <rect x="0.5" y="0.5" width="1199" height="139" rx="19.5" stroke="#252720"/>
-<text class="mono" x="32" y="38" font-size="13" letter-spacing="1.6" fill="#22c55e">ACTIVITY</text>
-<text class="sans" x="32" y="60" font-size="15" fill="#b8baae">How the time is spent</text>
+<text class="mono" x="32" y="38" font-size="15" letter-spacing="1.6" fill="#22c55e">ACTIVITY</text>
+<text class="sans" x="32" y="60" font-size="17" fill="#b8baae">How the time is spent</text>
 <defs><clipPath id="bar"><rect x="32" y="78" width="1136" height="16" rx="8"/></clipPath></defs>
 <g clip-path="url(#bar)"><rect x="32.0" y="78" width="916.4" height="16" fill="#22c55e"/>
 <rect x="951.4" y="78" width="132.8" height="16" fill="#4ade80"/>
 <rect x="1087.1" y="78" width="44.7" height="16" fill="#86efac"/>
 <rect x="1134.8" y="78" width="29.4" height="16" fill="#bef264"/></g>
 <rect x="32" y="108" width="10" height="10" rx="3" fill="#22c55e"/>
-<text class="sans" x="50" y="117" font-size="16" fill="#f4f5f0">Coding <tspan class="mono" font-size="14" fill="#b8baae">81%</tspan></text>
-<rect x="174" y="108" width="10" height="10" rx="3" fill="#4ade80"/>
-<text class="sans" x="192" y="117" font-size="16" fill="#f4f5f0">Debugging <tspan class="mono" font-size="14" fill="#b8baae">12%</tspan></text>
-<rect x="344" y="108" width="10" height="10" rx="3" fill="#86efac"/>
-<text class="sans" x="362" y="117" font-size="16" fill="#f4f5f0">Building <tspan class="mono" font-size="14" fill="#b8baae">4.2%</tspan></text>
-<rect x="514" y="108" width="10" height="10" rx="3" fill="#bef264"/>
-<text class="sans" x="532" y="117" font-size="16" fill="#f4f5f0">AI Coding <tspan class="mono" font-size="14" fill="#b8baae">2.9%</tspan></text>
+<text class="sans" x="50" y="117" font-size="18" fill="#f4f5f0">Coding <tspan class="mono" font-size="16" fill="#b8baae">81%</tspan></text>
+<rect x="190" y="108" width="10" height="10" rx="3" fill="#4ade80"/>
+<text class="sans" x="208" y="117" font-size="18" fill="#f4f5f0">Debugging <tspan class="mono" font-size="16" fill="#b8baae">12%</tspan></text>
+<rect x="380" y="108" width="10" height="10" rx="3" fill="#86efac"/>
+<text class="sans" x="398" y="117" font-size="18" fill="#f4f5f0">Building <tspan class="mono" font-size="16" fill="#b8baae">4.2%</tspan></text>
+<rect x="570" y="108" width="10" height="10" rx="3" fill="#bef264"/>
+<text class="sans" x="588" y="117" font-size="18" fill="#f4f5f0">AI Coding <tspan class="mono" font-size="16" fill="#b8baae">2.9%</tspan></text>
 </svg>

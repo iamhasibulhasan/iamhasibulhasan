@@ -19,30 +19,30 @@
 </circle>
 </g>
 <rect x="0.5" y="0.5" width="589" height="285" rx="19.5" stroke="#252720"/>
-<text class="mono" x="32" y="38" font-size="13" letter-spacing="1.6" fill="#22c55e">LANGUAGES</text>
-<text class="sans" x="32" y="60" font-size="15" fill="#b8baae">All time, since Sep 9 2022</text>
-<text class="sans" x="32" y="99" font-size="15" font-weight="600" fill="#f4f5f0">C#</text>
+<text class="mono" x="32" y="38" font-size="15" letter-spacing="1.6" fill="#22c55e">LANGUAGES</text>
+<text class="sans" x="32" y="60" font-size="17" fill="#b8baae">All time, since Sep 9 2022</text>
+<text class="sans" x="32" y="99" font-size="17" font-weight="600" fill="#f4f5f0">C#</text>
 <rect x="150" y="88" width="270" height="14" rx="7" fill="#1a1c16"/>
 <rect x="150" y="88" width="270.0" height="14" rx="7" fill="#22c55e"/>
-<text class="mono" x="558" y="99" font-size="14" fill="#b8baae" text-anchor="end">1,214h · 48%</text>
-<text class="sans" x="32" y="131" font-size="15" font-weight="600" fill="#f4f5f0">SQL</text>
+<text class="mono" x="558" y="99" font-size="16" fill="#b8baae" text-anchor="end">1,214h · 48%</text>
+<text class="sans" x="32" y="131" font-size="17" font-weight="600" fill="#f4f5f0">SQL</text>
 <rect x="150" y="120" width="270" height="14" rx="7" fill="#1a1c16"/>
 <rect x="150" y="120" width="84.7" height="14" rx="7" fill="#4ade80"/>
-<text class="mono" x="558" y="131" font-size="14" fill="#b8baae" text-anchor="end">381h · 15%</text>
-<text class="sans" x="32" y="163" font-size="15" font-weight="600" fill="#f4f5f0">TypeScript</text>
+<text class="mono" x="558" y="131" font-size="16" fill="#b8baae" text-anchor="end">381h · 15%</text>
+<text class="sans" x="32" y="163" font-size="17" font-weight="600" fill="#f4f5f0">TypeScript</text>
 <rect x="150" y="152" width="270" height="14" rx="7" fill="#1a1c16"/>
 <rect x="150" y="152" width="53.1" height="14" rx="7" fill="#86efac"/>
-<text class="mono" x="558" y="163" font-size="14" fill="#b8baae" text-anchor="end">239h · 9.5%</text>
-<text class="sans" x="32" y="195" font-size="15" font-weight="600" fill="#f4f5f0">HTML</text>
+<text class="mono" x="558" y="163" font-size="16" fill="#b8baae" text-anchor="end">239h · 9.5%</text>
+<text class="sans" x="32" y="195" font-size="17" font-weight="600" fill="#f4f5f0">HTML</text>
 <rect x="150" y="184" width="270" height="14" rx="7" fill="#1a1c16"/>
 <rect x="150" y="184" width="31.3" height="14" rx="7" fill="#bef264"/>
-<text class="mono" x="558" y="195" font-size="14" fill="#b8baae" text-anchor="end">141h · 5.6%</text>
-<text class="sans" x="32" y="227" font-size="15" font-weight="600" fill="#f4f5f0">JSON</text>
+<text class="mono" x="558" y="195" font-size="16" fill="#b8baae" text-anchor="end">141h · 5.6%</text>
+<text class="sans" x="32" y="227" font-size="17" font-weight="600" fill="#f4f5f0">JSON</text>
 <rect x="150" y="216" width="270" height="14" rx="7" fill="#1a1c16"/>
 <rect x="150" y="216" width="8.4" height="14" rx="7" fill="#15803d"/>
-<text class="mono" x="558" y="227" font-size="14" fill="#b8baae" text-anchor="end">38h · 1.5%</text>
-<text class="sans" x="32" y="259" font-size="15" font-weight="600" fill="#f4f5f0">XML</text>
+<text class="mono" x="558" y="227" font-size="16" fill="#b8baae" text-anchor="end">38h · 1.5%</text>
+<text class="sans" x="32" y="259" font-size="17" font-weight="600" fill="#f4f5f0">XML</text>
 <rect x="150" y="248" width="270" height="14" rx="7" fill="#1a1c16"/>
 <rect x="150" y="248" width="6.0" height="14" rx="7" fill="#15803d"/>
-<text class="mono" x="558" y="259" font-size="14" fill="#b8baae" text-anchor="end">24h · 0.9%</text>
+<text class="mono" x="558" y="259" font-size="16" fill="#b8baae" text-anchor="end">24h · 0.9%</text>
 </svg>

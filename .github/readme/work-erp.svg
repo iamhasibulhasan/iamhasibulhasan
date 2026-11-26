@@ -1,12 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="590" height="224" viewBox="0 0 590 224" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" width="590" height="246" viewBox="0 0 590 246" fill="none">
 <style>
   .sans { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Inter, Arial, sans-serif; }
   .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; }
 </style>
 
-<defs><clipPath id="c"><rect width="590" height="224" rx="20"/></clipPath></defs>
+<defs><clipPath id="c"><rect width="590" height="246" rx="20"/></clipPath></defs>
 <g clip-path="url(#c)">
-  <rect width="590" height="224" fill="#131410"/>
+  <rect width="590" height="246" fill="#131410"/>
   
 <defs>
   <radialGradient id="g" cx="0.5" cy="0.5" r="0.5">
@@ -18,17 +18,17 @@
   <animate attributeName="opacity" values="0.7;1;0.7" dur="6s" repeatCount="indefinite"/>
 </circle>
 </g>
-<rect x="0.5" y="0.5" width="589" height="223" rx="19.5" stroke="#252720"/>
-<text class="mono" x="32" y="40" font-size="13" letter-spacing="1.6" fill="#22c55e">ERP · ENTERPRISE</text>
+<rect x="0.5" y="0.5" width="589" height="245" rx="19.5" stroke="#252720"/>
+<text class="mono" x="32" y="40" font-size="15" letter-spacing="1.6" fill="#22c55e">ERP · ENTERPRISE</text>
 <text class="sans" x="32" y="74" font-size="25" font-weight="700" letter-spacing="-0.3" fill="#f4f5f0">Enterprise Resource Planning</text>
-<text class="sans" x="32" y="102" font-size="16" fill="#b8baae">A complete ERP for garments, steel and accessories</text>
-<text class="sans" x="32" y="124" font-size="16" fill="#b8baae">businesses, with a range of analytical reports.</text>
-<rect x="32" y="142" width="101" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
-<text class="mono" x="82.5" y="159" font-size="14" fill="#b8baae" text-anchor="middle">.NET Core</text>
-<rect x="141" y="142" width="127" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
-<text class="mono" x="204.5" y="159" font-size="14" fill="#b8baae" text-anchor="middle">RDLC Reports</text>
-<rect x="276" y="142" width="50" height="26" rx="14" fill="#1a1c16" stroke="#252720"/>
-<text class="mono" x="301" y="159" font-size="14" fill="#b8baae" text-anchor="middle">SQL</text>
-<text class="sans" x="32" y="198" font-size="15" font-weight="600" fill="#4ade80">Read the case study  →</text>
+<text class="sans" x="32" y="104" font-size="18" fill="#b8baae">A complete ERP for garments, steel and accessories</text>
+<text class="sans" x="32" y="129" font-size="18" fill="#b8baae">businesses, with a range of analytical reports.</text>
+<rect x="32" y="150" width="114" height="32" rx="16" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="89" y="171" font-size="16" fill="#b8baae" text-anchor="middle">.NET Core</text>
+<rect x="154" y="150" width="144" height="32" rx="16" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="226" y="171" font-size="16" fill="#b8baae" text-anchor="middle">RDLC Reports</text>
+<rect x="306" y="150" width="55" height="32" rx="16" fill="#1a1c16" stroke="#252720"/>
+<text class="mono" x="333.5" y="171" font-size="16" fill="#b8baae" text-anchor="middle">SQL</text>
+<text class="sans" x="32" y="222" font-size="17" font-weight="600" fill="#4ade80">Read the case study  →</text>
 
 </svg>

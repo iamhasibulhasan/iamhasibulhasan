@@ -13,16 +13,16 @@
 <rect x="0.5" y="0.5" width="1199" height="115" rx="20" fill="#131410" stroke="#252720"/>
 
 <text class="sans" x="150" y="62" font-size="40" font-weight="700" letter-spacing="-1" fill="url(#num)" text-anchor="middle">4.5+</text>
-<text class="mono" x="150" y="90" font-size="14" letter-spacing="1.6" fill="#b8baae" text-anchor="middle">YEARS OF EXPERIENCE</text>
+<text class="mono" x="150" y="90" font-size="16" letter-spacing="1.6" fill="#b8baae" text-anchor="middle">YEARS OF EXPERIENCE</text>
 
 <text class="sans" x="450" y="62" font-size="40" font-weight="700" letter-spacing="-1" fill="url(#num)" text-anchor="middle">4</text>
-<text class="mono" x="450" y="90" font-size="14" letter-spacing="1.6" fill="#b8baae" text-anchor="middle">CASE STUDIES</text>
+<text class="mono" x="450" y="90" font-size="16" letter-spacing="1.6" fill="#b8baae" text-anchor="middle">CASE STUDIES</text>
 <path d="M300 28V88" stroke="#252720"/>
 <text class="sans" x="750" y="62" font-size="40" font-weight="700" letter-spacing="-1" fill="url(#num)" text-anchor="middle">1</text>
-<text class="mono" x="750" y="90" font-size="14" letter-spacing="1.6" fill="#b8baae" text-anchor="middle">LIBRARY ON NUGET</text>
+<text class="mono" x="750" y="90" font-size="16" letter-spacing="1.6" fill="#b8baae" text-anchor="middle">LIBRARY ON NUGET</text>
 <path d="M600 28V88" stroke="#252720"/>
 <text class="sans" x="1050" y="62" font-size="40" font-weight="700" letter-spacing="-1" fill="url(#num)" text-anchor="middle">95.26%</text>
-<text class="mono" x="1050" y="90" font-size="14" letter-spacing="1.6" fill="#b8baae" text-anchor="middle">RESEARCH MODEL ACCURACY</text>
+<text class="mono" x="1050" y="90" font-size="16" letter-spacing="1.6" fill="#b8baae" text-anchor="middle">RESEARCH MODEL ACCURACY</text>
 <path d="M900 28V88" stroke="#252720"/>
 
 </svg>

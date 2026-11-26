@@ -1,91 +1,91 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="234" viewBox="0 0 1200 234" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" fill="none">
 <style>
   .sans { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Inter, Arial, sans-serif; }
   .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; }
 </style>
 
-<rect x="0.5" y="0.5" width="1199" height="233" rx="20" fill="#131410" stroke="#252720"/>
-<text class="mono" x="40" y="41.5" font-size="13" letter-spacing="1.6" fill="#22c55e">BACKEND</text>
+<rect x="0.5" y="0.5" width="1199" height="299" rx="20" fill="#131410" stroke="#252720"/>
+<text class="mono" x="40" y="51" font-size="15" letter-spacing="1.6" fill="#22c55e">BACKEND</text>
 
-<rect x="160" y="22" width="107" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="174" cy="37" r="3" fill="#22c55e"/>
-<text class="mono" x="184" y="41.5" font-size="14" fill="#f4f5f0">.NET Core</text>
-<rect x="275" y="22" width="47" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="289" cy="37" r="3" fill="#22c55e"/>
-<text class="mono" x="299" y="41.5" font-size="14" fill="#f4f5f0">C#</text>
-<rect x="330" y="22" width="90" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="344" cy="37" r="3" fill="#22c55e"/>
-<text class="mono" x="354" y="41.5" font-size="14" fill="#f4f5f0">EF Core</text>
-<rect x="428" y="22" width="141" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="442" cy="37" r="3" fill="#22c55e"/>
-<text class="mono" x="452" y="41.5" font-size="14" fill="#f4f5f0">FastEndpoints</text>
-<rect x="577" y="22" width="132" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="591" cy="37" r="3" fill="#22c55e"/>
-<text class="mono" x="601" y="41.5" font-size="14" fill="#f4f5f0">Minimal APIs</text>
-<rect x="717" y="22" width="64" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="731" cy="37" r="3" fill="#22c55e"/>
-<text class="mono" x="741" y="41.5" font-size="14" fill="#f4f5f0">LINQ</text>
-<text class="mono" x="40" y="81.5" font-size="13" letter-spacing="1.6" fill="#22c55e">ARCHITECTURE</text>
-<path d="M40 57H1160" stroke="#252720" stroke-opacity="0.6"/>
-<rect x="160" y="62" width="183" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="174" cy="77" r="3" fill="#22c55e"/>
-<text class="mono" x="184" y="81.5" font-size="14" fill="#f4f5f0">Clean Architecture</text>
-<rect x="351" y="62" width="141" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="365" cy="77" r="3" fill="#22c55e"/>
-<text class="mono" x="375" y="81.5" font-size="14" fill="#f4f5f0">Microservices</text>
-<rect x="500" y="62" width="107" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="514" cy="77" r="3" fill="#22c55e"/>
-<text class="mono" x="524" y="81.5" font-size="14" fill="#f4f5f0">REST APIs</text>
-<text class="mono" x="40" y="121.5" font-size="13" letter-spacing="1.6" fill="#22c55e">DATA</text>
-<path d="M40 97H1160" stroke="#252720" stroke-opacity="0.6"/>
-<rect x="160" y="102" width="115" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="174" cy="117" r="3" fill="#22c55e"/>
-<text class="mono" x="184" y="121.5" font-size="14" fill="#f4f5f0">SQL Server</text>
-<rect x="283" y="102" width="115" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="297" cy="117" r="3" fill="#22c55e"/>
-<text class="mono" x="307" y="121.5" font-size="14" fill="#f4f5f0">PostgreSQL</text>
-<rect x="406" y="102" width="132" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="420" cy="117" r="3" fill="#22c55e"/>
-<text class="mono" x="430" y="121.5" font-size="14" fill="#f4f5f0">RDLC Reports</text>
-<text class="mono" x="40" y="161.5" font-size="13" letter-spacing="1.6" fill="#22c55e">FRONTEND</text>
-<path d="M40 137H1160" stroke="#252720" stroke-opacity="0.6"/>
-<rect x="160" y="142" width="115" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="174" cy="157" r="3" fill="#22c55e"/>
-<text class="mono" x="184" y="161.5" font-size="14" fill="#f4f5f0">JavaScript</text>
-<rect x="283" y="142" width="115" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="297" cy="157" r="3" fill="#22c55e"/>
-<text class="mono" x="307" y="161.5" font-size="14" fill="#f4f5f0">TypeScript</text>
-<rect x="406" y="142" width="73" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="420" cy="157" r="3" fill="#22c55e"/>
-<text class="mono" x="430" y="161.5" font-size="14" fill="#f4f5f0">React</text>
-<rect x="487" y="142" width="81" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="501" cy="157" r="3" fill="#22c55e"/>
-<text class="mono" x="511" y="161.5" font-size="14" fill="#f4f5f0">jQuery</text>
-<rect x="576" y="142" width="132" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="590" cy="157" r="3" fill="#22c55e"/>
-<text class="mono" x="600" y="161.5" font-size="14" fill="#f4f5f0">Tailwind CSS</text>
-<rect x="716" y="142" width="107" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="730" cy="157" r="3" fill="#22c55e"/>
-<text class="mono" x="740" y="161.5" font-size="14" fill="#f4f5f0">Bootstrap</text>
-<rect x="831" y="142" width="56" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="845" cy="157" r="3" fill="#22c55e"/>
-<text class="mono" x="855" y="161.5" font-size="14" fill="#f4f5f0">MUI</text>
-<text class="mono" x="40" y="201.5" font-size="13" letter-spacing="1.6" fill="#22c55e">TOOLS</text>
-<path d="M40 177H1160" stroke="#252720" stroke-opacity="0.6"/>
-<rect x="160" y="182" width="56" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="174" cy="197" r="3" fill="#22c55e"/>
-<text class="mono" x="184" y="201.5" font-size="14" fill="#f4f5f0">Git</text>
-<rect x="224" y="182" width="81" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="238" cy="197" r="3" fill="#22c55e"/>
-<text class="mono" x="248" y="201.5" font-size="14" fill="#f4f5f0">Docker</text>
-<rect x="313" y="182" width="141" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="327" cy="197" r="3" fill="#22c55e"/>
-<text class="mono" x="337" y="201.5" font-size="14" fill="#f4f5f0">Visual Studio</text>
-<rect x="462" y="182" width="90" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="476" cy="197" r="3" fill="#22c55e"/>
-<text class="mono" x="486" y="201.5" font-size="14" fill="#f4f5f0">VS Code</text>
-<rect x="560" y="182" width="90" height="30" rx="15" fill="#1a1c16" stroke="#252720"/>
-<circle cx="574" cy="197" r="3" fill="#22c55e"/>
-<text class="mono" x="584" y="201.5" font-size="14" fill="#f4f5f0">pgAdmin</text>
+<rect x="200" y="26" width="126" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="218" cy="46" r="4" fill="#22c55e"/>
+<text class="sans" x="230" y="52" font-size="18" font-weight="600" fill="#f4f5f0">.NET Core</text>
+<rect x="336" y="26" width="62" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="354" cy="46" r="4" fill="#22c55e"/>
+<text class="sans" x="366" y="52" font-size="18" font-weight="600" fill="#f4f5f0">C#</text>
+<rect x="408" y="26" width="108" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="426" cy="46" r="4" fill="#22c55e"/>
+<text class="sans" x="438" y="52" font-size="18" font-weight="600" fill="#f4f5f0">EF Core</text>
+<rect x="526" y="26" width="162" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="544" cy="46" r="4" fill="#22c55e"/>
+<text class="sans" x="556" y="52" font-size="18" font-weight="600" fill="#f4f5f0">FastEndpoints</text>
+<rect x="698" y="26" width="153" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="716" cy="46" r="4" fill="#22c55e"/>
+<text class="sans" x="728" y="52" font-size="18" font-weight="600" fill="#f4f5f0">Minimal APIs</text>
+<rect x="861" y="26" width="80" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="879" cy="46" r="4" fill="#22c55e"/>
+<text class="sans" x="891" y="52" font-size="18" font-weight="600" fill="#f4f5f0">LINQ</text>
+<text class="mono" x="40" y="103" font-size="15" letter-spacing="1.6" fill="#22c55e">ARCHITECTURE</text>
+<path d="M40 72H1160" stroke="#252720" stroke-opacity="0.6"/>
+<rect x="200" y="78" width="208" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="218" cy="98" r="4" fill="#22c55e"/>
+<text class="sans" x="230" y="104" font-size="18" font-weight="600" fill="#f4f5f0">Clean Architecture</text>
+<rect x="418" y="78" width="162" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="436" cy="98" r="4" fill="#22c55e"/>
+<text class="sans" x="448" y="104" font-size="18" font-weight="600" fill="#f4f5f0">Microservices</text>
+<rect x="590" y="78" width="126" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="608" cy="98" r="4" fill="#22c55e"/>
+<text class="sans" x="620" y="104" font-size="18" font-weight="600" fill="#f4f5f0">REST APIs</text>
+<text class="mono" x="40" y="155" font-size="15" letter-spacing="1.6" fill="#22c55e">DATA</text>
+<path d="M40 124H1160" stroke="#252720" stroke-opacity="0.6"/>
+<rect x="200" y="130" width="135" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="218" cy="150" r="4" fill="#22c55e"/>
+<text class="sans" x="230" y="156" font-size="18" font-weight="600" fill="#f4f5f0">SQL Server</text>
+<rect x="345" y="130" width="135" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="363" cy="150" r="4" fill="#22c55e"/>
+<text class="sans" x="375" y="156" font-size="18" font-weight="600" fill="#f4f5f0">PostgreSQL</text>
+<rect x="490" y="130" width="153" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="508" cy="150" r="4" fill="#22c55e"/>
+<text class="sans" x="520" y="156" font-size="18" font-weight="600" fill="#f4f5f0">RDLC Reports</text>
+<text class="mono" x="40" y="207" font-size="15" letter-spacing="1.6" fill="#22c55e">FRONTEND</text>
+<path d="M40 176H1160" stroke="#252720" stroke-opacity="0.6"/>
+<rect x="200" y="182" width="135" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="218" cy="202" r="4" fill="#22c55e"/>
+<text class="sans" x="230" y="208" font-size="18" font-weight="600" fill="#f4f5f0">JavaScript</text>
+<rect x="345" y="182" width="135" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="363" cy="202" r="4" fill="#22c55e"/>
+<text class="sans" x="375" y="208" font-size="18" font-weight="600" fill="#f4f5f0">TypeScript</text>
+<rect x="490" y="182" width="90" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="508" cy="202" r="4" fill="#22c55e"/>
+<text class="sans" x="520" y="208" font-size="18" font-weight="600" fill="#f4f5f0">React</text>
+<rect x="590" y="182" width="99" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="608" cy="202" r="4" fill="#22c55e"/>
+<text class="sans" x="620" y="208" font-size="18" font-weight="600" fill="#f4f5f0">jQuery</text>
+<rect x="699" y="182" width="153" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="717" cy="202" r="4" fill="#22c55e"/>
+<text class="sans" x="729" y="208" font-size="18" font-weight="600" fill="#f4f5f0">Tailwind CSS</text>
+<rect x="862" y="182" width="126" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="880" cy="202" r="4" fill="#22c55e"/>
+<text class="sans" x="892" y="208" font-size="18" font-weight="600" fill="#f4f5f0">Bootstrap</text>
+<rect x="998" y="182" width="71" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="1016" cy="202" r="4" fill="#22c55e"/>
+<text class="sans" x="1028" y="208" font-size="18" font-weight="600" fill="#f4f5f0">MUI</text>
+<text class="mono" x="40" y="259" font-size="15" letter-spacing="1.6" fill="#22c55e">TOOLS</text>
+<path d="M40 228H1160" stroke="#252720" stroke-opacity="0.6"/>
+<rect x="200" y="234" width="71" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="218" cy="254" r="4" fill="#22c55e"/>
+<text class="sans" x="230" y="260" font-size="18" font-weight="600" fill="#f4f5f0">Git</text>
+<rect x="281" y="234" width="99" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="299" cy="254" r="4" fill="#22c55e"/>
+<text class="sans" x="311" y="260" font-size="18" font-weight="600" fill="#f4f5f0">Docker</text>
+<rect x="390" y="234" width="162" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="408" cy="254" r="4" fill="#22c55e"/>
+<text class="sans" x="420" y="260" font-size="18" font-weight="600" fill="#f4f5f0">Visual Studio</text>
+<rect x="562" y="234" width="108" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="580" cy="254" r="4" fill="#22c55e"/>
+<text class="sans" x="592" y="260" font-size="18" font-weight="600" fill="#f4f5f0">VS Code</text>
+<rect x="680" y="234" width="108" height="40" rx="20" fill="#1a1c16" stroke="#34372d"/>
+<circle cx="698" cy="254" r="4" fill="#22c55e"/>
+<text class="sans" x="710" y="260" font-size="18" font-weight="600" fill="#f4f5f0">pgAdmin</text>
 
 </svg>

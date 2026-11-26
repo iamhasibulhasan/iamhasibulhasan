@@ -7,8 +7,8 @@
 <rect x="0.5" y="0.5" width="289" height="71" rx="16" fill="#131410" stroke="#252720"/>
 <rect x="14" y="14" width="44" height="44" rx="12" fill="#22c55e" fill-opacity="0.12" stroke="#22c55e" stroke-opacity="0.25"/>
 <g transform="translate(36 36)" stroke="#22c55e" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"><circle cx="0" cy="0" r="9"/><ellipse cx="0" cy="0" rx="4" ry="9"/><path d="M-9 0H9"/></g>
-<text class="mono" x="74" y="31" font-size="13" letter-spacing="1.6" fill="#b8baae">PORTFOLIO</text>
-<text class="sans" x="74" y="53" font-size="16" font-weight="600" fill="#f4f5f0">View my website</text>
+<text class="mono" x="74" y="30" font-size="15" letter-spacing="1.6" fill="#b8baae">PORTFOLIO</text>
+<text class="sans" x="74" y="56" font-size="19" font-weight="600" fill="#f4f5f0">View my website</text>
 <path d="M262 26L270 18M264 18H270V24" stroke="#b8baae" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
 
 </svg>
