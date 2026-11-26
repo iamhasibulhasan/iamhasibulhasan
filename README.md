@@ -1,25 +1,19 @@
 <div align="center">
 
-<a href="https://iamhasibulhasan.vercel.app/"><img src=".github/readme/hero.svg" width="100%" alt="Hasibul Hasan, Software Engineer building scalable backend systems with .NET Core and EF Core. Open to Software Engineer roles."/></a>
+<a href="https://iamhasibulhasan.vercel.app/"><img src=".github/readme/hero.svg" width="100%" alt="Hasibul Hasan, with Solvorn, the guide from his portfolio. Software Engineer building scalable backend systems with .NET Core and EF Core. Open to Software Engineer roles."/></a>
 
-<a href="https://iamhasibulhasan.vercel.app/"><img src=".github/readme/btn-portfolio.svg" alt="View portfolio"/></a>
-<a href="https://iamhasibulhasan.vercel.app/Md_Hasibul_Hasan_CV.pdf"><img src=".github/readme/btn-cv.svg" alt="Download CV"/></a>
-<a href="https://www.linkedin.com/in/iam-hasibulhasan/"><img src=".github/readme/btn-linkedin.svg" alt="LinkedIn"/></a>
-<a href="mailto:mdhasibulhasan.dev@gmail.com"><img src=".github/readme/btn-email.svg" alt="Email me"/></a>
-
-<br><br>
+<a href="https://iamhasibulhasan.vercel.app/"><img src=".github/readme/link-portfolio.svg" width="24.4%" alt="Portfolio: view my website"/></a>
+<a href="https://iamhasibulhasan.vercel.app/Md_Hasibul_Hasan_CV.pdf"><img src=".github/readme/link-cv.svg" width="24.4%" alt="Resume: download CV"/></a>
+<a href="https://www.linkedin.com/in/iam-hasibulhasan/"><img src=".github/readme/link-linkedin.svg" width="24.4%" alt="LinkedIn: connect with me"/></a>
+<a href="mailto:mdhasibulhasan.dev@gmail.com"><img src=".github/readme/link-email.svg" width="24.4%" alt="Email: send a message"/></a>
 
 <img src=".github/readme/stats.svg" width="100%" alt="4.5+ years of experience, 4 case studies, 1 library on NuGet, 95.26% research model accuracy"/>
 
 </div>
 
-<br>
-
 <img src=".github/readme/section-about.svg" width="100%" alt="About"/>
 
 <img src=".github/readme/about.svg" width="100%" alt="Software Engineer with 4.5+ years of experience building scalable software, specialised in .NET Core and Entity Framework Core. Role: Software Engineer building backend systems with .NET Core. Open source: PatronusR on NuGet. Research: bone cancer diagnosis with Capsule Networks. Learning: gRPC in .NET."/>
-
-<br><br>
 
 <img src=".github/readme/section-work.svg" width="100%" alt="Featured work"/>
 
@@ -36,15 +30,9 @@
 <a href="https://iamhasibulhasan.vercel.app/"><img src=".github/readme/work-research.svg" width="49%" alt="Research: bone cancer diagnosis with Capsule Networks, 95.26% accuracy"/></a>
 </p>
 
-<br>
-
 <img src=".github/readme/section-stack.svg" width="100%" alt="Tech stack"/>
 
-<br>
-
 <img src=".github/readme/stack.svg" width="100%" alt="Backend: .NET Core, C#, EF Core, FastEndpoints, Minimal APIs, LINQ. Architecture: Clean Architecture, Microservices, REST APIs. Data: SQL Server, PostgreSQL, RDLC Reports. Frontend: JavaScript, TypeScript, React, jQuery, Tailwind CSS, Bootstrap, MUI. Tools: Git, Docker, Visual Studio, VS Code, pgAdmin."/>
-
-<br>
 
 <img src=".github/readme/section-activity.svg" width="100%" alt="GitHub activity"/>
 
@@ -63,8 +51,6 @@
 </div>
 </details>
 
-<br>
-
 <img src=".github/readme/section-wakatime.svg" width="100%" alt="Coding time, tracked by WakaTime"/>
 
 <p align="right"><a href="https://wakatime.com/@iamhasibulhasan"><img src="https://img.shields.io/badge/Tracked_with-WakaTime-131410?style=flat&logo=wakatime&logoColor=22c55e&labelColor=131410&color=22c55e" alt="Tracked with WakaTime"/></a></p>
@@ -77,8 +63,6 @@
 </p>
 
 <a href="https://wakatime.com/@iamhasibulhasan"><img src=".github/readme/wakatime-activity.svg" width="100%" alt="WakaTime: coding, debugging, building and AI coding share of time"/></a>
-
-<br><br>
 
 <a href="mailto:mdhasibulhasan.dev@gmail.com"><img src=".github/readme/footer.svg" width="100%" alt="Have a role or a project in mind? Email mdhasibulhasan.dev@gmail.com"/></a>
 

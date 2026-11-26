@@ -1,12 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="590" height="340" viewBox="0 0 590 340" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" width="590" height="286" viewBox="0 0 590 286" fill="none">
 <style>
   .sans { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Inter, Arial, sans-serif; }
   .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, 'Liberation Mono', monospace; }
 </style>
 
-<defs><clipPath id="we-c"><rect width="590" height="340" rx="20"/></clipPath></defs>
+<defs><clipPath id="we-c"><rect width="590" height="286" rx="20"/></clipPath></defs>
 <g clip-path="url(#we-c)">
-  <rect width="590" height="340" fill="#131410"/>
+  <rect width="590" height="286" fill="#131410"/>
   
 <defs>
   <radialGradient id="we-g" cx="0.5" cy="0.5" r="0.5">
@@ -18,36 +18,36 @@
   <animate attributeName="opacity" values="0.7;1;0.7" dur="6s" repeatCount="indefinite"/>
 </circle>
 </g>
-<rect x="0.5" y="0.5" width="589" height="339" rx="19.5" stroke="#252720"/>
-<text class="mono" x="32" y="44" font-size="12" letter-spacing="1.6" fill="#22c55e">EDITORS</text>
-<text class="sans" x="32" y="70" font-size="14" fill="#9b9d90">Where the code gets written</text>
-<circle cx="150" cy="205" r="74" stroke="#1a1c16" stroke-width="22" fill="none"/>
-<circle cx="150" cy="205" r="74" stroke="#22c55e" stroke-width="22" fill="none"
-  stroke-dasharray="307.17 157.78" stroke-dashoffset="0.00" transform="rotate(-90 150 205)"/>
-<circle cx="150" cy="205" r="74" stroke="#4ade80" stroke-width="22" fill="none"
-  stroke-dasharray="69.39 395.56" stroke-dashoffset="-310.17" transform="rotate(-90 150 205)"/>
-<circle cx="150" cy="205" r="74" stroke="#86efac" stroke-width="22" fill="none"
-  stroke-dasharray="64.79 400.17" stroke-dashoffset="-382.57" transform="rotate(-90 150 205)"/>
-<circle cx="150" cy="205" r="74" stroke="#bef264" stroke-width="22" fill="none"
-  stroke-dasharray="8.07 456.89" stroke-dashoffset="-450.36" transform="rotate(-90 150 205)"/>
-<circle cx="150" cy="205" r="74" stroke="#5b5e52" stroke-width="22" fill="none"
-  stroke-dasharray="0.53 464.42" stroke-dashoffset="-461.42" transform="rotate(-90 150 205)"/>
-<text class="sans" x="150" y="209" font-size="26" font-weight="700" fill="#f4f5f0" text-anchor="middle">67%</text>
-<text class="mono" x="150" y="229" font-size="10" letter-spacing="1.2" fill="#9b9d90" text-anchor="middle">VISUAL STUDIO</text>
+<rect x="0.5" y="0.5" width="589" height="285" rx="19.5" stroke="#252720"/>
+<text class="mono" x="32" y="38" font-size="12" letter-spacing="1.6" fill="#22c55e">EDITORS</text>
+<text class="sans" x="32" y="60" font-size="14" fill="#9b9d90">Where the code gets written</text>
+<circle cx="150" cy="170" r="70" stroke="#1a1c16" stroke-width="22" fill="none"/>
+<circle cx="150" cy="170" r="70" stroke="#22c55e" stroke-width="22" fill="none"
+  stroke-dasharray="290.41 149.42" stroke-dashoffset="0.00" transform="rotate(-90 150 170)"/>
+<circle cx="150" cy="170" r="70" stroke="#4ade80" stroke-width="22" fill="none"
+  stroke-dasharray="65.48 374.34" stroke-dashoffset="-293.41" transform="rotate(-90 150 170)"/>
+<circle cx="150" cy="170" r="70" stroke="#86efac" stroke-width="22" fill="none"
+  stroke-dasharray="61.13 378.70" stroke-dashoffset="-361.89" transform="rotate(-90 150 170)"/>
+<circle cx="150" cy="170" r="70" stroke="#bef264" stroke-width="22" fill="none"
+  stroke-dasharray="7.47 432.36" stroke-dashoffset="-426.01" transform="rotate(-90 150 170)"/>
+<circle cx="150" cy="170" r="70" stroke="#5b5e52" stroke-width="22" fill="none"
+  stroke-dasharray="0.34 439.48" stroke-dashoffset="-436.48" transform="rotate(-90 150 170)"/>
+<text class="sans" x="150" y="174" font-size="26" font-weight="700" fill="#f4f5f0" text-anchor="middle">67%</text>
+<text class="mono" x="150" y="194" font-size="10" letter-spacing="1.2" fill="#9b9d90" text-anchor="middle">VISUAL STUDIO</text>
 
-<rect x="300" y="128" width="12" height="12" rx="3" fill="#22c55e"/>
-<text class="sans" x="322" y="139" font-size="15" font-weight="600" fill="#f4f5f0">Visual Studio</text>
-<text class="mono" x="558" y="139" font-size="12" fill="#9b9d90" text-anchor="end">67%</text>
-<rect x="300" y="168" width="12" height="12" rx="3" fill="#4ade80"/>
-<text class="sans" x="322" y="179" font-size="15" font-weight="600" fill="#f4f5f0">VS Code</text>
-<text class="mono" x="558" y="179" font-size="12" fill="#9b9d90" text-anchor="end">16%</text>
-<rect x="300" y="208" width="12" height="12" rx="3" fill="#86efac"/>
-<text class="sans" x="322" y="219" font-size="15" font-weight="600" fill="#f4f5f0">DataGrip</text>
-<text class="mono" x="558" y="219" font-size="12" fill="#9b9d90" text-anchor="end">15%</text>
-<rect x="300" y="248" width="12" height="12" rx="3" fill="#bef264"/>
-<text class="sans" x="322" y="259" font-size="15" font-weight="600" fill="#f4f5f0">Claude Code</text>
-<text class="mono" x="558" y="259" font-size="12" fill="#9b9d90" text-anchor="end">2.4%</text>
-<rect x="300" y="288" width="12" height="12" rx="3" fill="#5b5e52"/>
-<text class="sans" x="322" y="299" font-size="15" font-weight="600" fill="#f4f5f0">Other</text>
-<text class="mono" x="558" y="299" font-size="12" fill="#9b9d90" text-anchor="end">0.8%</text>
+<rect x="300" y="100" width="12" height="12" rx="3" fill="#22c55e"/>
+<text class="sans" x="322" y="111" font-size="15" font-weight="600" fill="#f4f5f0">Visual Studio</text>
+<text class="mono" x="558" y="111" font-size="12" fill="#9b9d90" text-anchor="end">67%</text>
+<rect x="300" y="134" width="12" height="12" rx="3" fill="#4ade80"/>
+<text class="sans" x="322" y="145" font-size="15" font-weight="600" fill="#f4f5f0">VS Code</text>
+<text class="mono" x="558" y="145" font-size="12" fill="#9b9d90" text-anchor="end">16%</text>
+<rect x="300" y="168" width="12" height="12" rx="3" fill="#86efac"/>
+<text class="sans" x="322" y="179" font-size="15" font-weight="600" fill="#f4f5f0">DataGrip</text>
+<text class="mono" x="558" y="179" font-size="12" fill="#9b9d90" text-anchor="end">15%</text>
+<rect x="300" y="202" width="12" height="12" rx="3" fill="#bef264"/>
+<text class="sans" x="322" y="213" font-size="15" font-weight="600" fill="#f4f5f0">Claude Code</text>
+<text class="mono" x="558" y="213" font-size="12" fill="#9b9d90" text-anchor="end">2.4%</text>
+<rect x="300" y="236" width="12" height="12" rx="3" fill="#5b5e52"/>
+<text class="sans" x="322" y="247" font-size="15" font-weight="600" fill="#f4f5f0">Other</text>
+<text class="mono" x="558" y="247" font-size="12" fill="#9b9d90" text-anchor="end">0.8%</text>
 </svg>

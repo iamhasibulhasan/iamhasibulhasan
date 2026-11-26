@@ -1,7 +1,7 @@
 // Builds the images used by the profile README (README.md at the repo root).
 // Run from the repo root: node .github/readme/build.mjs
 // Colours and type follow the portfolio's dark theme.
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -66,9 +66,19 @@ function glow(id, cx, cy, r, opacity = 0.28) {
 </circle>`;
 }
 
+/** Solvorn as the site draws it (captured from the running site), at a given spot and size. */
+function solvorn(x, y, size) {
+  return readFileSync(join(OUT, "solvorn-source.svg"), "utf8")
+    .replace(/^<svg[^>]*viewBox="([^"]+)"[^>]*>/, `<svg x="${x}" y="${y}" width="${size}" height="${size}" viewBox="$1" overflow="visible">`);
+}
+const BLINK = `
+  [data-part="left"], [data-part="right"] { transform-box: fill-box; transform-origin: center; animation: blink 5s infinite; }
+  @keyframes blink { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(0.12); } }
+`;
+
 /* ---------- Hero ---------- */
 {
-  const W = 1200, H = 420;
+  const W = 1200, H = 340;
   const code = [
     [["kw", "var "], ["fg", "engineer "], ["mu", "= "], ["kw", "new "], ["ty", "Engineer"]],
     [["mu", "{"]],
@@ -80,7 +90,7 @@ function glow(id, cx, cy, r, opacity = 0.28) {
   ];
   const colour = { kw: C.green, ty: C.pale, st: C.lime, fg: C.fg, mu: C.muted };
   const codeLines = code
-    .map((parts, i) => `<text class="mono" x="784" y="${142 + i * 27}" font-size="14" xml:space="preserve">${parts
+    .map((parts, i) => `<text class="mono" x="784" y="${112 + i * 24}" font-size="14" xml:space="preserve">${parts
       .map(([k, t]) => `<tspan fill="${colour[k]}">${esc(t)}</tspan>`)
       .join("")}</text>`)
     .join("\n");
@@ -102,65 +112,80 @@ function glow(id, cx, cy, r, opacity = 0.28) {
 <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="23.5" stroke="${C.border}"/>
 
 <!-- status pill -->
-<rect x="72" y="64" width="318" height="34" rx="17" fill="${C.green}" fill-opacity="0.08" stroke="${C.green}" stroke-opacity="0.35"/>
-<circle cx="94" cy="81" r="9" fill="${C.green}" opacity="0.25">
+<rect x="72" y="44" width="318" height="34" rx="17" fill="${C.green}" fill-opacity="0.08" stroke="${C.green}" stroke-opacity="0.35"/>
+<circle cx="94" cy="61" r="9" fill="${C.green}" opacity="0.25">
   <animate attributeName="r" values="4;10;4" dur="2s" repeatCount="indefinite"/>
   <animate attributeName="opacity" values="0.5;0;0.5" dur="2s" repeatCount="indefinite"/>
 </circle>
-<circle cx="94" cy="81" r="4" fill="${C.green}"/>
-<text class="mono" x="110" y="86" font-size="13" letter-spacing="1.6" fill="${C.light}">OPEN TO SOFTWARE ENGINEER ROLES</text>
+<circle cx="94" cy="61" r="4" fill="${C.green}"/>
+<text class="mono" x="110" y="66" font-size="13" letter-spacing="1.6" fill="${C.light}">OPEN TO SOFTWARE ENGINEER ROLES</text>
 
 <!-- name -->
-<text class="sans" x="68" y="196" font-size="78" font-weight="700" letter-spacing="-2" fill="${C.fg}">Hasibul <tspan fill="url(#name)">Hasan</tspan></text>
+<text class="sans" x="68" y="160" font-size="74" font-weight="700" letter-spacing="-2" fill="${C.fg}">Hasibul <tspan fill="url(#name)">Hasan</tspan></text>
+
+<!-- Solvorn, the portfolio's guide, floating beside the name -->
+<g>
+  <animateTransform attributeName="transform" type="translate" values="0 0;0 -6;0 0" dur="3.2s" repeatCount="indefinite"/>
+  ${solvorn(560, 88, 92)}
+</g>
 
 <!-- tagline -->
-<text class="sans" x="72" y="250" font-size="24" fill="${C.muted}">Software Engineer building scalable backend</text>
-<text class="sans" x="72" y="284" font-size="24" fill="${C.muted}">systems with <tspan fill="${C.fg}" font-weight="600">.NET Core</tspan> and <tspan fill="${C.fg}" font-weight="600">EF Core</tspan>.</text>
+<text class="sans" x="72" y="208" font-size="23" fill="${C.muted}">Software Engineer building scalable backend</text>
+<text class="sans" x="72" y="240" font-size="23" fill="${C.muted}">systems with <tspan fill="${C.fg}" font-weight="600">.NET Core</tspan> and <tspan fill="${C.fg}" font-weight="600">EF Core</tspan>.</text>
 
 <!-- meta -->
 <g class="mono" font-size="13" letter-spacing="1.4" fill="${C.muted}">
-  <text x="72" y="356">DHAKA, BANGLADESH</text>
-  <text x="250" y="356" fill="${C.border}">/</text>
-  <text x="272" y="356">SOFTWARE ENGINEER</text>
-  <text x="434" y="356" fill="${C.border}">/</text>
-  <text x="456" y="356" fill="${C.light}">4.5+ YEARS</text>
+  <text x="72" y="290">DHAKA, BANGLADESH</text>
+  <text x="250" y="290" fill="${C.border}">/</text>
+  <text x="272" y="290">SOFTWARE ENGINEER</text>
+  <text x="434" y="290" fill="${C.border}">/</text>
+  <text x="456" y="290" fill="${C.light}">4.5+ YEARS</text>
 </g>
 
 <!-- code window -->
 <g>
   <animateTransform attributeName="transform" type="translate" values="0 0;0 -6;0 0" dur="7s" repeatCount="indefinite"/>
-  <rect x="752" y="64" width="384" height="292" rx="16" fill="${C.card}" stroke="${C.border}"/>
-  <path d="M752 104H1136" stroke="${C.border}"/>
-  <circle cx="776" cy="84" r="5.5" fill="#3a3d33"/>
-  <circle cx="796" cy="84" r="5.5" fill="#3a3d33"/>
-  <circle cx="816" cy="84" r="5.5" fill="${C.green}"/>
-  <text class="mono" x="1112" y="88" font-size="12" fill="${C.muted}" text-anchor="end">Engineer.cs</text>
+  <rect x="752" y="44" width="384" height="252" rx="16" fill="${C.card}" stroke="${C.border}"/>
+  <path d="M752 82H1136" stroke="${C.border}"/>
+  <circle cx="776" cy="63" r="5.5" fill="#3a3d33"/>
+  <circle cx="796" cy="63" r="5.5" fill="#3a3d33"/>
+  <circle cx="816" cy="63" r="5.5" fill="${C.green}"/>
+  <text class="mono" x="1112" y="67" font-size="12" fill="${C.muted}" text-anchor="end">Engineer.cs</text>
   ${codeLines}
-  <rect x="806" y="${142 + 6 * 27 + 6}" width="8" height="2" fill="${C.green}">
+  <rect x="806" y="${112 + 6 * 24 + 6}" width="8" height="2" fill="${C.green}">
     <animate attributeName="opacity" values="1;0;1" dur="1.1s" repeatCount="indefinite"/>
   </rect>
 </g>
-`);
+`, BLINK);
 }
 
-/* ---------- Buttons ---------- */
-// Small pills, sized to their label.
-function button(name, label, primary) {
-  const h = 34;
-  const w = Math.round(label.length * 7.6 + 36);
-  svg(name, w, h, `
-<rect x="0.5" y="0.5" width="${w - 1}" height="${h - 1}" rx="${(h - 1) / 2}" fill="${primary ? C.green : C.card}" stroke="${primary ? C.green : "#2f3229"}"/>
-<text class="sans" x="${w / 2}" y="22" font-size="13" font-weight="600" fill="${primary ? C.bg : C.fg}" text-anchor="middle">${esc(label)}</text>
+/* ---------- Contact links ---------- */
+// Small cards like the portfolio's contact section: icon tile, label, value.
+const ICONS = {
+  globe: `<circle cx="0" cy="0" r="9"/><ellipse cx="0" cy="0" rx="4" ry="9"/><path d="M-9 0H9"/>`,
+  file: `<path d="M-6 -9H3L7 -5V9H-6Z"/><path d="M3 -9V-5H7"/><path d="M0.5 -2V5M-2.5 2L0.5 5L3.5 2"/>`,
+  linkedin: `<rect x="-9" y="-9" width="18" height="18" rx="3"/><path d="M-4.5 -1.5V5M-4.5 -4.6V-4.4M-0.5 5V-1.5M-0.5 1.5C-0.5 -0.5 4.5 -1.5 4.5 1.5V5"/>`,
+  mail: `<rect x="-9" y="-6.5" width="18" height="13" rx="2"/><path d="M-8 -5.5L0 1L8 -5.5"/>`,
+};
+function link(name, icon, label, value) {
+  const W = 290, H = 72;
+  svg(name, W, H, `
+<rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="16" fill="${C.card}" stroke="${C.border}"/>
+<rect x="14" y="14" width="44" height="44" rx="12" fill="${C.green}" fill-opacity="0.12" stroke="${C.green}" stroke-opacity="0.25"/>
+<g transform="translate(36 36)" stroke="${C.green}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none">${ICONS[icon]}</g>
+<text class="mono" x="74" y="31" font-size="11" letter-spacing="1.6" fill="${C.muted}">${esc(label)}</text>
+<text class="sans" x="74" y="53" font-size="16" font-weight="600" fill="${C.fg}">${esc(value)}</text>
+<path d="M${W - 28} 26L${W - 20} 18M${W - 26} 18H${W - 20}V24" stroke="${C.muted}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
 `);
 }
-button("btn-portfolio.svg", "Portfolio ↗", true);
-button("btn-cv.svg", "Download CV ↓", false);
-button("btn-linkedin.svg", "LinkedIn ↗", false);
-button("btn-email.svg", "Email me →", false);
+link("link-portfolio.svg", "globe", "PORTFOLIO", "View my website");
+link("link-cv.svg", "file", "RESUME", "Download CV");
+link("link-linkedin.svg", "linkedin", "LINKEDIN", "Connect with me");
+link("link-email.svg", "mail", "EMAIL", "Send a message");
 
 /* ---------- Stats strip ---------- */
 {
-  const W = 1200, H = 150;
+  const W = 1200, H = 116;
   const stats = [
     ["4.5+", "YEARS OF EXPERIENCE"],
     ["4", "CASE STUDIES"],
@@ -178,41 +203,53 @@ button("btn-email.svg", "Email me →", false);
 <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="20" fill="${C.card}" stroke="${C.border}"/>
 ${stats
   .map(([n, l], i) => `
-<text class="sans" x="${cell * i + cell / 2}" y="78" font-size="46" font-weight="700" letter-spacing="-1" fill="url(#num)" text-anchor="middle">${esc(n)}</text>
-<text class="mono" x="${cell * i + cell / 2}" y="110" font-size="12" letter-spacing="1.6" fill="${C.muted}" text-anchor="middle">${esc(l)}</text>
-${i ? `<path d="M${cell * i} 36V114" stroke="${C.border}"/>` : ""}`)
+<text class="sans" x="${cell * i + cell / 2}" y="62" font-size="40" font-weight="700" letter-spacing="-1" fill="url(#num)" text-anchor="middle">${esc(n)}</text>
+<text class="mono" x="${cell * i + cell / 2}" y="90" font-size="12" letter-spacing="1.6" fill="${C.muted}" text-anchor="middle">${esc(l)}</text>
+${i ? `<path d="M${cell * i} 28V88" stroke="${C.border}"/>` : ""}`)
   .join("")}
 `);
 }
 
 /* ---------- Section headers ---------- */
-// Title text follows the viewer's colour scheme so it reads on GitHub's light and dark themes.
-function section(name, number, label, title) {
-  const W = 1200, H = 84;
+// Solvorn visits every section, as he does on the site: he sits at the right
+// end of each header with a short tip. Headers are dark panels like the cards,
+// so the README reads as one dark column on GitHub's light theme too.
+function section(name, number, label, title, tip, beat = 3.2) {
+  const W = 1200, H = 76;
+  const AV = 58, AX = W - AV - 18, AY = 9;
+  const bw = Math.round(tip.length * 7.3 + 36);
+  const bx = AX - 14 - bw, by = 20, bh = 36;
   svg(name, W, H, `
-<defs>
-  <linearGradient id="rule" x1="0" y1="0" x2="1" y2="0">
-    <stop offset="0" stop-color="${C.green}" stop-opacity="0.7"/>
-    <stop offset="1" stop-color="${C.green}" stop-opacity="0"/>
-  </linearGradient>
-</defs>
-<text class="mono" x="2" y="22" font-size="13" letter-spacing="1.8" fill="${C.green}">${number} / ${esc(label)}</text>
-<text class="sans title" x="0" y="64" font-size="34" font-weight="700" letter-spacing="-0.5">${esc(title)}</text>
-<rect x="0" y="80" width="${W}" height="2" fill="url(#rule)"/>
-`, `
-  .title { fill: ${C.fg}; }
-  @media (prefers-color-scheme: light) { .title { fill: #111310; } }
-`);
+<defs><clipPath id="sec-c"><rect width="${W}" height="${H}" rx="18"/></clipPath></defs>
+<g clip-path="url(#sec-c)">
+  <rect width="${W}" height="${H}" fill="${C.bg}"/>
+  ${glow("sec-g", 0, H / 2, 220, 0.16)}
+  <rect x="0" y="18" width="4" height="${H - 36}" rx="2" fill="${C.green}"/>
+</g>
+<rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="17.5" stroke="${C.border}"/>
+<text class="mono" x="28" y="28" font-size="12" letter-spacing="1.8" fill="${C.green}">${number} / ${esc(label)}</text>
+<text class="sans" x="26" y="58" font-size="26" font-weight="700" letter-spacing="-0.5" fill="${C.fg}">${esc(title)}</text>
+
+<!-- Solvorn's tip -->
+<g>
+  <path d="M${bx + 12} ${by}H${bx + bw - 12}Q${bx + bw} ${by} ${bx + bw} ${by + 12}V${by + 12}L${bx + bw + 10} ${by + bh / 2}L${bx + bw} ${by + bh - 12}Q${bx + bw} ${by + bh} ${bx + bw - 12} ${by + bh}H${bx + 12}Q${bx} ${by + bh} ${bx} ${by + bh - 12}V${by + 12}Q${bx} ${by} ${bx + 12} ${by}Z" fill="${C.raised}" stroke="${C.border}"/>
+  <text class="sans" x="${bx + 18}" y="${by + 23}" font-size="14" fill="${C.fg}">${esc(tip)}</text>
+</g>
+<g>
+  <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="${beat}s" repeatCount="indefinite"/>
+  <g transform="translate(${AX + AV} ${AY}) scale(-1 1)">${solvorn(0, 0, AV)}</g>
+</g>
+`, BLINK);
 }
-section("section-about.svg", "01", "ABOUT", "A bit about me");
-section("section-work.svg", "02", "WORK", "Featured work");
-section("section-stack.svg", "03", "STACK", "What I build with");
-section("section-activity.svg", "04", "ACTIVITY", "On GitHub");
-section("section-wakatime.svg", "05", "CODE TIME", "Where my hours go");
+section("section-about.svg", "01", "ABOUT", "A bit about me", "Short version: .NET backends, 4.5+ years, one published paper.", 3.2);
+section("section-work.svg", "02", "WORK", "Featured work", "Click any card to read the full case study.", 3.5);
+section("section-stack.svg", "03", "STACK", "What I build with", "Backend first: .NET Core and EF Core do the heavy lifting.", 3.0);
+section("section-activity.svg", "04", "ACTIVITY", "On GitHub", "Live numbers, fresh from GitHub every visit.", 3.4);
+section("section-wakatime.svg", "05", "CODE TIME", "Where my hours go", "Tracked by WakaTime. C# wins by a mile.", 3.1);
 
 /* ---------- About card ---------- */
 {
-  const W = 1200, H = 330;
+  const W = 1200, H = 272;
   const intro = [
     "Software Engineer with 4.5+ years of experience",
     "building scalable software. I specialise in",
@@ -233,16 +270,16 @@ section("section-wakatime.svg", "05", "CODE TIME", "Where my hours go");
   ${glow("about-glow", 0, 0, 300, 0.14)}
 </g>
 <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="19.5" stroke="${C.border}"/>
-${intro.map((line, i) => `<text class="sans" x="48" y="${80 + i * 34}" font-size="21" fill="${i < 3 ? C.fg : C.muted}">${esc(line)}</text>`).join("\n")}
-<path d="M620 40V290" stroke="${C.border}"/>
+${intro.map((line, i) => `<text class="sans" x="48" y="${70 + i * 33}" font-size="21" fill="${i < 3 ? C.fg : C.muted}">${esc(line)}</text>`).join("\n")}
+<path d="M620 32V240" stroke="${C.border}"/>
 ${facts
   .map(([k, a, b], i) => {
-    const y = 64 + i * 64;
+    const y = 48 + i * 56;
     return `
 <rect x="660" y="${y - 12}" width="8" height="8" rx="2" fill="${C.green}"/>
 <text class="mono" x="682" y="${y - 4}" font-size="11" letter-spacing="1.6" fill="${C.green}">${k}</text>
-<text class="sans" x="682" y="${y + 20}" font-size="18" font-weight="600" fill="${C.fg}">${esc(a)}</text>
-<text class="sans" x="682" y="${y + 42}" font-size="15" fill="${C.muted}">${esc(b)}</text>`;
+<text class="sans" x="682" y="${y + 18}" font-size="17" font-weight="600" fill="${C.fg}">${esc(a)}</text>
+<text class="sans" x="682" y="${y + 37}" font-size="14" fill="${C.muted}">${esc(b)}</text>`;
   })
   .join("")}
 `);
@@ -250,13 +287,13 @@ ${facts
 
 /* ---------- Project cards ---------- */
 function card(name, { label, title, lines, tags, link }) {
-  const W = 590, H = 270;
+  const W = 590, H = 224;
   let x = 32;
   const pills = tags
     .map((t) => {
       const w = Math.round(t.length * 7.3 + 24);
-      const out = `<rect x="${x}" y="186" width="${w}" height="28" rx="14" fill="${C.raised}" stroke="${C.border}"/>
-<text class="mono" x="${x + w / 2}" y="204" font-size="12" fill="${C.muted}" text-anchor="middle">${esc(t)}</text>`;
+      const out = `<rect x="${x}" y="142" width="${w}" height="26" rx="14" fill="${C.raised}" stroke="${C.border}"/>
+<text class="mono" x="${x + w / 2}" y="159" font-size="12" fill="${C.muted}" text-anchor="middle">${esc(t)}</text>`;
       x += w + 8;
       return out;
     })
@@ -268,11 +305,11 @@ function card(name, { label, title, lines, tags, link }) {
   ${glow("g", W, 0, 220, 0.16)}
 </g>
 <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="19.5" stroke="${C.border}"/>
-<text class="mono" x="32" y="46" font-size="12" letter-spacing="1.6" fill="${C.green}">${esc(label)}</text>
-<text class="sans" x="32" y="88" font-size="26" font-weight="700" letter-spacing="-0.3" fill="${C.fg}">${esc(title)}</text>
-${lines.map((l, i) => `<text class="sans" x="32" y="${124 + i * 25}" font-size="16" fill="${C.muted}">${esc(l)}</text>`).join("\n")}
+<text class="mono" x="32" y="40" font-size="12" letter-spacing="1.6" fill="${C.green}">${esc(label)}</text>
+<text class="sans" x="32" y="74" font-size="25" font-weight="700" letter-spacing="-0.3" fill="${C.fg}">${esc(title)}</text>
+${lines.map((l, i) => `<text class="sans" x="32" y="${102 + i * 22}" font-size="15" fill="${C.muted}">${esc(l)}</text>`).join("\n")}
 ${pills}
-<text class="sans" x="32" y="246" font-size="15" font-weight="600" fill="${C.light}">${esc(link)}</text>
+<text class="sans" x="32" y="198" font-size="14" font-weight="600" fill="${C.light}">${esc(link)}</text>
 `);
 }
 
@@ -329,12 +366,12 @@ card("work-research.svg", {
     ["FRONTEND", ["JavaScript", "TypeScript", "React", "jQuery", "Tailwind CSS", "Bootstrap", "MUI"]],
     ["TOOLS", ["Git", "Docker", "Visual Studio", "VS Code", "pgAdmin"]],
   ];
-  const ROW = 46, TOP = 28;
-  const H = TOP * 2 + groups.length * ROW - 14;
+  const ROW = 40, TOP = 22;
+  const H = TOP * 2 + groups.length * ROW - 10;
   const rows = groups
     .map(([label, items], r) => {
       const y = TOP + r * ROW;
-      let x = 200;
+      let x = 160;
       const chips = items
         .map((t) => {
           const w = Math.round(t.length * 7.4 + 30);
@@ -346,7 +383,7 @@ card("work-research.svg", {
         })
         .join("\n");
       return `<text class="mono" x="40" y="${y + 19.5}" font-size="11" letter-spacing="1.6" fill="${C.green}">${label}</text>
-${r ? `<path d="M40 ${y - 8}H${W - 40}" stroke="${C.border}" stroke-opacity="0.6"/>` : ""}
+${r ? `<path d="M40 ${y - 5}H${W - 40}" stroke="${C.border}" stroke-opacity="0.6"/>` : ""}
 ${chips}`;
     })
     .join("\n");
@@ -358,20 +395,26 @@ ${rows}
 
 /* ---------- Footer ---------- */
 {
-  const W = 1200, H = 260;
+  const W = 1200, H = 190;
   svg("footer.svg", W, H, `
 <defs><clipPath id="f"><rect width="${W}" height="${H}" rx="24"/></clipPath></defs>
 <g clip-path="url(#f)">
   <rect width="${W}" height="${H}" fill="${C.bg}"/>
   ${grid("foot", W, H, 0.5, 1)}
-  ${glow("foot-glow", 600, 300, 380, 0.3)}
+  ${glow("foot-glow", 600, 230, 340, 0.3)}
 </g>
 <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="23.5" stroke="${C.border}"/>
-<text class="mono" x="600" y="70" font-size="13" letter-spacing="2" fill="${C.green}" text-anchor="middle">06 / LET'S TALK</text>
-<text class="sans" x="600" y="128" font-size="44" font-weight="700" letter-spacing="-1" fill="${C.fg}" text-anchor="middle">Have a role or a project in mind?</text>
-<text class="sans" x="600" y="168" font-size="20" fill="${C.muted}" text-anchor="middle">I'm open to Software Engineer roles building .NET services, APIs and enterprise systems.</text>
-<text class="mono" x="600" y="214" font-size="16" fill="${C.light}" text-anchor="middle">mdhasibulhasan.dev@gmail.com  →</text>
-`);
+<text class="mono" x="600" y="44" font-size="12" letter-spacing="2" fill="${C.green}" text-anchor="middle">06 / LET'S TALK</text>
+<text class="sans" x="600" y="92" font-size="38" font-weight="700" letter-spacing="-1" fill="${C.fg}" text-anchor="middle">Have a role or a project in mind?</text>
+<text class="sans" x="600" y="126" font-size="18" fill="${C.muted}" text-anchor="middle">I'm open to Software Engineer roles building .NET services, APIs and enterprise systems.</text>
+<text class="mono" x="600" y="162" font-size="15" fill="${C.light}" text-anchor="middle">mdhasibulhasan.dev@gmail.com  →</text>
+<path d="M1004 26H1150Q1162 26 1162 38V50Q1162 62 1150 62H1112L1102 72L1092 62H1004Q992 62 992 50V38Q992 26 1004 26Z" fill="${C.card}" stroke="${C.border}"/>
+<text class="sans" x="1077" y="49" font-size="14" fill="${C.fg}" text-anchor="middle">Thanks for visiting!</text>
+<g>
+  <animateTransform attributeName="transform" type="rotate" values="-5 1102 160;5 1102 160;-5 1102 160" dur="2.4s" repeatCount="indefinite"/>
+  <g transform="translate(1144 78) scale(-1 1)">${solvorn(0, 0, 84)}</g>
+</g>
+`, BLINK);
 }
 
 /* ---------- WakaTime graphs ---------- */
@@ -393,8 +436,8 @@ function frame(W, H, label, subtitle, id) {
   ${glow(`${id}-g`, W, 0, 240, 0.14)}
 </g>
 <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="19.5" stroke="${C.border}"/>
-<text class="mono" x="32" y="44" font-size="12" letter-spacing="1.6" fill="${C.green}">${esc(label)}</text>
-<text class="sans" x="32" y="70" font-size="14" fill="${C.muted}">${esc(subtitle)}</text>`;
+<text class="mono" x="32" y="38" font-size="12" letter-spacing="1.6" fill="${C.green}">${esc(label)}</text>
+<text class="sans" x="32" y="60" font-size="14" fill="${C.muted}">${esc(subtitle)}</text>`;
 }
 
 /** The top entries of a WakaTime list, with the rest folded into "Other". */
@@ -420,7 +463,7 @@ async function wakatime() {
 
   // Overview strip: four headline numbers.
   {
-    const W = 1200, H = 150;
+    const W = 1200, H = 116;
     const items = [
       [`${hours(data.total_seconds_including_other_language)} hrs`, "TOTAL CODING TIME"],
       [shortTime(data.human_readable_daily_average_including_other_language), "DAILY AVERAGE"],
@@ -438,22 +481,22 @@ async function wakatime() {
 <rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="20" fill="${C.card}" stroke="${C.border}"/>
 ${items
   .map(([n, l], i) => `
-<text class="sans" x="${cell * i + cell / 2}" y="76" font-size="40" font-weight="700" letter-spacing="-1" fill="url(#wnum)" text-anchor="middle">${esc(n)}</text>
-<text class="mono" x="${cell * i + cell / 2}" y="108" font-size="12" letter-spacing="1.6" fill="${C.muted}" text-anchor="middle">${l}</text>
-${i ? `<path d="M${cell * i} 36V114" stroke="${C.border}"/>` : ""}`)
+<text class="sans" x="${cell * i + cell / 2}" y="62" font-size="36" font-weight="700" letter-spacing="-1" fill="url(#wnum)" text-anchor="middle">${esc(n)}</text>
+<text class="mono" x="${cell * i + cell / 2}" y="90" font-size="12" letter-spacing="1.6" fill="${C.muted}" text-anchor="middle">${l}</text>
+${i ? `<path d="M${cell * i} 28V88" stroke="${C.border}"/>` : ""}`)
   .join("")}
 `);
   }
 
   // Languages: horizontal bars.
   {
-    const W = 590, H = 340;
+    const W = 590, H = 286;
     const langs = data.languages.filter((l) => !["Binary", "Other", "Unknown Language"].includes(l.name)).slice(0, 6);
     const max = langs[0].percent;
     const BAR_X = 150, BAR_W = 270;
     const rows = langs
       .map((l, i) => {
-        const y = 108 + i * 37;
+        const y = 88 + i * 32;
         const w = Math.max(6, (l.percent / max) * BAR_W);
         return `
 <text class="sans" x="32" y="${y + 11}" font-size="15" font-weight="600" fill="${C.fg}">${esc(l.name)}</text>
@@ -467,10 +510,10 @@ ${i ? `<path d="M${cell * i} 36V114" stroke="${C.border}"/>` : ""}`)
 
   // Editors: donut with a legend.
   {
-    const W = 590, H = 340;
+    const W = 590, H = 286;
     const eds = top(data.editors, 4, ["Unknown Editor"]);
     const total = eds.reduce((s, e) => s + e.percent, 0);
-    const R = 74, CX = 150, CY = 205, CIRC = 2 * Math.PI * R;
+    const R = 70, CX = 150, CY = 170, CIRC = 2 * Math.PI * R;
     let offset = 0;
     const arcs = eds
       .map((e, i) => {
@@ -484,7 +527,7 @@ ${i ? `<path d="M${cell * i} 36V114" stroke="${C.border}"/>` : ""}`)
       .join("\n");
     const legend = eds
       .map((e, i) => {
-        const y = 128 + i * 40;
+        const y = 100 + i * 34;
         const colour = SERIES[i === eds.length - 1 && e.name === "Other" ? 5 : i];
         return `
 <rect x="300" y="${y}" width="12" height="12" rx="3" fill="${colour}"/>
@@ -502,9 +545,9 @@ ${legend}`);
 
   // Categories: one stacked bar.
   {
-    const W = 1200, H = 170;
+    const W = 1200, H = 140;
     const cats = top(data.categories, 4);
-    const BX = 32, BW = W - 64, BY = 92;
+    const BX = 32, BW = W - 64, BY = 78;
     let x = BX;
     const parts = cats
       .map((c, i) => {
@@ -518,8 +561,8 @@ ${legend}`);
     const legend = cats
       .map((c, i) => {
         const label = `${c.name} ${pct(c.percent)}`;
-        const out = `<rect x="${lx}" y="132" width="10" height="10" rx="3" fill="${SERIES[i]}"/>
-<text class="sans" x="${lx + 18}" y="141" font-size="14" fill="${C.fg}">${esc(c.name)} <tspan class="mono" font-size="12" fill="${C.muted}">${pct(c.percent)}</tspan></text>`;
+        const out = `<rect x="${lx}" y="108" width="10" height="10" rx="3" fill="${SERIES[i]}"/>
+<text class="sans" x="${lx + 18}" y="117" font-size="14" fill="${C.fg}">${esc(c.name)} <tspan class="mono" font-size="12" fill="${C.muted}">${pct(c.percent)}</tspan></text>`;
         lx += Math.round(label.length * 8.2 + 48);
         return out;
       })
