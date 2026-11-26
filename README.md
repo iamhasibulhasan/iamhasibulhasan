@@ -51,7 +51,8 @@ Currently a Software Engineer at **Cartup** (a concern of US Bangla Group), wher
 <br>
 
 <div align="center">
-<a href="https://github.com/iamhasibulhasan"><img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=gruvbox&show_icons=true&hide_border=true&count_private=true" width="60%" alt="Hasibul's GitHub stats"/></a>
+<a href="https://github.com/iamhasibulhasan"><img src="https://github-readme-stats.vercel.app/api?username=iamhasibulhasan&theme=gruvbox&show_icons=true&hide_border=true&count_private=true&hide_rank=true" width="39.5%" alt="Hasibul's GitHub stats"/></a>
+<a href="https://github.com/iamhasibulhasan"><img src="https://github-readme-activity-graph.vercel.app/graph?username=iamhasibulhasan&theme=gruvbox&hide_border=true&area=true" width="59.5%" alt="Hasibul's contribution activity graph"/></a>
 </div>
 
 <div align="center">
