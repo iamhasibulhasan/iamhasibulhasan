@@ -21,7 +21,7 @@ const whatsappHref = `https://wa.me/${personalInfo.phone.replace(/\D/g, "")}`;
 /** Ways to reach Hasibul. Used by the contact section and the footer. */
 export const SOCIAL_LINKS: SocialLink[] = [
   { icon: Mail, label: "Email", value: personalInfo.email, href: `mailto:${personalInfo.email}` },
-  { icon: WhatsappIcon, label: "WhatsApp", value: personalInfo.phone, href: whatsappHref },
+  { icon: WhatsappIcon, label: "WhatsApp", value: "Chat on WhatsApp", href: whatsappHref },
   { icon: LinkedinIcon, label: "LinkedIn", value: bare(personalInfo.linkedin), href: personalInfo.linkedin },
   { icon: GithubIcon, label: "GitHub", value: bare(personalInfo.github), href: personalInfo.github },
 ];
