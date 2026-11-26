@@ -126,15 +126,25 @@ const AboutSection = () => {
           <div className="flex w-full min-w-0 flex-col gap-6 lg:w-2/3">
             <div>
               <div className="flex items-start gap-5">
-                <div className="relative hidden h-20 w-20 shrink-0 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10 sm:flex">
-                  <div aria-hidden="true" className="pointer-events-none absolute -inset-6 rounded-[2rem] bg-[radial-gradient(closest-side,hsl(var(--primary)/0.2),hsl(var(--primary)/0.08)_55%,transparent)]" />
+                {/* The round photo on its own. Its neon ring and light streaks
+                    are a separate layer painted in the accent colour, so they
+                    follow the theme and the customizer. */}
+                <div className="relative hidden h-24 w-24 shrink-0 isolate sm:block">
                   <Image
                     src={personalInfo.photoUrl}
                     alt={personalInfo.fullName}
-                    width={80}
-                    height={80}
-                    className="pointer-events-none relative z-10 h-full w-full rounded-2xl object-cover object-top"
+                    width={96}
+                    height={96}
+                    className="pointer-events-none h-full w-full select-none"
                     draggable={false}
+                  />
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-0 bg-primary mix-blend-color"
+                    style={{
+                      WebkitMask: `url(${personalInfo.photoTintUrl}) center / 100% 100% no-repeat`,
+                      mask: `url(${personalInfo.photoTintUrl}) center / 100% 100% no-repeat`,
+                    }}
                   />
                 </div>
                 <p className="text-lg leading-relaxed text-muted-foreground" style={{ textWrap: "pretty" }}>

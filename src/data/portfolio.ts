@@ -20,7 +20,10 @@ export const personalInfo = {
   leetcode: "https://leetcode.com/iamhasibul/",
   hackerrank: "https://www.hackerrank.com/Hasibul",
   resumeUrl: "/Md_Hasibul_Hasan_CV.pdf",
-  photoUrl: "/profile.png",
+  /** The round photo, with its blue neon greyed out... */
+  photoUrl: "/profile/photo.webp",
+  /** ...and where that neon was, as a mask: painted in the accent colour on top (AboutSection). */
+  photoTintUrl: "/profile/photo-tint.webp",
 };
 
 /** `href` points each number at the part of the site that backs it. */
