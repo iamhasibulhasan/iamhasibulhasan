@@ -1,0 +1,842 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Class-based dark mode: `.dark` on <html>, set before the first paint. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Design tokens. The colours are HSL channel triplets defined per theme in
+ * the base layer below (`--background: 224 47% 7%`), wrapped here so
+ * utilities like `bg-background` or `text-primary/40` resolve against them.
+ */
+@theme inline {
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-primary-text: hsl(var(--primary-text));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-accent-light: hsl(var(--accent-light));
+  --color-accent-dark: hsl(var(--accent-dark));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+}
+
+@theme {
+  /* Body text stays on the system stack; Sora is the display face (hero name, sign-off). */
+  --font-sans: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "SF Mono", Consolas, Monaco, monospace;
+  --font-display: "Sora Variable", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+}
+
+/* Switching themes must not animate every colour on the page at once. */
+.theme-switching,
+.theme-switching * {
+  transition: none !important;
+}
+
+
+@layer base {
+  /* The page colour for each theme, from the first paint (the theme class is
+     set by an inline script before anything renders). It was a fixed navy, so
+     light mode showed navy on overscroll and behind the page. */
+  html {
+    background-color: hsl(var(--background));
+  }
+
+  :root {
+    /* The navbar's real footprint (Navbar.tsx): top inset + bar height. The
+       hero starts below it, so the first line never crowds the bar. */
+    --nav-top: max(1rem, env(safe-area-inset-top));
+    --nav-height: 3.5rem;
+    /* Font size from the customizer (Small, Medium, Large, XL). */
+    --font-scale: 1;
+    /* The hero's name: ink on the outside, the accent toward the guide. */
+    --name-ink: hsl(var(--foreground));
+    --name-inner: hsl(142 71% 26%);
+    --gradient-mid: hsl(142 71% 36%);
+    --guide-disc: hsl(142 30% 94% / 0.95);
+    --guide-body: hsl(142 71% 66%);
+    --guide-ears: hsl(142 71% 30%);
+    --accent-hex: #22c55e;
+    /* Neutrals: the previous site's palette (#f7f7f5 page, #12130f ink). */
+    --background: 60 11% 96%;
+    --foreground: 75 12% 7%;
+    --card: 0 0% 100%;
+    --card-foreground: 75 12% 7%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 75 12% 7%;
+    --secondary: 60 9% 93%;
+    --muted: 60 9% 93%;
+    --muted-foreground: 72 6% 33%;
+    --border: 60 9% 87%;
+    --input: 60 9% 87%;
+    /* Accent tokens: Signal Green by default; the customizer sets these per accent and theme. */
+    --primary: 142 71% 45%;
+    --primary-foreground: 75 12% 7%;
+    --primary-text: 142 71% 30%;
+    --secondary-foreground: 142 71% 22%;
+    --accent: 142 71% 45%;
+    --accent-light: 142 71% 57%;
+    --accent-dark: 142 71% 20%;
+    --accent-foreground: 75 12% 7%;
+    --ring: 142 71% 45%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --radius: 0.75rem;
+
+    /* Glass blur scale. Three tiers for three kinds of surface, so the amount
+       of blur communicates depth rather than varying per component. Before
+       this, six different values were in use across nine surface types. */
+    --blur-surface: 12px;   /* in-page surfaces: cards, panels, pills */
+    --blur-chrome: 18px;    /* floating chrome: toasts, the project deck */
+    --blur-overlay: 24px;   /* modals over dimmed content: chat, palette */
+    --blur-scrim: 4px;      /* the dimming layer behind a modal */
+
+    /* Glass FILL opacity — the half of glass morphism that actually makes the
+       blur visible. A fill of the page colour at N% lets (100-N)% of the
+       blurred backdrop through; a fill of *white* at 2% lets 98% through and
+       reads flat no matter how much blur is applied. Both models were in use
+       (SpotlightCard at 68% background vs these utilities at 2% white), which
+       is why panels looked flat beside the cards next to them. One model now:
+       the page colour, mixed with transparent.
+
+       The percentages are written literally in the rules below rather than as
+       var() inside calc(): calc() in color-mix() cannot be resolved at build
+       time, so the minifier emits an opaque fallback that wins and the surface
+       loses its frost entirely. The three tiers are:
+         55%  light in-page surfaces: pills, small cards, secondary buttons
+         68%  standard cards and panels (the value SpotlightCard already used)
+         80%  chrome and overlays that must stay legible over content */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --name-inner: hsl(142 71% 70%);
+    --gradient-mid: hsl(var(--accent));
+    --guide-disc: hsl(90 10% 6% / 0.9);
+    --background: 90 10% 4%;
+    --foreground: 72 18% 95%;
+    --card: 75 11% 7%;
+    --card-foreground: 72 18% 95%;
+    --popover: 75 11% 7%;
+    --popover-foreground: 72 18% 95%;
+    --secondary: 72 11% 9%;
+    --muted: 72 11% 9%;
+    --muted-foreground: 70 6% 59%;
+    --border: 77 10% 14%;
+    --input: 77 10% 14%;
+    --primary-text: 142 71% 58%;
+    --secondary-foreground: 142 40% 80%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+  }
+}
+
+@media (min-width: 640px) {
+  :root {
+    --nav-top: max(1.5rem, env(safe-area-inset-top));
+    --nav-height: 4rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    position: relative;
+    font-size: calc(16px * var(--font-scale, 1));
+    scroll-padding-top: calc(5rem + env(safe-area-inset-top));
+    /* Reserve the scrollbar track permanently. Radix dialogs lock scroll via
+       react-remove-scroll, which removes the scrollbar and widens the viewport
+       — that shifted the centre-aligned fixed navbar left on open and back on
+       close. Reserving the gutter means the width never changes. */
+    scrollbar-gutter: stable;
+  }
+
+  body {
+    position: relative;
+    @apply bg-background text-foreground font-sans antialiased;
+    overflow-wrap: break-word;
+  }
+}
+
+/* Custom cursors from the customizer: the system cursor hides while one is drawn. */
+body.cursor-dot,
+body.cursor-crosshair,
+body.cursor-trail,
+body.cursor-dot :is(a, button, label, [role="button"]),
+body.cursor-crosshair :is(a, button, label, [role="button"]),
+body.cursor-trail :is(a, button, label, [role="button"]) {
+  cursor: none;
+}
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+}
+
+@layer utilities {
+  /* Glass surfaces: translucent fill + blur only.
+     They deliberately do NOT set a border. Call sites compose their own
+     (`glass-strong border-white/10`, `glass-subtle border-white/5`), and these
+     utilities are emitted late in the stylesheet — so baking a border in here
+     overrode those per-element classes and changed borders across the site.
+
+     Blur comes from the --blur-* tokens, one per kind of surface, so depth is
+     consistent instead of per-component. Do not hardcode a blur at a call site.
+
+     Two things here fail SILENTLY and are why this is plain CSS, not @apply:
+       1. Inside `@layer utilities`, an @apply list drops every declaration
+          after a variant-prefixed utility (`dark:`) or an opacity-modified
+          border colour. That left these compiling to a border and nothing else.
+       2. `dark:` compiles to `:is(.dark *)`; a hand-written `.dark .x` has
+          different specificity and wins or loses inconsistently.
+     Always verify against the built CSS, not the source. */
+  /* In-page surfaces. */
+  .glass-subtle,
+  .panel-sticky,
+  .btn-cta-secondary {
+    -webkit-backdrop-filter: blur(var(--blur-surface));
+    backdrop-filter: blur(var(--blur-surface));
+  }
+
+  /* Heavier surfaces that must occlude content behind them: the command
+     palette, the chat panel, the dialog primitive, the stacked project deck.
+     The navbar deliberately does NOT use these — see .glass-nav below. */
+  .glass,
+  .glass-strong {
+    -webkit-backdrop-filter: blur(var(--blur-chrome));
+    backdrop-filter: blur(var(--blur-chrome));
+  }
+
+  /* Fills use the page background colour, matching SpotlightCard. Mixing in
+     `transparent` is what lets the blurred backdrop show through — the higher
+     the percentage, the more opaque and the less frost. */
+  .glass {
+    background-color: color-mix(in oklab, hsl(var(--background)) 68%, transparent);
+  }
+
+  .glass-strong {
+    background-color: color-mix(in oklab, hsl(var(--background)) 80%, transparent);
+  }
+
+  .glass-subtle {
+    background-color: color-mix(in oklab, hsl(var(--background)) 55%, transparent);
+  }
+
+  /* Glass inside glass: a surface already blurs everything behind it, so a
+     blurred pill or chip inside it blurs an already-blurred, near-flat fill
+     and draws the same pixels (measured: 83 such surfaces on the homepage,
+     no visible change). Its own fill stays; only the second blur pass goes,
+     which is a full re-blur per surface per frame while the page moves. */
+  :is(.glass, .glass-strong, .glass-subtle, .glass-tier-surface, .glass-tier-chrome, .panel-sticky, .glass-nav, .glass-overlay)
+    :is(.glass, .glass-strong, .glass-subtle, .glass-tier-surface, .glass-tier-chrome, .btn-cta-secondary) {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  /* Direct tier access, for components that supply their own fill and only need
+     the blur at the right depth (SpotlightCard, toasts, the project deck). */
+  .glass-tier-surface {
+    -webkit-backdrop-filter: blur(var(--blur-surface));
+    backdrop-filter: blur(var(--blur-surface));
+  }
+
+  .glass-tier-chrome {
+    -webkit-backdrop-filter: blur(var(--blur-chrome));
+    backdrop-filter: blur(var(--blur-chrome));
+  }
+
+  /* The top navigation bar.
+     Deliberately matched to the in-page surface tier (12px / 55%) rather than
+     the heavier chrome tier it used to share with dialogs: the bar sits directly
+     against the page content, so at 18px/80% it read as noticeably frostier than
+     every card beside it. */
+  .glass-nav {
+    -webkit-backdrop-filter: blur(var(--blur-surface));
+    backdrop-filter: blur(var(--blur-surface));
+    background-color: color-mix(in oklab, hsl(var(--background)) 55%, transparent);
+  }
+
+  /* The dimming layer behind a modal. Not a surface — it sits over content
+     rather than holding any, so it takes the lightest blur of the four. */
+  .glass-scrim {
+    -webkit-backdrop-filter: blur(var(--blur-scrim));
+    backdrop-filter: blur(var(--blur-scrim));
+  }
+
+  /* Modal surfaces over dimmed content. */
+  .glass-overlay {
+    -webkit-backdrop-filter: blur(var(--blur-overlay)) saturate(150%);
+    backdrop-filter: blur(var(--blur-overlay)) saturate(150%);
+  }
+
+  /* The accent's middle stop is set per theme: in light mode the raw accent
+     (50% lightness) washed out to near-white against the cream background,
+     so it is darkened there to stay in the same family as dark mode's look. */
+  .text-gradient {
+    background-image: linear-gradient(to right, hsl(var(--primary)), var(--gradient-mid), hsl(var(--primary)));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* The companion's disc: dark in both themes would be a black hole on the
+     cream page, so light mode uses a soft tinted surface instead. */
+  .guide-disc {
+    background-color: var(--guide-disc);
+  }
+
+  /* Call-to-action buttons.
+     These were retyped at each call site, which is how the secondary button
+     ended up in three variants — one of them missing `backdrop-blur` entirely,
+     so it rendered flat transparent next to the same button in the hero.
+
+     Two @apply pitfalls hit while writing these, both of which fail SILENTLY —
+     the rule still compiles, it just loses declarations:
+       1. An opacity-modified border colour (`border-primary/50`) emits
+          `border-color` without the opacity AND drops every utility after it
+          in the same @apply list.
+       2. Variant-prefixed utilities (`dark:`, `hover:`) emit nothing here and
+          also truncate the rest of the list.
+     So anything in either category is written as plain CSS below. Check the
+     compiled output, not just the source, when editing these. */
+  /* One action family. Links and buttons share the same box: 48px tall,
+     1px border on every variant, so a filled and an outlined button sit on
+     one line at one height. Written as plain CSS (see the note above). */
+  .btn-cta-primary,
+  .btn-cta-secondary {
+    box-sizing: border-box;
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+    padding: 0 1.375rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    transition: background-color 200ms, border-color 200ms, color 200ms;
+  }
+
+  .btn-cta-primary {
+    background-color: hsl(var(--primary));
+    border-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+
+  .btn-cta-primary:hover {
+    background-color: color-mix(in oklab, hsl(var(--primary)) 88%, hsl(var(--foreground)));
+  }
+
+  .btn-cta-secondary {
+    border-color: hsl(var(--primary) / 0.35);
+    background-color: color-mix(in oklab, hsl(var(--background)) 55%, transparent);
+    color: hsl(var(--foreground));
+  }
+
+  .btn-cta-secondary:hover {
+    border-color: hsl(var(--primary) / 0.7);
+    background-color: hsl(var(--primary) / 0.08);
+  }
+
+  .btn-cta-primary:active,
+  .btn-cta-secondary:active {
+    transform: translateY(1px);
+  }
+
+  .btn-cta-primary svg,
+  .btn-cta-secondary svg {
+    width: 1rem;
+    height: 1rem;
+    flex: none;
+  }
+
+  .shadow-accent-soft {
+    box-shadow: 0 10px 24px hsl(var(--accent) / 0.12);
+  }
+
+  .shadow-accent-card {
+    box-shadow: 0 16px 48px hsl(var(--accent) / 0.16);
+  }
+
+  .shadow-accent-strong {
+    box-shadow: 0 22px 68px hsl(var(--accent) / 0.2);
+  }
+
+  /* Accent glows, derived from --accent so changing the hue changes all of them.
+     Previously these were rgba(41, 214, 185, x) literals at 20+ call sites. */
+  .glow-accent-xs {
+    box-shadow: 0 0 12px hsl(var(--accent) / 0.1);
+  }
+
+  .glow-accent-sm {
+    box-shadow: 0 0 20px hsl(var(--accent) / 0.18);
+  }
+
+  .glow-accent-md {
+    box-shadow: 0 0 28px hsl(var(--accent) / 0.24);
+  }
+
+  .glow-accent-panel {
+    box-shadow: 0 0 40px hsl(var(--accent) / 0.08);
+  }
+
+  /* Scrolling panels that sit on top of a backdrop-filter.
+     Scrolling inside a blurred, saturated surface forces the browser to
+     re-run that filter for the whole panel every frame, which is what made
+     the chat and the command palette feel heavy. `contain: paint` isolates
+     the subtree so only the list repaints, and promoting it to its own layer
+     keeps the blur cached instead of recomputed. */
+  .scroll-panel {
+    contain: paint;
+    will-change: scroll-position;
+    transform: translateZ(0);
+  }
+
+  /* One section-heading scale. Replaces three competing per-section patterns
+     (text-4xl sm:text-5xl / text-3xl sm:text-4xl md:text-5xl / +lg:text-6xl). */
+  .heading-xl {
+    @apply text-4xl font-bold tracking-tight sm:text-5xl;
+  }
+
+  .heading-lg {
+    @apply text-3xl font-bold tracking-tight sm:text-4xl;
+  }
+
+  .heading-md {
+    @apply text-xl font-bold tracking-tight sm:text-2xl;
+  }
+
+  /* The sticky sidebar panel, previously copy-pasted byte-for-byte across
+     AboutSection, SkillsSection, and ExperienceSection. Its fill matches
+     SpotlightCard's 68% so a sidebar and the cards beside it read identically —
+     they used to differ 34x, which is what made panels look flat. Unlike the
+     glass-* utilities this one owns its border, because no call site adds one. */
+  .panel-sticky {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2rem;
+    border: 1px solid hsl(var(--foreground) / 0.1);
+    padding: 1.5rem;
+    background-color: color-mix(in oklab, hsl(var(--background)) 68%, transparent);
+    box-shadow: 0 0 40px hsl(var(--accent) / 0.08);
+  }
+
+  .section-padding {
+    @apply py-20 md:py-28 lg:py-32;
+  }
+
+  /* One content width for the whole site. Sections must not add their own
+     max-w-* on top of this — three of them used to, sitting 64px narrower than
+     their neighbours and visibly breaking the left/right edges. */
+  .container-narrow {
+    @apply max-w-6xl mx-auto px-5 sm:px-6 lg:px-8;
+  }
+
+  /* Same measure without the padding, for chrome that aligns to the container
+     but supplies its own inset (the navbar). */
+  .container-width {
+    @apply w-full max-w-6xl;
+  }
+
+  @media (min-width: 1536px) {
+    .container-narrow,
+    .container-width {
+      max-width: 88rem;
+    }
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--accent) / 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--accent) / 0.5);
+}
+
+/* Selection */
+::selection {
+  background: hsl(var(--accent) / 0.3);
+  color: hsl(var(--foreground));
+}
+
+/* Guide highlight: an element the guide or the tour is pointing at. CSS only,
+   so ringing costs no JS per frame; reduced motion gets a static ring. */
+[data-guide-active="true"] {
+  position: relative;
+  border-radius: 1.5rem;
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 6px;
+  box-shadow: 0 0 0 10px hsl(var(--primary) / 0.12), 0 22px 68px hsl(var(--accent) / 0.2);
+  animation: guide-ring 2.6s ease-out forwards;
+}
+
+@keyframes guide-ring {
+  0% { outline-color: hsl(var(--primary) / 0); outline-offset: 16px; }
+  15% { outline-color: hsl(var(--primary)); outline-offset: 6px; }
+  80% { outline-color: hsl(var(--primary)); }
+  100% { outline-color: hsl(var(--primary) / 0); box-shadow: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-guide-active="true"] {
+    animation: none;
+  }
+}
+
+/* Every disclosure (the answer trace, "How these were measured", margin
+   notes) opens and closes by easing its height, not by snapping. Browsers
+   without ::details-content / interpolate-size simply open at once. */
+:root { interpolate-size: allow-keywords; }
+details::details-content {
+  block-size: 0;
+  overflow-y: clip;
+  opacity: 0;
+  transition: block-size 280ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease, content-visibility 280ms allow-discrete;
+}
+details[open]::details-content { block-size: auto; opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  details::details-content { transition: none; }
+}
+
+/* ------------------------------------------------------------------------ */
+/* Hero identity: Hasibul · the guide · Hasan                                      */
+/* ------------------------------------------------------------------------ */
+/*
+ * Sizes come from measurement, not guesses. In Sora 650 at -0.035em, "Hasibul"
+ * is 3.24em wide and "Hasan" 3.18em. Each name gets a column of
+ * (row - stage - 2 x gap) / 2, so the size is that column / 3.4 (a few percent
+ * of air), capped at 96px. `cqi` reads the identity row's own width, so it
+ * holds at every viewport and at 200% zoom.
+ */
+/*
+ * The stage follows the screen's height, so the whole hero (identity to the
+ * figures) fits one screen below the navbar: 240px on a 1080px-tall screen,
+ * 200px at 900, 160px at 760 and below; and never wider than the width allows.
+ */
+.hero-identity {
+  container-type: inline-size;
+  --stage: clamp(128px, calc(100svh * 0.29 - 86px), 232px);
+  /* Between a name and the stage: the ring's 8% outset plus air, never less
+     than the ring needs (it was 3vw, which put the ring 8px from the names
+     on a portrait tablet). */
+  --name-gap: max(calc(var(--stage) * 0.08 + 1rem), clamp(1.5rem, 3vw, 2.75rem));
+  /* the guide's ring sits 8% of the stage outside it (GuideRing outset="8%"): the
+     identity row reserves that much above and below, plus air, so the ring
+     never meets the availability line or the caption. */
+  --ring-out: calc(var(--stage) * 0.08 + clamp(0.5rem, 1.6svh, 1rem));
+  padding-block: var(--ring-out);
+}
+@media (max-width: 1279px) {
+  .hero-identity { --stage: clamp(128px, calc(100svh * 0.29 - 86px), 196px); }
+}
+/* Portrait tablets (tall, 600-1279px wide): the one-row identity has room
+   to spare there (~250px under the fold), so the stage grows with the width. */
+@media (min-width: 600px) and (max-width: 1279px) and (min-aspect-ratio: 3/5) and (max-aspect-ratio: 9/10) {
+  .hero-identity { --stage: clamp(160px, min(calc(100svh * 0.24), 30vw), 248px); }
+}
+/* The hero's vertical gaps shrink on shorter screens, by the same rule. */
+#hero { --hero-gap: clamp(0.625rem, calc(100svh * 0.034 - 0.85rem), 1.75rem); }
+.hero-identity-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--stage) minmax(0, 1fr);
+  align-items: center;
+  column-gap: var(--name-gap);
+}
+.hero-name {
+  font-family: var(--font-display), "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  line-height: 1;
+  white-space: nowrap;
+  font-size: min(6rem, calc((100cqi - var(--stage) - 2 * var(--name-gap)) / 2 / 3.4));
+  /* Room for the j's descender inside the clipped background. */
+  padding-bottom: 0.08em;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.hero-name[data-hero-name="left"] {
+  justify-self: end;
+  background-image: linear-gradient(90deg, var(--name-ink) 45%, var(--name-inner));
+}
+.hero-name[data-hero-name="right"] {
+  justify-self: start;
+  background-image: linear-gradient(270deg, var(--name-ink) 45%, var(--name-inner));
+}
+@media (forced-colors: active) {
+  .hero-name { background: none; color: CanvasText; }
+}
+/* Below 600px (phones upright) the name stacks around the guide. Wider screens
+   (tablets either way up, phones on their side) keep the one row: it fits
+   from 600px (names ~58px) and is about 250px shorter than the stack. */
+@media (max-width: 599px) {
+  /* The stage follows the width as well as the height, so the stack fits a
+     short phone: 104px at 360x640, 160px at 390x844, never above 196px. */
+  .hero-identity { --stage: clamp(104px, min(calc(100svh * 0.24 - 40px), 42vw), 196px); }
+  /* The ring sits 8% of the stage outside it (GuideRing outset="8%"), so the
+     gap above and below the stage clears it, plus air, never the names. */
+  .hero-identity-row { grid-template-columns: minmax(0, 1fr); row-gap: calc(var(--stage) * 0.08 + 0.625rem); justify-items: center; }
+  .hero-name { font-size: clamp(2.75rem, 13cqi, 4rem); justify-self: center !important; background-image: none !important; color: hsl(var(--foreground)); }
+}
+
+/*
+ * Fitting the first screen, on every screen. The rule: the identity, the
+ * role, the line and the actions are on the first screen (the proof figures
+ * may follow just below on phones). Sized by the visible height (svh: the
+ * screen with the browser's bars shown), so it holds with the bars, in both
+ * orientations. Checked at 320x568 to 1920x1080, including 390x664 (an
+ * iPhone with Safari's bars) and 844x390 (a phone on its side).
+ *
+ *  - Phones upright (below 600px): the stage, the name and the gaps follow
+ *    the height; one-line caption band; shorter (still 44px) buttons. Under
+ *    720px tall the proof links leave the caption band (the figures below
+ *    carry the same proof). Under 360px wide the three secondary actions are
+ *    44px icon buttons beside Ask the guide, one row.
+ *  - Short screens on their side (under 520px tall): a smaller navbar and
+ *    stage, the caption band without links.
+ *  - Portrait tablets: the stage grows with the width (room to spare).
+ */
+@media (max-width: 599px) {
+  #hero { --hero-gap: clamp(0.375rem, calc(100svh * 0.022 - 0.375rem), 1.25rem); }
+  .hero-identity {
+    /* The stack is 2 names (~2 x 1.08em) + the stage + 2 ring gaps: the
+       stage takes about a sixth of the visible height, between 96 and 196. */
+    --stage: clamp(84px, min(calc(100svh * 0.19 - 36px), 42vw), 196px);
+    --ring-out: calc(var(--stage) * 0.08 + 0.25rem);
+  }
+  .hero-identity-row { row-gap: calc(var(--stage) * 0.08 + 0.3125rem); }
+  /* The name's line box: the glyphs, not a full 1.08em band. */
+  .hero-name { line-height: 0.95; }
+  .hero-name { font-size: clamp(2.5rem, min(12cqi, calc(100svh * 0.066)), 3.5rem); }
+}
+@media (max-width: 599px) {
+  /* The caption band and the proof links: one line each, tighter. */
+  .hero-caption { min-height: 2.25rem; padding-block: 0.25rem; }
+  .hero-proof-links { margin-top: 0; }
+  .hero-role { font-size: clamp(1.25rem, calc(100svh * 0.032), 1.5rem); }
+  .hero-tagline { margin-top: 0.25rem; font-size: 0.9375rem; line-height: 1.45; }
+  /* Four actions, a balanced 2x2, buttons a little shorter (still 44px). */
+  .hero-actions { gap: 0.625rem; }
+  .hero-actions .btn-cta-primary, .hero-actions .btn-cta-secondary { min-height: 2.75rem; padding-inline: 1rem; }
+}
+/* The shortest phones (iPhone SE class, small Androids): the proof links
+   would make a second band of text before the role; the caption keeps
+   the guide's line, the links are the figures' job below the fold there. */
+@media (max-width: 599px), (max-height: 760px) {
+  /* The four figures: one row of four short columns (number over a short
+     label) instead of a 2x2 grid of long labels, about 120px shorter. The
+     full label stays for screen readers. */
+  .hero-figures { grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 0.5rem; row-gap: 0; padding: 0.5rem 0.625rem; }
+  .hero-figures > a { border-left-width: 0; padding: 0; text-align: center; }
+  .hero-figures > a + a { border-left: 1px solid hsl(var(--foreground) / 0.08); }
+  .hero-figures > a > span:first-child { font-size: 1.25rem; line-height: 1.6rem; }
+  .hero-figure-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .hero-figure-short { display: block; margin-top: 0.125rem; font-size: 0.6875rem; line-height: 0.875rem; text-wrap: balance; }
+}
+/* The shortest phones (under 660px visible): every band at its smallest. */
+@media (max-width: 599px) and (max-height: 660px) {
+  #hero { --hero-gap: 0.375rem; }
+  .hero-identity { --stage: clamp(72px, calc(100svh * 0.19 - 40px), 96px); }
+  .hero-name { font-size: clamp(2.125rem, calc(100svh * 0.063), 2.5rem); }
+  .hero-caption { min-height: 1.75rem; padding-block: 0.125rem; }
+  .hero-availability { padding-block: 0.125rem; }
+  .hero-role { font-size: 1.1875rem; }
+}
+/* The smallest phones (320 x ~570): the stack alone would take a third of
+   the screen; the names sit as one line above the guide instead ("Hasibul Hasan"),
+   the same words and order, one row shorter. */
+@media (max-width: 359px) and (max-height: 620px) {
+  .hero-identity-row { grid-template-columns: auto auto; grid-template-areas: "left right" "guide guide"; column-gap: 0.5rem; justify-content: center; }
+  .hero-name[data-hero-name="left"] { grid-area: left; justify-self: end !important; }
+  .hero-name[data-hero-name="right"] { grid-area: right; justify-self: start !important; }
+  .hero-identity-row > [data-guide-hero-column] { grid-area: guide; }
+  .hero-name { font-size: 2.25rem; }
+}
+@media (max-width: 359px) {
+  .hero-identity { --stage: clamp(72px, calc(100svh * 0.19 - 40px), 120px); }
+  .hero-name { font-size: 2.125rem; }
+  .hero-tagline { font-size: 0.875rem; line-height: 1.45; }
+}
+@media (max-width: 599px) and (max-height: 860px) {
+  /* The four proof links duplicate the figures' row just below (same pages). */
+  .hero-proof-links { display: none; }
+  /* One row of actions: Ask the guide (the primary) keeps its label and takes the
+     free width, the other three are 44px icon buttons with their names kept
+     for screen readers (visually hidden, not removed). Saves a row (54px). */
+  .hero-actions { display: flex; width: 100%; max-width: 24rem; gap: 0.5rem; }
+  .hero-actions .btn-cta-primary { flex: 1; padding-inline: 1rem; }
+  .hero-actions .btn-cta-secondary { width: 2.75rem; min-width: 2.75rem; padding-inline: 0; }
+  .hero-actions .btn-cta-secondary .hero-action-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .hero-caption { min-height: 2rem; font-size: 0.8125rem; }
+  .hero-availability { padding-block: 0.25rem; font-size: 0.8125rem; }
+}
+
+/* Short screens on their side (phones in landscape, small laptops): the
+   name sits on one row, so the stage is the main height cost. */
+@media (max-height: 520px) and (min-width: 600px) {
+  /* The navbar is smaller there too (the page has ~390px of height). */
+  :root { --nav-top: max(0.5rem, env(safe-area-inset-top)); --nav-height: 3rem; }
+  #hero { --hero-gap: 0.375rem; }
+  .hero-identity { --stage: clamp(76px, calc(100svh * 0.3 - 40px), 128px); --ring-out: calc(var(--stage) * 0.08 + 0.125rem); }
+  .hero-name { font-size: min(4.5rem, calc((100cqi - var(--stage) - 2 * var(--name-gap)) / 2 / 3.4)); }
+  .hero-caption { min-height: 2.25rem; padding-block: 0.25rem; }
+  .hero-proof-links { display: none; }
+  .hero-role { font-size: 1.375rem; }
+  .hero-tagline { margin-top: 0.25rem; font-size: 0.9375rem; line-height: 1.45; }
+  .hero-actions .btn-cta-primary, .hero-actions .btn-cta-secondary { min-height: 2.75rem; padding-inline: 1rem; }
+  .hero-availability { padding-block: 0.25rem; font-size: 0.8125rem; }
+  .hero-caption { min-height: 2rem; }
+}
+/* Phones on their side: about 390px of height for the whole hero. Two
+   columns: the identity (stacked around the guide) and its caption on the left,
+   the availability, role, line, actions and figures on the right. */
+@media (max-height: 520px) and (min-width: 600px) and (orientation: landscape) {
+  /* Two columns, each its own stack: the left holds the availability line
+     and the identity (stacked round the guide), the right the guide's line, the role,
+     the line, the actions and the figures. `display: contents` would lose
+     the wrappers the intro moves, so the columns are a flex pair instead. */
+  #hero [data-hero-content] {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    grid-template-rows: repeat(6, auto) 1fr;
+    column-gap: 1.75rem;
+    text-align: left;
+    align-content: center;
+  }
+  #hero [data-hero-content] > * { grid-column: 2; justify-self: start; }
+  #hero [data-hero-content] > .hero-availability { grid-column: 1; grid-row: 1; justify-self: center; }
+  #hero [data-hero-content] > .hero-identity { grid-column: 1; grid-row: 2 / -1; justify-self: stretch; align-self: start; }
+  #hero [data-hero-content] > [data-hero-part="ask-host"] { grid-row: 1; }
+  #hero [data-hero-content] > [data-hero-part="ask-host"] > div { align-items: flex-start; }
+  #hero [data-hero-content] > .hero-role { grid-row: 2; margin-top: 0.25rem; }
+  #hero [data-hero-content] > .hero-tagline { grid-row: 3; }
+  #hero [data-hero-content] > .hero-actions { grid-row: 4; }
+  #hero [data-hero-content] > [data-hero-part="copy"][data-guide-target="hero-proof"] { grid-row: 5; }
+  /* While the conversation is open it takes the full width under both. */
+  #hero [data-hero-content]:has(#guide-host-hero) > [data-hero-part="ask-host"] { grid-column: 1 / -1; grid-row: 7; }
+  .hero-identity-row { grid-template-columns: minmax(0, 1fr); row-gap: calc(var(--stage) * 0.08 + 0.25rem); justify-items: center; }
+  .hero-identity { --stage: clamp(72px, calc(100svh * 0.24 - 10px), 112px); }
+  .hero-name { font-size: clamp(2rem, calc(100svh * 0.09), 2.75rem); justify-self: center !important; background-image: none !important; color: hsl(var(--foreground)); }
+  /* One row in the right column: Ask the guide labelled, the other three 44px
+     icon buttons (names kept for screen readers), as on phones upright. */
+  .hero-actions { display: flex; flex-wrap: nowrap; width: auto; max-width: none; justify-content: flex-start; gap: 0.5rem; }
+  .hero-actions .btn-cta-primary { padding-inline: 1.125rem; }
+  .hero-actions .btn-cta-secondary { width: 2.75rem; min-width: 2.75rem; padding-inline: 0; }
+  .hero-actions .btn-cta-secondary .hero-action-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .hero-figures { max-width: none; }
+}
+
+/* The ring around the guide wherever it rests (GuideRing): a faint track with
+   ticks, a slow orbiting arc, and a quicker arc while the guide is answering. */
+/* The orbit and the thinking arc are HTML layers rotated by the compositor. */
+.socket-ring-orbit, .socket-ring-think { transform-origin: 50% 50%; will-change: transform; }
+.socket-ring-orbit { animation: socket-orbit 18s linear infinite; animation-play-state: paused; }
+.socket-ring-svg[data-running] .socket-ring-orbit { animation-play-state: running; }
+.socket-ring-think { opacity: 0; transition: opacity 400ms ease; animation: socket-orbit 1.4s linear infinite; animation-play-state: paused; }
+.socket-ring-svg[data-thinking] .socket-ring-think { opacity: 1; }
+.socket-ring-svg[data-thinking][data-running] .socket-ring-think { animation-play-state: running; }
+@keyframes socket-orbit { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .socket-ring-orbit, .socket-ring-think { animation: none; }
+}
+
+/* ------------------------------------------------------------------------ */
+/* Hero intro (played by components/HeroIntro.tsx)                           */
+/* ------------------------------------------------------------------------ */
+/*
+ * The starting frame, from the first paint, while `html[data-hero-intro=play]`
+ * (set before paint by the theme script): the copy, chips, the avatar's
+ * caption and buttons, and the backdrop are hidden; the avatar's stage is
+ * invisible until HeroIntro brings it up in the middle of the screen. Only
+ * opacity and clip here (never transform), so HeroIntro measures the stage's
+ * real place. The failsafe reveals everything after 4s if JavaScript never
+ * runs the intro, so the page can never be stuck hidden.
+ */
+html[data-hero-intro="play"] #hero [data-hero-part="copy"]:not([data-hero-glass]),
+html[data-hero-intro="play"] #hero [data-hero-part="avatar-ui"],
+html[data-hero-intro="play"] #hero [data-hero-part="ask-host"],
+html[data-hero-intro="play"] #hero [data-hero-part="backdrop"],
+html[data-hero-intro="play"] #hero [data-hero-part="stage"] {
+  opacity: 0;
+  animation: hero-failsafe-show 0s 4s forwards;
+}
+html[data-hero-intro="play"] #hero [data-hero-part="copy"][data-hero-glass] {
+  clip-path: inset(0 0 100% 0);
+  animation: hero-failsafe-clip 0s 4s forwards;
+}
+html[data-hero-intro="play"] #hero [data-hero-part="avatar-glow"] { opacity: 0; }
+/* The ring is off while the guide sleeps; the intro draws it on as the guide wakes. */
+html[data-hero-intro="play"] #hero [data-hero-part="ring-track"],
+html[data-hero-intro="play"] #hero [data-hero-part="ring-orbit"] {
+  opacity: 0;
+  animation: hero-failsafe-show 0s 4s forwards;
+}
+html[data-hero-intro="play"] #hero [data-hero-part="ring-track"] circle { stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+/* The two halves of the name wait off to their sides until the intro sweeps them in. */
+html[data-hero-intro="play"] #hero [data-hero-name] {
+  opacity: 0;
+  animation: hero-failsafe-show 0s 4s forwards;
+}
+/* While the intro waits for the live avatar, the still drawing never shows. */
+html[data-hero-intro="play"] #hero [data-hero-still] { visibility: hidden; }
+/* The one live the guide is sitting in the hero's socket: its still stand-in steps aside. */
+html[data-guide-in-hero] .guide-socket-still { visibility: hidden; }
+@keyframes hero-failsafe-show { to { opacity: 1; } }
+/* A reload partway down the page: hidden until the browser has restored the
+   scroll (see PLAY_SCRIPT), with the same kind of CSS failsafe. */
+html[data-restoring] body { visibility: hidden; animation: restore-failsafe 0s 0.9s forwards; }
+@keyframes restore-failsafe { to { visibility: visible; } }
+@keyframes hero-failsafe-clip { to { clip-path: none; } }
+
+/* The sleeping z's drift up and fade, one after another. */
+.hero-z { opacity: 0; animation: hero-z 1800ms ease-out infinite; }
+@keyframes hero-z {
+  0% { opacity: 0; transform: translate(0, 0) scale(0.6); }
+  25% { opacity: 0.9; }
+  100% { opacity: 0; transform: translate(16px, -30px) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-z { animation: none; }
+}

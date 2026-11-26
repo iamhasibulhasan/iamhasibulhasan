@@ -1,0 +1,380 @@
+/**
+ * Pure geometry for the scroll companion and its bubble, in viewport pixels,
+ * unit-tested without a DOM. The DOM side (which element a spot rides on, the
+ * per-frame loop) lives in GuideCompanion.tsx.
+ *
+ * Why it is shaped like this (measured on the previous versions):
+ * - A spot that rides on page content is read from that content every frame
+ *   and applied in the same frame. Nothing chases it, so it can't lag or
+ *   jitter at any scroll speed.
+ * - Which spot a section uses depends only on the layout (viewport size,
+ *   panel heights), never on the scroll position, so it can't flip back and
+ *   forth while scrolling. Changing section starts one eased glide.
+ * - The bubble's side is fixed per spot and only its position is clamped each
+ *   frame, so it never swaps sides mid-scroll.
+ */
+
+export type Point = { x: number; y: number };
+export type Viewport = { width: number; height: number; insetTop: number; insetBottom: number };
+export type BubbleSide = "left" | "right" | "top" | "bottom";
+export type Rect = { left: number; top: number; width: number; height: number };
+
+const MARGIN = 12;
+const EDGE = 8;
+
+/** Keep the avatar on screen: below the navbar, above the bottom edge and the footer. */
+export function clampToViewport(point: Point, size: number, viewport: Viewport, footerTop: number | null = null): Point {
+  const minY = viewport.insetTop + MARGIN;
+  let maxY = viewport.height - viewport.insetBottom - size - MARGIN;
+  if (footerTop !== null && footerTop < viewport.height) maxY = Math.min(maxY, footerTop - size - MARGIN);
+  return {
+    x: clamp(point.x, MARGIN, viewport.width - size - MARGIN),
+    y: clamp(point.y, minY, Math.max(minY, maxY)),
+  };
+}
+
+/** The usable height for the bubble: the screen below the navbar. Fixed per viewport, so it never changes while scrolling. */
+export function bubbleMaxHeight(viewport: Viewport) {
+  return Math.max(160, Math.min(560, viewport.height - viewport.insetBottom - EDGE - (viewport.insetTop + EDGE)));
+}
+
+/**
+ * The bubble beside the avatar on a given side. Left and right: bottom-aligned
+ * with the avatar, clamped vertically. Top and bottom: lined up with the
+ * avatar's left edge, clamped horizontally. Never resized here, so nothing
+ * reflows while scrolling.
+ */
+export function placeBubbleBeside(
+  anchor: Point,
+  size: number,
+  side: BubbleSide,
+  bubble: { width: number; height: number },
+  viewport: Viewport,
+  gap = 12
+): { left: number; top: number; maxHeight: number } {
+  const minTop = viewport.insetTop + EDGE;
+  const maxBottom = viewport.height - viewport.insetBottom - EDGE;
+  const maxHeight = bubbleMaxHeight(viewport);
+  const height = Math.min(bubble.height, maxHeight);
+  let left: number;
+  let top: number;
+  if (side === "left" || side === "right") {
+    left = side === "right" ? anchor.x + size + gap : anchor.x - gap - bubble.width;
+    top = clamp(anchor.y + size - height, minTop, maxBottom - height);
+  } else {
+    top = side === "bottom" ? anchor.y + size + gap : anchor.y - gap - height;
+    left = anchor.x - EDGE;
+    top = clamp(top, minTop, maxBottom - height);
+  }
+  return { left: clamp(left, EDGE, viewport.width - EDGE - bubble.width), top, maxHeight };
+}
+
+/** How far the bubble on this side would run past the screen (0 when it fits). */
+export function bubbleOverflow(anchor: Point, size: number, side: BubbleSide, bubble: { width: number; height: number }, viewport: Viewport, gap = 12) {
+  const minTop = viewport.insetTop + EDGE;
+  const maxBottom = viewport.height - viewport.insetBottom - EDGE;
+  const height = Math.min(bubble.height, bubbleMaxHeight(viewport));
+  if (side === "right") return Math.max(0, anchor.x + size + gap + bubble.width - (viewport.width - EDGE));
+  if (side === "left") return Math.max(0, EDGE - (anchor.x - gap - bubble.width));
+  if (side === "bottom") return Math.max(0, anchor.y + size + gap + height - maxBottom);
+  return Math.max(0, minTop - (anchor.y - gap - height));
+}
+
+/**
+ * Which side the bubble opens on. `current` is kept while it still fits (so
+ * it never flips while the avatar moves). Otherwise, among the sides that fit,
+ * the one that covers the least reading text (`avoid`), preferring earlier
+ * sides; if none fits, the one that overflows least.
+ */
+/**
+ * A side where the bubble fits on screen and covers none of the reading text
+ * (`avoid`), in preference order, or null when every fitting side covers some.
+ * Tips use it: an unasked-for line only shows in free space, never over text.
+ */
+export function freeBubbleSide(anchor: Point, size: number, bubble: { width: number; height: number }, viewport: Viewport, prefer: BubbleSide[], avoid: Rect[], gap = 12): BubbleSide | null {
+  const sides = [...prefer, ...(["right", "bottom", "top", "left"] as const).filter((side) => !prefer.includes(side))];
+  for (const side of sides) {
+    if (bubbleOverflow(anchor, size, side, bubble, viewport, gap) !== 0) continue;
+    const placed = placeBubbleBeside(anchor, size, side, bubble, viewport, gap);
+    const rect = { left: placed.left, top: placed.top, width: bubble.width, height: Math.min(bubble.height, placed.maxHeight) };
+    if (avoid.every((other) => overlapArea(rect, other) === 0)) return side;
+  }
+  return null;
+}
+
+export function chooseBubbleSide(
+  anchor: Point,
+  size: number,
+  bubble: { width: number; height: number },
+  viewport: Viewport,
+  prefer: BubbleSide[],
+  current: BubbleSide | null = null,
+  avoid: Rect[] = [],
+  gap = 12
+): BubbleSide {
+  const sides = [...prefer, ...(["right", "bottom", "top", "left"] as const).filter((side) => !prefer.includes(side))];
+  const fits = (side: BubbleSide) => bubbleOverflow(anchor, size, side, bubble, viewport, gap) === 0;
+  if (current && fits(current)) return current;
+  const fitting = sides.filter(fits);
+  // Among the sides that fit, the one covering the least reading text; ties
+  // go to the earlier preference. A side covering nothing wins outright.
+  const covered = (side: BubbleSide) => {
+    const placed = placeBubbleBeside(anchor, size, side, bubble, viewport, gap);
+    const rect = { left: placed.left, top: placed.top, width: bubble.width, height: Math.min(bubble.height, placed.maxHeight) };
+    return avoid.reduce((sum, other) => sum + overlapArea(rect, other), 0);
+  };
+  if (fitting.length > 0) {
+    // The side that covers the least of what is being read. Preference order
+    // only breaks near-ties (within a tenth of the bubble's own area), so a
+    // preferred side covering a paragraph never beats a free one beside it.
+    const slack = bubble.width * Math.min(bubble.height, bubbleMaxHeight(viewport)) * 0.1;
+    let best = fitting[0];
+    let bestCovered = covered(best);
+    for (const side of fitting.slice(1)) {
+      if (bestCovered === 0) break;
+      const area = covered(side);
+      if (area + slack < bestCovered) {
+        best = side;
+        bestCovered = area;
+      }
+    }
+    return best;
+  }
+  return [...sides].sort((a, b) => bubbleOverflow(anchor, size, a, bubble, viewport, gap) - bubbleOverflow(anchor, size, b, bubble, viewport, gap))[0];
+}
+
+function overlapArea(a: Rect, b: Rect) {
+  const w = Math.min(a.left + a.width, b.left + b.width) - Math.max(a.left, b.left);
+  const h = Math.min(a.top + a.height, b.top + b.height) - Math.max(a.top, b.top);
+  return w > 0 && h > 0 ? w * h : 0;
+}
+
+/**
+ * A section's dock (its ringed socket), as one continuous function of where
+ * the socket is on screen, so the path is the same scrolling down and up:
+ * - while the socket is below the screen the guide waits in the margin (mid-height);
+ * - as the socket rises into view it slides from the margin into the socket,
+ *   done once the socket is `range` px clear of the screen's bottom (so a
+ *   section in focus always has the guide in its place, even a tall one whose dock
+ *   sits low on the screen);
+ * - it rests in the socket while the socket is on screen (a socket in a sticky
+ *   panel pins with it, so the guide does too);
+ * - as the socket passes under the navbar it slides back out to the margin.
+ * `hold` is how far into the socket it is (1 = resting in it). With no margin
+ * (narrower screens) it stays on the socket and the caller clamps it.
+ */
+export function socketDockPoint(input: {
+  /** The socket's centre on screen. */
+  socket: Point;
+  size: number;
+  viewport: Viewport;
+  /** The margin's top-left for this size, or null when there is no margin. */
+  gutter: Point | null;
+  /** Scrolling over which it slides in from below. */
+  range?: number;
+  /**
+   * The socket's top at which it starts to slide out, and the scrolling it
+   * takes: it starts just above where sticky panels pin (navbar + 40), so a
+   * pinned socket keeps the guide, and finishes once the socket is above the screen.
+   */
+  leaveAt?: number;
+  leaveRange?: number;
+}): { point: Point; hold: number } {
+  const { socket, size, viewport, gutter, range = 120, leaveRange = 280 } = input;
+  const leaveAt = input.leaveAt ?? viewport.insetTop + 40;
+  const at = { x: socket.x - size / 2, y: socket.y - size / 2 };
+  if (!gutter) return { point: at, hold: 1 };
+  const enter = clamp((viewport.height - MARGIN - (socket.y + size / 2)) / range, 0, 1);
+  const leave = clamp((socket.y - size / 2 - leaveAt + leaveRange) / leaveRange, 0, 1);
+  const hold = Math.min(enter, leave);
+  // Smoothstep, not the cubic: its peak speed is half as high, so a fast
+  // scroll never moves the guide further in a frame than the ride smoothing allows.
+  const u = hold * hold * (3 - 2 * hold);
+  return { point: { x: gutter.x + (at.x - gutter.x) * u, y: gutter.y + (at.y - gutter.y) * u }, hold };
+}
+
+/**
+ * The drawn face's share of each avatar's box. In the hero socket the guide's face
+ * is drawn at 84% of the stage; the companion draws its face at `size - 16`
+ * inside its disc. Every size match (hero, page hops, the footer) uses these.
+ */
+export const HERO_FACE_SHARE = 0.84;
+export const COMPANION_FACE_SHARE = 0.76;
+
+/** Scale that draws the companion's face at the hero's face size. */
+export function heroFaceScale(heroDiameter: number, size: number) {
+  return (heroDiameter * HERO_FACE_SHARE) / (size * COMPANION_FACE_SHARE);
+}
+
+/**
+ * The guide leaving the hero, as a pure function of one number, `t`: 0 = sitting in
+ * the hero's socket at the hero's face size, 1 = at its spot at its own size.
+ *
+ * There is one guide: the same element shrinks as it travels, so nothing is
+ * cross-faded. `t` comes straight from the scroll position (no smoothing, no
+ * timer), so the same scroll always draws the same frame and scrolling back
+ * plays it in reverse. `chrome` is the opacity of the companion's own disc:
+ * in the socket the hero's disc and ring are drawn by the page, so its own
+ * fades in on the way out. Every output is monotonic in `t`.
+ */
+export function heroDockFrame(input: {
+  t: number;
+  /** The hero socket's centre and diameter, as laid out. */
+  heroCentre: Point;
+  heroDiameter: number;
+  /** The companion's size and its spot's top-left. */
+  size: number;
+  spot: Point;
+  /** The scale it starts at; by default the hero's face size. */
+  startScale?: number;
+}) {
+  const { heroCentre, heroDiameter, size, spot } = input;
+  const t = clamp(input.t, 0, 1);
+  // Path and size share one eased progress: it shrinks as it travels and
+  // arrives at full size exactly on its spot.
+  const u = easeInOutCubic(t);
+  const startScale = input.startScale ?? heroFaceScale(heroDiameter, size);
+  const scale = startScale + (1 - startScale) * u;
+  // A quadratic curve whose control point is at the start's x and the spot's
+  // y: down to the spot's height first, then across. Both coordinates move one way.
+  const from = { x: heroCentre.x - size / 2, y: heroCentre.y - size / 2 };
+  const control = { x: from.x, y: spot.y };
+  const position = {
+    x: (1 - u) * (1 - u) * from.x + 2 * (1 - u) * u * control.x + u * u * spot.x,
+    y: (1 - u) * (1 - u) * from.y + 2 * (1 - u) * u * control.y + u * u * spot.y,
+  };
+  const chrome = easeInOutCubic(clamp((t - 0.15) / 0.6, 0, 1));
+  return { position, scale, chrome };
+}
+
+/**
+ * How far the guide has left a page header's socket, from where the socket is on
+ * screen: 0 while it is at its resting place (`restTop`, its top with the
+ * page at the top), 1 by the time its top reaches the navbar's edge. So the guide
+ * is back to its own size before the slot would slide under the navbar, and
+ * never sits large over what follows the header (a case study's results).
+ * A plain function of the scroll, so it reverses exactly.
+ */
+export function routeSocketProgress(socketTop: number, restTop: number, navBottom: number) {
+  const distance = Math.max(1, restTop - navBottom);
+  return clamp((restTop - socketTop) / distance, 0, 1);
+}
+
+
+/**
+ * How far the hand-off has got, from the hero avatar's position on screen: 0
+ * while its top is below `start` (just under the navbar), 1 once it has
+ * scrolled `distance` px further up. A plain linear map of the scroll.
+ */
+export function heroHandoffProgress(heroTop: number, start: number, distance: number) {
+  return clamp((start - heroTop) / Math.max(1, distance), 0, 1);
+}
+
+/**
+ * The trip between pages, as a pure function of `t` (0 = where the avatar was
+ * on the page it left, 1 = its spot on the new page). One hop: it eases along
+ * the straight line while lifting on an arc above it (higher for longer
+ * trips), and squashes a little at the top of the hop. `fromScale` and
+ * `toScale` let it start as the big hero avatar or end as it.
+ */
+export function routeTravelFrame(input: { t: number; from: Point; to: Point; fromScale?: number; toScale?: number }) {
+  const { from, to, fromScale = 1, toScale = 1 } = input;
+  const u = easeInOutCubic(input.t);
+  const distance = Math.hypot(to.x - from.x, to.y - from.y);
+  const hop = distance < 24 ? 0 : Math.min(140, 36 + distance * 0.18);
+  const lift = hop * 4 * u * (1 - u);
+  const squash = 1 + 0.06 * Math.sin(Math.PI * u);
+  return {
+    position: { x: from.x + (to.x - from.x) * u, y: from.y + (to.y - from.y) * u - lift },
+    scale: (fromScale + (toScale - fromScale) * u) * squash,
+  };
+}
+
+/** How long the trip between pages takes: longer for longer trips, within limits. */
+export function routeTravelMs(from: Point, to: Point) {
+  return Math.round(620 + Math.min(320, Math.hypot(to.x - from.x, to.y - from.y) * 0.3));
+}
+
+/** Fixed spots that don't ride on content: the left margin, and the bottom-right corner. */
+export function gutterPoint(contentLeft: number, size: number, viewport: Viewport, yRatio = 0.5): Point | null {
+  if (contentLeft < size + MARGIN * 2) return null;
+  return { x: contentLeft / 2 - size / 2, y: viewport.height * yRatio - size / 2 };
+}
+
+export function cornerPoint(size: number, viewport: Viewport): Point {
+  return { x: viewport.width - size - 20, y: viewport.height - viewport.insetBottom - size - 20 };
+}
+
+/** Smooth start and stop, for the glide between spots. */
+export function easeInOutCubic(t: number) {
+  const clamped = clamp(t, 0, 1);
+  return clamped < 0.5 ? 4 * clamped * clamped * clamped : 1 - Math.pow(-2 * clamped + 2, 3) / 2;
+}
+
+export function blendPoint(from: Point, to: Point, t: number): Point {
+  return { x: from.x + (to.x - from.x) * t, y: from.y + (to.y - from.y) * t };
+}
+
+/**
+ * The section that owns the screen, with hysteresis: the current section keeps
+ * it while it still spans the middle of the viewport, give or take a band, so
+ * hovering a boundary never flips between two sections.
+ */
+export function activeSectionAt(
+  sections: { id: string; top: number; bottom: number }[],
+  viewportHeight: number,
+  current: string | null,
+  band = 0.08
+): string | null {
+  if (sections.length === 0) return null;
+  const middle = viewportHeight / 2;
+  const holding = sections.find((section) => section.id === current);
+  if (holding && holding.top <= middle + viewportHeight * band && holding.bottom >= middle - viewportHeight * band) return current;
+  const spanning = sections.find((section) => section.top <= middle && section.bottom >= middle);
+  if (spanning) return spanning.id;
+  const passed = sections.filter((section) => section.top <= middle);
+  return passed.length > 0 ? passed[passed.length - 1].id : sections[0].id;
+}
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), Math.max(min, max));
+}
+
+/**
+ * The footer landing's progress, paced like the hero hand-off: it runs over
+ * `span` px of scrolling (the hand-off's span), ending exactly when the page
+ * can scroll no further, so leaving the hero and arriving at the footer feel
+ * the same. `remaining` is the scroll left before the page ends. On a page
+ * too short for the full span it runs over what there is. A pure function of
+ * position: scrolling back plays it in reverse.
+ */
+export function footerDockProgress(input: { remaining: number; span: number; scrolled: number }) {
+  const { remaining, span, scrolled } = input;
+  const run = Math.max(1, Math.min(span, scrolled + remaining));
+  return clamp(1 - Math.max(0, remaining) / run, 0, 1);
+}
+
+/**
+ * One frame of the landing, in top-left coordinates of the unscaled `size`
+ * box (scale is applied around the centre, so the visible disc is centred on
+ * `slotCentre` at the end). A hop, like the trips between pages: it rises
+ * away from its spot, travels above the page content on an arc, and comes
+ * down into the slot, growing as it lands. `opacity` dips mid-flight so the
+ * disc reads as passing over the page rather than sitting on its text, and
+ * is full again before it lands.
+ */
+export function footerDockFrame(input: { t: number; from: Point; slotCentre: Point; size: number; slotSize: number; fromScale?: number }) {
+  const { from, slotCentre, size, slotSize, fromScale = 1 } = input;
+  const t = clamp(input.t, 0, 1);
+  const u = easeInOutCubic(t);
+  const to = { x: slotCentre.x - size / 2, y: slotCentre.y - size / 2 };
+  const distance = Math.hypot(to.x - from.x, to.y - from.y);
+  const lift = Math.min(160, 40 + distance * 0.2) * 4 * u * (1 - u);
+  const position = { x: from.x + (to.x - from.x) * u, y: from.y + (to.y - from.y) * u - lift };
+  // Growth waits for the second half, so it is still small while it crosses.
+  const grow = easeInOutCubic(clamp((t - 0.4) / 0.6, 0, 1));
+  const toScale = slotSize / size;
+  const dip = t <= 0 || t >= 0.85 ? 0 : Math.sin((Math.PI * t) / 0.85);
+  const opacity = 1 - 0.55 * dip;
+  return { position, scale: fromScale + (toScale - fromScale) * grow, opacity };
+}

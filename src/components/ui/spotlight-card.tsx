@@ -1,0 +1,143 @@
+import { motion, useMotionTemplate, useMotionValue, useReducedMotion } from "framer-motion";
+import { useFinePointer } from "@/hooks/use-fine-pointer";
+import { type PointerEvent, useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
+
+interface SpotlightCardProps {
+  children: React.ReactNode;
+  className?: string;
+  glowColor?: string;
+  glowSize?: number;
+  glowOpacity?: number;
+  /**
+   * Renders the card fully opaque with no backdrop blur.
+   *
+   * For the stacked project deck, where each card must completely hide the ones
+   * behind it. This is a prop rather than a `className` override because the
+   * glass tier sets `backdrop-filter` directly while `backdrop-blur-none` only
+   * clears a custom property — and the tier is emitted later in the stylesheet,
+   * so a class-based override loses. Omitting the tier is the reliable fix.
+   */
+  opaque?: boolean;
+}
+
+export function SpotlightCard({
+  children,
+  className,
+  glowColor = "hsl(var(--accent) / 0.08)", // Default teal accent glow
+  glowSize = 650,
+  glowOpacity = 100,
+  opaque = false,
+}: SpotlightCardProps) {
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const elementRef = useRef<HTMLDivElement | null>(null);
+  const boundsRef = useRef<DOMRect | null>(null);
+  const pointRef = useRef<{ x: number; y: number } | null>(null);
+  const frameRef = useRef<number | null>(null);
+  const shouldReduceMotion = useReducedMotion();
+  const finePointer = useFinePointer();
+  const isInteractive = finePointer && !shouldReduceMotion;
+  const spotlightBackground = useMotionTemplate`
+    radial-gradient(
+      ${glowSize}px circle at ${mouseX}px ${mouseY}px,
+      ${glowColor},
+      transparent 80%
+    )
+  `;
+
+  useEffect(() => {
+    return () => {
+      if (frameRef.current !== null) {
+        window.cancelAnimationFrame(frameRef.current);
+      }
+    };
+  }, []);
+
+  function flushPointerPosition() {
+    frameRef.current = null;
+
+    const nextBounds = elementRef.current?.getBoundingClientRect() ?? boundsRef.current;
+    if (!nextBounds || !pointRef.current) return;
+
+    boundsRef.current = nextBounds;
+    mouseX.set(pointRef.current.x - nextBounds.left);
+    mouseY.set(pointRef.current.y - nextBounds.top);
+  }
+
+  function handlePointerEnter({ currentTarget, clientX, clientY }: PointerEvent<HTMLDivElement>) {
+    if (!isInteractive) return;
+    elementRef.current = currentTarget;
+    boundsRef.current = currentTarget.getBoundingClientRect();
+    pointRef.current = { x: clientX, y: clientY };
+    mouseX.set(clientX - boundsRef.current.left);
+    mouseY.set(clientY - boundsRef.current.top);
+    setIsHovered(true);
+  }
+
+  function handlePointerMove({ currentTarget, clientX, clientY }: PointerEvent<HTMLDivElement>) {
+    if (!isInteractive) return;
+    elementRef.current = currentTarget;
+    if (!boundsRef.current) {
+      boundsRef.current = currentTarget.getBoundingClientRect();
+    }
+
+    pointRef.current = { x: clientX, y: clientY };
+
+    if (frameRef.current === null) {
+      frameRef.current = window.requestAnimationFrame(flushPointerPosition);
+    }
+  }
+
+  function handlePointerLeave() {
+    if (!isInteractive) return;
+    if (frameRef.current !== null) {
+      window.cancelAnimationFrame(frameRef.current);
+      frameRef.current = null;
+    }
+
+    elementRef.current = null;
+    boundsRef.current = null;
+    pointRef.current = null;
+    setIsHovered(false);
+  }
+
+  return (
+    <motion.div
+      /*
+        No entrance animation: sections carry their own motion (sticky
+        panels, the card deck, the timeline), and a per-card slide on scroll
+        stacked on top of it.
+      */
+      onPointerEnter={isInteractive ? handlePointerEnter : undefined}
+      onPointerMove={isInteractive ? handlePointerMove : undefined}
+      onPointerLeave={isInteractive ? handlePointerLeave : undefined}
+      className={cn(
+        "group relative rounded-3xl border border-border/60 overflow-hidden shadow-accent-card",
+        opaque
+          ? "bg-background"
+          : "bg-background/65 dark:bg-background/68 glass-tier-surface backdrop-saturate-140",
+        className
+      )}
+    >
+      {/* Spotlight hover effect */}
+      <motion.div
+        className="pointer-events-none absolute -inset-px rounded-3xl"
+        animate={{ opacity: isInteractive && isHovered ? glowOpacity / 100 : 0 }}
+        transition={{ duration: shouldReduceMotion ? 0.2 : 0.5 }}
+        style={{
+          background: spotlightBackground,
+        }}
+      />
+      
+      {/* Subtle ambient glow always active */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/[0.02] dark:from-white/[0.02] to-transparent pointer-events-none" />
+
+      {/* Card Content */}
+      <div className="relative z-10 w-full h-full">
+        {children}
+      </div>
+    </motion.div>
+  );
+}

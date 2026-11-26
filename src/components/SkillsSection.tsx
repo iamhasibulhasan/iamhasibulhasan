@@ -1,0 +1,121 @@
+import { Layers, Database, LayoutTemplate, Wrench } from "lucide-react";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
+import FlipWords from "@/components/ui/flip-words";
+import { skillCategories, skillEvidence } from "@/data/portfolio";
+import { SectionGuideDock } from "@/components/guide/SectionGuideDock";
+
+/** Keyed by exact category title — a miss falls back to Wrench silently, so
+ *  these must be updated in the same edit as any title change in portfolio.ts. */
+const CATEGORY_ICONS: Record<string, React.ElementType> = {
+  "Backend & APIs": Layers,
+  Data: Database,
+  Frontend: LayoutTemplate,
+  "Tools & reporting": Wrench,
+};
+
+const SkillsSection = () => {
+  return (
+    <section id="skills" className="section-padding relative z-10">
+      <div className="container-narrow">
+        <div className="flex flex-col items-start gap-12 lg:flex-row lg:gap-20">
+
+          {/* Left Column: Sticky Header */}
+          <div className="w-full shrink-0 lg:sticky lg:top-32 lg:w-1/3">
+            <div data-guide-panel data-guide-target="skills-panel" className="panel-sticky">
+              <div aria-hidden="true" className="pointer-events-none absolute -right-[7.5rem] -top-[7.5rem] h-72 w-72 rounded-full bg-[radial-gradient(circle,hsl(var(--primary)/0.1)_0%,hsl(var(--primary)/0.05)_35%,transparent_70%)]" />
+              <div aria-hidden="true" className="pointer-events-none absolute -bottom-[8.5rem] -left-[7.5rem] h-72 w-72 rounded-full bg-[radial-gradient(circle,hsl(var(--accent)/0.1)_0%,hsl(var(--accent)/0.05)_35%,transparent_70%)]" />
+
+              <div className="relative">
+                <SectionGuideDock
+                  section="skills"
+                  className="mb-6"
+                  eyebrow={<div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 font-mono text-xs text-primary-text">Expertise</div>}
+                />
+                <h2 className="heading-xl mb-6">
+                  Technical <br className="hidden lg:block" />
+                  <span className="text-gradient">Stack</span>
+                </h2>
+                <p className="max-w-md text-sm leading-relaxed text-muted-foreground sm:text-base">
+                  The technologies I reach for most often when building services, APIs and enterprise systems. Highlighted ones link to the work that uses them.
+                </p>
+
+                <p className="mt-10 text-left text-base font-semibold text-foreground sm:text-xl md:text-2xl">
+                  <FlipWords
+                    variant="line"
+                    words={["Learning fast.", "Building deep.", "Shipping reliably."]}
+                    className="text-primary-text"
+                  />
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Column: Spotlight Cards */}
+          <div className="flex w-full flex-col gap-6 lg:w-2/3">
+            {skillCategories.map((cat) => {
+              const Icon = CATEGORY_ICONS[cat.title] ?? Wrench;
+              return (
+                <div key={cat.title}>
+                  <SpotlightCard className="w-full">
+                    <div className="p-8 sm:p-10">
+                      {/*
+                        The pill sits OUTSIDE this row, not in the text column.
+                        Inside it, the extra line made the text column taller
+                        than the 48px icon, so `items-center` re-centred the icon
+                        against a different height per card — which is why the
+                        gap under the icon varied between categories.
+                      */}
+                      <div className="flex items-center gap-4">
+                        <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border border-foreground/5 glass-subtle transition-transform duration-500 group-hover:scale-110 group-hover:border-primary/30">
+                          <Icon className="h-5 w-5 text-primary-text" />
+                        </div>
+                        <div>
+                          <h3 className="heading-md transition-colors duration-300 group-hover:text-primary-text">
+                            {cat.title}
+                          </h3>
+                          <p className="mt-1 font-mono text-xs text-muted-foreground">{cat.skills.length} technologies</p>
+                        </div>
+                      </div>
+
+
+                      <p className="mb-6 mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+                        {cat.description}
+                      </p>
+
+                      <ul className="flex flex-wrap gap-2.5">
+                        {cat.skills.map((skill) => {
+                          // A skill with evidence on the site links to it; the rest stay plain.
+                          const evidence = skillEvidence[skill];
+                          const chip = "flex min-h-11 items-center rounded-xl border px-4 py-2 text-sm font-medium glass-subtle transition-all duration-300";
+                          return (
+                            <li key={skill}>
+                              {evidence ? (
+                                <a
+                                  href={evidence.href}
+                                  title={`Proof: ${evidence.label}`}
+                                  className={`${chip} border-primary/25 text-foreground/90 hover:border-primary/60 hover:text-primary-text focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary`}
+                                >
+                                  {skill}
+                                  <span className="sr-only"> (proof: {evidence.label})</span>
+                                </a>
+                              ) : (
+                                <span className={`${chip} select-none border-foreground/5 text-foreground/70`}>{skill}</span>
+                              )}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </SpotlightCard>
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default SkillsSection;

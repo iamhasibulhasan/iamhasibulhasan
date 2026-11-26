@@ -1,0 +1,35 @@
+import { useTheme } from "@/lib/compat/theme";
+import { useSyncExternalStore } from "react";
+import { Moon, Sun } from "lucide-react";
+
+export function ThemeToggle() {
+  const { setTheme, resolvedTheme } = useTheme();
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+
+  if (!mounted) {
+    return (
+      <div className="w-9 h-9" aria-hidden="true" />
+    );
+  }
+
+  const isDark = resolvedTheme === "dark";
+
+  return (
+    <button
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className="p-2 rounded-lg hover:bg-foreground/10 transition-all duration-300 active:scale-95"
+      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+      title={`Switch to ${isDark ? "light" : "dark"} mode`}
+    >
+      {isDark ? (
+        <Sun className="w-5 h-5 text-amber-400" />
+      ) : (
+        <Moon className="w-5 h-5 text-slate-700" />
+      )}
+    </button>
+  );
+}

@@ -1,0 +1,351 @@
+import Link from "@/lib/compat/link";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Menu, X, Download, Search, SlidersHorizontal } from "lucide-react";
+import SettingsPanel from "./SettingsPanel";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import LogoMark from "@/components/LogoMark";
+import { personalInfo } from "@/data/portfolio";
+import { ThemeToggle } from "./ThemeToggle";
+import { useLenisLock } from "@/hooks/useLenisLock";
+import { scrollToHash, scrollToTop } from "@/lib/scroll";
+import { usePathname, useRouter } from "@/lib/compat/navigation";
+import { SECTION_LINKS } from "@/data/site-links";
+
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const firstMobileLinkRef = useRef<HTMLAnchorElement>(null);
+  const shouldRestoreFocusRef = useRef(true);
+  const shouldReduceMotion = useReducedMotion();
+  const router = useRouter();
+  const pathname = usePathname();
+  /** The section anchors only exist on the homepage. */
+  const isHome = pathname === "/";
+
+  // The mobile menu sets body overflow, but Lenis scrolls via its own window
+  // listener and would otherwise keep moving the page behind the open menu.
+  useLenisLock(isOpen);
+
+  useEffect(() => {
+    let frameId: number | null = null;
+
+    const updateScrolled = () => {
+      frameId = null;
+
+      // The scrolled background applies on EVERY route — the bar floats over
+      // content everywhere. This used to sit behind an `isHome` early return,
+      // which is why /work and /work/* had a transparent bar with page text
+      // showing straight through it.
+      const nextScrolled = window.scrollY > 40;
+      setScrolled((prev) => (prev === nextScrolled ? prev : nextScrolled));
+    };
+
+    const onScroll = () => {
+      if (frameId !== null) return;
+      frameId = window.requestAnimationFrame(updateScrolled);
+    };
+
+    updateScrolled();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      if (frameId !== null) window.cancelAnimationFrame(frameId);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, []);
+
+  // Section tracking only means anything on the homepage. An observer with a
+  // one-pixel band at 35% of the screen marks the section crossing that line,
+  // instead of reading every section's rect on every scroll frame.
+  useEffect(() => {
+    if (!isHome) return;
+    const sections = SECTION_LINKS
+      .map((link) => document.querySelector(link.href))
+      .filter((node): node is HTMLElement => node instanceof HTMLElement);
+    const crossing = new Set<string>();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const id = `#${entry.target.id}`;
+          if (entry.isIntersecting) crossing.add(id);
+          else crossing.delete(id);
+        }
+        const next = SECTION_LINKS.find((link) => crossing.has(link.href))?.href ?? null;
+        setActiveSection((prev) => (prev === next ? prev : next));
+      },
+      { rootMargin: "-35% 0px -65% 0px", threshold: 0 }
+    );
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [isHome]);
+
+  const closeMenu = useCallback((restoreFocus = true) => {
+    shouldRestoreFocusRef.current = restoreFocus;
+    setIsOpen(false);
+  }, []);
+
+  const scrollToSection = useCallback(
+    (href: string) => {
+      // Off the homepage the target does not exist, so navigate to it there and
+      // let the browser resolve the fragment on arrival.
+      if (!isHome) {
+        router.push(`/${href}`);
+        return;
+      }
+      scrollToHash(href);
+    },
+    [isHome, router]
+  );
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, isMobile: boolean) => {
+    e.preventDefault();
+    // Only reflect the click immediately when the section is on this page;
+    // otherwise the scroll observer on the destination decides what is active.
+    if (isHome) setActiveSection(href);
+
+    if (isMobile) {
+      closeMenu(false);
+      window.setTimeout(() => {
+        scrollToSection(href);
+      }, shouldReduceMotion ? 0 : 150);
+    } else {
+      scrollToSection(href);
+    }
+  };
+
+  // Nothing is "active" off the homepage, regardless of any stale stored value.
+  const currentSection = isHome ? activeSection : null;
+
+  /**
+   * The real destination for a section link.
+   *
+   * Off the homepage a bare "#about" points at nothing, which is what made every
+   * nav item a no-op on /work and /work/*. Middle-click and open-in-new-tab read
+   * this attribute directly, so it must be right independently of the handler.
+   */
+  const sectionHref = (href: string) => (isHome ? href : `/${href}`);
+
+  /** Logo: top of the homepage, from anywhere. */
+  const handleHomeClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (!isHome) {
+      router.push("/");
+      return;
+    }
+    setActiveSection(null);
+    scrollToTop();
+  };
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const menuButton = menuButtonRef.current;
+
+    const focusTimer = window.setTimeout(() => {
+      firstMobileLinkRef.current?.focus();
+    }, shouldReduceMotion ? 0 : 120);
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeMenu();
+        return;
+      }
+
+      if (event.key !== "Tab" || !mobileMenuRef.current) return;
+
+      const focusable = Array.from(
+        mobileMenuRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.clearTimeout(focusTimer);
+      document.removeEventListener("keydown", handleKeyDown);
+
+      if (shouldRestoreFocusRef.current) {
+        menuButton?.focus();
+      }
+
+      shouldRestoreFocusRef.current = true;
+    };
+  }, [closeMenu, isOpen, shouldReduceMotion]);
+
+  const mobileMenuTransition = shouldReduceMotion
+    ? { duration: 0.18 }
+    : { type: "spring" as const, stiffness: 260, damping: 28, mass: 0.8 };
+
+  return (
+    <>
+      <div className="fixed top-0 inset-x-0 z-50 flex justify-center px-4 pt-[var(--nav-top)] pointer-events-none">
+        <nav
+          aria-label="Main"
+          className={`pointer-events-auto transition-all duration-500 rounded-2xl sm:rounded-full container-width flex items-center justify-between px-4 sm:px-6 h-[var(--nav-height)] border ${
+            scrolled ? "glass-nav shadow-accent-card border-foreground/10" : "bg-transparent border-transparent"
+          }`}
+        >
+          <Link href="/" onClick={handleHomeClick} aria-label={`${personalInfo.name}: go to the top of the homepage`} className="flex min-h-11 min-w-11 items-center justify-center group">
+            <LogoMark size={32} className="h-7 w-7 sm:h-8 sm:w-8 transition-transform duration-300 group-hover:scale-110 pointer-events-none" />
+          </Link>
+
+          <div className="hidden md:flex items-center gap-1.5">
+            {SECTION_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={sectionHref(link.href)}
+                onClick={(e) => handleNavClick(e, link.href, false)}
+                aria-current={currentSection === link.href ? "location" : undefined}
+                className={`px-3 py-2 text-sm font-medium transition-all duration-200 rounded-full ${
+                  currentSection === link.href
+                    ? "bg-primary/10 text-primary-text shadow-[0_0_14px_hsl(var(--accent)/0.1)]"
+                    : "text-muted-foreground hover:text-foreground hover:bg-foreground/10"
+                }`}
+              >
+                {link.label}
+              </a>
+            ))}
+            <div className="w-px h-4 bg-foreground/10 mx-2" />
+            {/* Discoverability for the shortcut — most visitors never guess it exists. */}
+            <button
+              type="button"
+              onClick={() => window.dispatchEvent(new CustomEvent("open-command-palette"))}
+              aria-label="Open command palette"
+              className="hidden items-center gap-1.5 rounded-full border border-foreground/10 px-3 py-1.5 font-mono text-[11px] text-muted-foreground transition-colors hover:border-primary/30 hover:text-primary-text lg:flex"
+            >
+              <Search className="h-3 w-3" />
+              <kbd className="font-sans">⌘K</kbd>
+            </button>
+            <button
+              type="button"
+              onClick={() => setSettingsOpen(true)}
+              aria-label="Customize appearance"
+              title="Customize"
+              className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-foreground/10 transition-all duration-300 active:scale-95"
+            >
+              <SlidersHorizontal className="w-5 h-5" />
+            </button>
+            <ThemeToggle />
+            <a
+              href={personalInfo.resumeUrl}
+              download
+              className="flex items-center gap-1.5 px-4 py-2 text-sm font-bold rounded-full bg-primary/10 border border-primary/20 text-primary-text hover:bg-primary hover:text-primary-foreground transition-all duration-300 active:scale-[0.97] ml-2"
+            >
+              <Download className="w-3.5 h-3.5" />
+              Resume
+            </a>
+          </div>
+
+          <button
+            ref={menuButtonRef}
+            type="button"
+            onClick={() => (isOpen ? closeMenu() : setIsOpen(true))}
+            className="md:hidden flex h-11 w-11 items-center justify-center rounded-xl glass-subtle border border-foreground/10 hover:bg-foreground/10 transition-colors active:scale-95"
+            aria-label="Toggle menu"
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
+          >
+            {isOpen ? <X className="w-5 h-5 text-foreground" /> : <Menu className="w-5 h-5 text-foreground" />}
+          </button>
+        </nav>
+      </div>
+
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: shouldReduceMotion ? 0.15 : 0.25 }}
+              onClick={() => closeMenu()}
+              className="md:hidden fixed inset-0 z-[90] bg-black/40 glass-scrim"
+              aria-hidden="true"
+            />
+            <motion.div
+              id="mobile-navigation"
+              ref={mobileMenuRef}
+              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, height: 0, y: -10 }}
+              animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, height: "auto", y: 0 }}
+              exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, height: 0, y: -10 }}
+              transition={mobileMenuTransition}
+              className="md:hidden fixed top-[calc(max(1rem,env(safe-area-inset-top))+3.5rem)] inset-x-4 z-[100] glass-nav border border-foreground/10 overflow-hidden rounded-2xl shadow-accent-card sm:top-[calc(max(1.5rem,env(safe-area-inset-top))+4rem)]"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Mobile navigation"
+            >
+            <div className="py-4 flex flex-col gap-1 px-4">
+              {SECTION_LINKS.map((link) => (
+                <a
+                  key={link.href}
+                  ref={link === SECTION_LINKS[0] ? firstMobileLinkRef : undefined}
+                  href={sectionHref(link.href)}
+                  onClick={(e) => handleNavClick(e, link.href, true)}
+                  aria-current={currentSection === link.href ? "location" : undefined}
+                  className={`block px-4 py-3 text-sm rounded-lg transition-colors font-medium w-full ${
+                    currentSection === link.href
+                      ? "bg-primary/10 text-primary-text"
+                      : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              ))}
+              <div className="flex items-center justify-between mt-2 pt-4 border-t border-foreground/5">
+                <div className="flex items-center gap-1">
+                  <ThemeToggle />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      closeMenu(false);
+                      setSettingsOpen(true);
+                    }}
+                    aria-label="Customize appearance"
+                    className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-foreground/10 transition-all duration-300 active:scale-95"
+                  >
+                    <SlidersHorizontal className="w-5 h-5" />
+                  </button>
+                </div>
+                <a
+                  href={personalInfo.resumeUrl}
+                  download
+                  onClick={() => closeMenu(false)}
+                  className="flex items-center justify-center gap-2 px-5 py-2.5 text-sm font-bold rounded-xl bg-primary text-primary-foreground active:scale-[0.97]"
+                >
+                  <Download className="w-4 h-4" />
+                  Resume
+                </a>
+              </div>
+            </div>
+          </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+      <SettingsPanel open={settingsOpen} onOpenChange={setSettingsOpen} />
+    </>
+  );
+};
+
+export default Navbar;

@@ -1,0 +1,313 @@
+
+import { useEffect, useRef, useState } from "react";
+import {
+  cancelFrame,
+  frame,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
+import { Briefcase, CalendarDays, GraduationCap } from "lucide-react";
+import { bulletStudySlug, bulletText, experiences, type Experience } from "@/data/portfolio";
+import { getCaseStudyPath } from "@/data/case-study-path";
+import { ReadCaseStudyLink } from "@/components/ReadCaseStudyLink";
+import { SectionGuideDock } from "@/components/guide/SectionGuideDock";
+import { SpotlightCard } from "@/components/ui/spotlight-card";
+import FlipWords from "@/components/ui/flip-words";
+
+function TimelineIcon({
+  timelineRef,
+  lineProgress,
+}: {
+  timelineRef: React.RefObject<HTMLDivElement | null>;
+  lineProgress: MotionValue<number>;
+}) {
+  const figureRef = useRef<HTMLElement>(null);
+  const [fillWindow, setFillWindow] = useState({ start: 0, end: 1 });
+
+  useEffect(() => {
+    const timeline = timelineRef.current;
+    const figure = figureRef.current;
+    if (!timeline || !figure) return;
+
+    const measure = () => {
+      const timelineRect = timeline.getBoundingClientRect();
+      const figureRect = figure.getBoundingClientRect();
+      const totalHeight = Math.max(timelineRect.height, 1);
+      const start = Math.max(0, Math.min(1, (figureRect.top - timelineRect.top) / totalHeight));
+      const end = Math.max(start + 0.001, Math.min(1, (figureRect.bottom - timelineRect.top) / totalHeight));
+
+      setFillWindow({ start, end });
+    };
+
+    measure();
+
+    const resizeObserver = new ResizeObserver(measure);
+    resizeObserver.observe(timeline);
+    resizeObserver.observe(figure);
+
+    return () => resizeObserver.disconnect();
+  }, [timelineRef]);
+
+  // Straight from the scroll progress (Lenis already smooths the scroll);
+  // a spring per icon was five extra animations running on every scroll.
+  const pathLength = useTransform(lineProgress, [fillWindow.start, fillWindow.end], [0, 1], {
+    clamp: true,
+  });
+  const fillOpacity = useTransform(pathLength, [0.82, 1], [0, 1], { clamp: true });
+
+  return (
+    <figure
+      ref={figureRef}
+      className="absolute left-[25px] top-2 flex h-[50px] w-[50px] -translate-x-1/2 items-center justify-center stroke-foreground sm:left-[45px] sm:h-[75px] sm:w-[75px] md:top-4"
+    >
+      <svg viewBox="0 0 100 100" className="h-full w-full rotate-[-90deg]">
+        <circle cx="50" cy="50" r="20" className="fill-background stroke-primary/20 stroke-1" />
+        <motion.circle
+          style={{ pathLength }}
+          cx="50"
+          cy="50"
+          r="20"
+          className="fill-none stroke-primary stroke-[5px]"
+        />
+        <motion.circle
+          cx="50"
+          cy="50"
+          r="10"
+          style={{ opacity: fillOpacity }}
+          className="fill-primary stroke-1"
+        />
+      </svg>
+    </figure>
+  );
+}
+
+function ExperienceItem({
+  exp,
+  current,
+  timelineRef,
+  lineProgress,
+}: {
+  exp: Experience;
+  /** The latest role: anchored, and marked as the current one. */
+  current?: boolean;
+  timelineRef: React.RefObject<HTMLDivElement | null>;
+  lineProgress: MotionValue<number>;
+}) {
+  const ref = useRef<HTMLLIElement>(null);
+  const MetaIcon = exp.type === "education" ? GraduationCap : Briefcase;
+  const metaLabel = exp.type === "education" ? "Education" : "Experience";
+
+  return (
+    <li ref={ref} id={current ? "current-role" : undefined} className="relative mb-12 flex w-full scroll-mt-28 flex-col gap-1 pl-[50px] sm:mb-16 sm:pl-[90px]">
+      <TimelineIcon timelineRef={timelineRef} lineProgress={lineProgress} />
+      <SpotlightCard className={current ? "h-full border-primary/30" : "h-full"}>
+        <div className="p-6 md:p-8">
+          <div className="mb-5 flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+            <div>
+              {current && (
+                <span className="mb-2 inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-wider text-primary-text">
+                  <span className="h-1.5 w-1.5 rounded-full bg-primary" aria-hidden="true" />
+                  Now
+                </span>
+              )}
+              <h3 className="heading-md text-foreground">{exp.role}</h3>
+              <span className="mt-1 block font-medium text-primary-text">{exp.company}</span>
+            </div>
+
+            <div className="flex w-full flex-col items-end gap-2 md:w-auto md:flex-none">
+              <span className="inline-flex items-center gap-2 rounded-full border border-foreground/10 glass-subtle px-3 py-1.5 text-[11px] font-mono font-medium uppercase tracking-wide text-muted-foreground">
+                <MetaIcon className="h-3.5 w-3.5" />
+                {metaLabel}
+              </span>
+              <span className="inline-flex items-center gap-2 rounded-full border border-foreground/10 glass-subtle px-3 py-1.5 text-xs font-mono font-medium text-muted-foreground">
+                <CalendarDays className="h-3.5 w-3.5" />
+                {exp.period}
+              </span>
+            </div>
+          </div>
+
+          <ul className="space-y-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+            {/* The summary is a point like any other, so it gets the same
+                affordance — it was the one bullet in every card without one. */}
+            <li className="flex gap-3 text-foreground/90">
+              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+              <div className="flex-1">
+                <p>{exp.summary}</p>
+              </div>
+            </li>
+            {exp.bullets.map((bullet) => {
+              const text = bulletText(bullet);
+              const studySlug = bulletStudySlug(bullet);
+
+              return (
+                <li key={text} className="flex gap-3 text-pretty">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary/70" />
+                  <div className="flex-1">
+                    <p>{text}</p>
+                    {studySlug && (
+                      <div className="mt-2 flex flex-wrap items-center gap-2">
+                        <ReadCaseStudyLink href={getCaseStudyPath(studySlug)} className="ml-0" />
+                      </div>
+                    )}
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </SpotlightCard>
+    </li>
+  );
+}
+
+const ExperienceSection = () => {
+  const timelineRef = useRef<HTMLDivElement>(null);
+  const scrollYProgress = useMotionValue(0);
+  const shouldReduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    if (shouldReduceMotion) {
+      scrollYProgress.set(1);
+      return;
+    }
+
+    const element = timelineRef.current;
+    if (!element) return;
+
+    // The line follows the scroll on Framer Motion's frame loop, in its read
+    // step, with everything else that moves (Lenis scrolls in that step):
+    // a separate scroll listener and rAF ran a frame late and read layout on
+    // its own. The timeline's place in the page is measured once per layout
+    // and the progress comes from the scroll alone.
+    let isTracking = false;
+    let place: { key: string; top: number; height: number } | null = null;
+
+    const updateProgress = () => {
+      const root = document.documentElement;
+      const key = `${root.scrollHeight}x${root.clientWidth}x${window.innerHeight}`;
+      if (!place || place.key !== key) {
+        const rect = element.getBoundingClientRect();
+        place = { key, top: rect.top + window.scrollY, height: Math.max(rect.height, 1) };
+      }
+      const top = place.top - window.scrollY;
+      const rawProgress = (window.innerHeight * 0.8 - top) / place.height;
+      scrollYProgress.set(Math.max(0, Math.min(1, rawProgress)));
+    };
+
+    const startTracking = () => {
+      if (isTracking) return;
+      isTracking = true;
+      frame.read(updateProgress, true);
+    };
+
+    const stopTracking = () => {
+      if (!isTracking) return;
+      isTracking = false;
+      cancelFrame(updateProgress);
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          startTracking();
+        } else {
+          stopTracking();
+        }
+      },
+      { rootMargin: "20% 0px 20% 0px" }
+    );
+
+    observer.observe(element);
+
+    return () => {
+      observer.disconnect();
+      stopTracking();
+    };
+  }, [scrollYProgress, shouldReduceMotion]);
+
+
+  return (
+    <section id="experience" className="section-padding relative z-10">
+      <div className="container-narrow">
+        <div className="flex flex-col items-start gap-12 lg:flex-row lg:gap-20">
+          <div className="w-full shrink-0 lg:sticky lg:top-32 lg:w-1/3">
+            <div>
+              <div data-guide-panel className="panel-sticky" data-guide-target="experience-intro">
+                <div aria-hidden="true" className="pointer-events-none absolute -right-[7.5rem] -top-[7.5rem] h-72 w-72 rounded-full bg-[radial-gradient(circle,hsl(var(--primary)/0.1)_0%,hsl(var(--primary)/0.05)_35%,transparent_70%)]" />
+                <div aria-hidden="true" className="pointer-events-none absolute -bottom-[8.5rem] -left-[7.5rem] h-72 w-72 rounded-full bg-[radial-gradient(circle,hsl(var(--accent)/0.1)_0%,hsl(var(--accent)/0.05)_35%,transparent_70%)]" />
+
+                <div className="relative">
+                  <SectionGuideDock
+                    section="experience"
+                    className="mb-6"
+                    eyebrow={<div className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-3 py-1.5 text-xs font-mono text-primary-text">Journey</div>}
+                  />
+                  <h2 className="heading-xl mb-6">
+                    Professional <br className="hidden lg:block" />
+                    <span className="text-gradient">Experience</span>
+                  </h2>
+                  <p className="max-w-md leading-relaxed text-muted-foreground">
+                    Three companies, one stack: an ERP at Mass Data, HR and payroll at ERA Infotech, and microservice e-commerce at Cartup, all built on .NET Core.
+                  </p>
+
+                  {/* The story runs oldest first; the role that carries it is last, so point at it. */}
+                  <a
+                    href="#current-role"
+                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary-text hover:text-primary-text"
+                  >
+                    Now: {experiences[experiences.length - 1].role}, {experiences[experiences.length - 1].company}
+                    <span aria-hidden="true">↓</span>
+                  </a>
+
+                  <div className="hidden lg:block">
+                    <p className="mt-6 inline-flex flex-nowrap items-baseline whitespace-nowrap text-base font-semibold text-foreground sm:text-xl lg:mt-8">
+                    And a new{" "}
+                    <FlipWords words={["adventure", "chapter", "journey"]} slotWidth={10.5} className="px-2 text-primary-text" />{" "}
+                    ahead
+                  </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="relative w-full lg:w-2/3" ref={timelineRef}>
+            <div className="absolute bottom-0 left-[24px] top-0 w-[2px] rounded-full bg-foreground/10 sm:left-[44px]" />
+
+            <motion.div
+              // Always the motion value (set to 1 under reduced motion): a
+              // client-only branch here rendered different HTML than the server.
+              style={{ scaleY: scrollYProgress }}
+              className="absolute bottom-0 left-[24px] top-0 w-[2px] origin-top rounded-full bg-primary glow-accent-xs sm:left-[44px]"
+            />
+
+            <ul className="relative w-full py-4">
+              {experiences.map((experience, index) => (
+                <ExperienceItem
+                  key={`${experience.company}-${experience.period}`}
+                  exp={experience}
+                  current={index === experiences.length - 1}
+                  timelineRef={timelineRef}
+                  lineProgress={scrollYProgress}
+                />
+              ))}
+            </ul>
+
+            <div className="mt-8 pl-[50px] lg:hidden sm:pl-[90px]">
+              <p className="mt-6 inline-flex flex-nowrap items-baseline whitespace-nowrap text-base font-semibold text-foreground sm:text-xl lg:mt-8">
+                    And a new{" "}
+                    <FlipWords words={["adventure", "chapter", "journey"]} slotWidth={10.5} className="px-2 text-primary-text" />{" "}
+                    ahead
+                  </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ExperienceSection;

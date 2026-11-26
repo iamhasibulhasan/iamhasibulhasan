@@ -5,7 +5,20 @@
 [build.environment]
   NODE_VERSION = "22"
 
-# No catch-all SPA redirect here on purpose: this site has no client-side routing
-# (single page, anchor-scroll navigation only). A blanket "/* -> /index.html" rule
-# would mask missing static assets (like a not-yet-uploaded CV PDF) by silently
-# serving the homepage HTML in their place instead of a clean 404.
+# No catch-all SPA redirect here on purpose: a blanket "/* -> /index.html"
+# rule would mask missing static assets (like a not-yet-uploaded CV PDF) by
+# silently serving the homepage HTML in their place instead of a clean 404.
+#
+# The only client-side routes are /work and /work/<slug> (the case studies),
+# so exactly those two are rewritten to the app, with status 200 so search
+# engines and link previews treat them as real pages. An unknown slug under
+# /work/ is answered by the app's own 404 page; anything else stays a real 404.
+[[redirects]]
+  from = "/work"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/work/*"
+  to = "/index.html"
+  status = 200
