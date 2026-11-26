@@ -65,9 +65,11 @@ Currently a Software Engineer at **Cartup** (a concern of US Bangla Group), wher
 <a href="https://github.com/iamhasibulhasan"><img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=iamhasibulhasan&theme=github_dark&hide_border=true" width="64%" alt="Hasibul's profile details"/></a>
 </p>
 
+<!-- Profile photo, hidden. Remove the comment markers to show it again.
 <p align="center">
 <a href="https://iamhasibulhasan.vercel.app/"><img src="public/profile.png" width="20%" alt="Hasibul Hasan"/></a>
 </p>
+-->
 
 <div align="center">
 <a href="https://iamhasibulhasan.vercel.app/"><img src="https://img.shields.io/badge/portfolio-000?style=flat&logo=vercel&logoColor=white" alt="Portfolio"/></a>
