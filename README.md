@@ -3,7 +3,7 @@
 </div>
 
 <p align="center">
-<a href="https://iamhasibulhasan.vercel.app/"><img src="https://readme-typing-svg.demolab.com?font=Comfortaa&size=18&duration=3000&pause=500&color=1BA94C&center=true&vCenter=true&width=435&lines=Hey%2C+it's+Hasibul+Hasan+%F0%9F%91%8B;Software+Engineer+at+Cartup;.NET+Core+%26+EF+Core;Open-Source+Enthusiast;Problem+Solver" alt="Software Engineer at Cartup, .NET Core and EF Core"/></a>
+<a href="https://iamhasibulhasan.vercel.app/"><img src="https://readme-typing-svg.demolab.com?font=Inter&weight=600&size=18&duration=3000&pause=500&color=1BA94C&center=true&vCenter=true&width=435&lines=Hey%2C+it's+Hasibul+Hasan+%F0%9F%91%8B;Software+Engineer+at+Cartup;.NET+Core+%26+EF+Core;Open-Source+Enthusiast;Problem+Solver" alt="Software Engineer at Cartup, .NET Core and EF Core"/></a>
 </p>
 
 Software Engineer with 4.5+ years of experience in building and implementing scalable software solutions. Specialized in .NET Core with Entity Framework Core, I excel in solving complex problems and have a strong commitment to continuous learning in the field. I work well in team environments, can lead projects when necessary, and collaborate closely with stakeholders to define technical roadmaps and align them with business goals.
