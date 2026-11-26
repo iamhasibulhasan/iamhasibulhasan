@@ -28,7 +28,7 @@
       property="og:description"
       content="Software Engineer in Dhaka, Bangladesh with 4.5+ years of experience building scalable backend systems with .NET Core, Entity Framework Core, and microservices architecture."
     />
-    <meta property="og:image" content="https://iamhasibulhasan.vercel.app/profile.png" />
+    <meta property="og:image" content="https://iamhasibulhasan.vercel.app/og-image.jpg" />
     <meta property="og:site_name" content="Hasibul Hasan — Portfolio" />
     <meta property="og:locale" content="en_US" />
 
@@ -40,7 +40,7 @@
       name="twitter:description"
       content="Software Engineer in Dhaka, Bangladesh with 4.5+ years of experience building scalable backend systems with .NET Core, Entity Framework Core, and microservices architecture."
     />
-    <meta name="twitter:image" content="https://iamhasibulhasan.vercel.app/profile.png" />
+    <meta name="twitter:image" content="https://iamhasibulhasan.vercel.app/og-image.jpg" />
 
     <!-- Structured data — helps Google understand this is a person/professional profile -->
     <script type="application/ld+json">
@@ -49,7 +49,7 @@
         "@type": "Person",
         "name": "Hasibul Hasan",
         "url": "https://iamhasibulhasan.vercel.app/",
-        "image": "https://iamhasibulhasan.vercel.app/profile.png",
+        "image": "https://iamhasibulhasan.vercel.app/og-image.jpg",
         "jobTitle": "Software Engineer",
         "worksFor": {
           "@type": "Organization",
@@ -74,15 +74,18 @@
       }
     </script>
 
-    <!-- Fonts for the customizer's font family choices (General Sans is the default). Sora is self-hosted. -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- General Sans, the default font. Loaded without blocking the first paint
+         (the system font shows until it arrives). Sora is self-hosted; the
+         customizer's other fonts load on demand (src/lib/font-loader.ts). -->
     <link rel="preconnect" href="https://api.fontshare.com" />
+    <link rel="preconnect" href="https://cdn.fontshare.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
+      href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
-    <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+    <noscript><link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" /></noscript>
   </head>
   <body>
     <div id="root"></div>

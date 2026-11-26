@@ -11,6 +11,7 @@ import {
   type FontSizeKey,
   type ThemeMode,
 } from "@/lib/appearance";
+import { ensureFont } from "@/lib/font-loader";
 
 interface SettingsContextValue extends Appearance {
   setTheme: (theme: ThemeMode) => void;
@@ -52,6 +53,7 @@ export function SettingsProvider({ children }: { children: ReactNode }) {
     // Switching themes or accents must not animate every colour on the page at once.
     root.classList.add("theme-switching");
     applyAppearance(root, settings, FONT_STACKS, FONT_SCALE);
+    ensureFont(settings.fontFamily);
     void window.getComputedStyle(document.body).opacity;
     const id = window.setTimeout(() => root.classList.remove("theme-switching"), 1);
 

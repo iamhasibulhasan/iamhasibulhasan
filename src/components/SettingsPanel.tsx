@@ -2,6 +2,8 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { Check, Moon, RotateCcw, Sun, Volume2, VolumeX, X } from "lucide-react";
 import { useSettings } from "@/lib/settings";
 import { setGuideVoice, useGuideVoice } from "@/lib/guide/voice";
+import { ensureAllFonts } from "@/lib/font-loader";
+import { useEffect } from "react";
 import { useLenisLock } from "@/hooks/useLenisLock";
 import { ACCENT_PRESETS, CURSOR_STYLES, FONT_STACKS, type FontFamilyKey, type FontSizeKey } from "@/lib/appearance";
 import { cn } from "@/lib/utils";
@@ -27,6 +29,10 @@ const choiceState = (on: boolean) =>
 export default function SettingsPanel({ open, onOpenChange }: { open: boolean; onOpenChange: (open: boolean) => void }) {
   const { theme, setTheme, accent, setAccent, fontSize, setFontSize, fontFamily, setFontFamily, cursorStyle, setCursorStyle, reset } = useSettings();
   const guideVoice = useGuideVoice();
+  // The font choices preview in their own typefaces: fetch them when the panel opens.
+  useEffect(() => {
+    if (open) ensureAllFonts();
+  }, [open]);
   // Hand wheel control back to the browser so the panel scrolls and the page does not.
   useLenisLock(open);
 

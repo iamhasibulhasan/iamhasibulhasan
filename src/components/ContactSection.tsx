@@ -6,7 +6,6 @@ import {
   CONTACT_HONEYPOT_FIELD,
   CONTACT_REASONS,
   FORMSPREE_ENDPOINT,
-  contactSchema,
   contactSubject,
   type ContactFormData,
 } from "@/lib/contact";
@@ -51,7 +50,19 @@ const ContactSection = () => {
     e.preventDefault();
     if (inFlightRef.current) return;
 
-    const parsed = contactSchema.safeParse(form);
+    // Loaded on first submit, so zod stays out of the homepage bundle. The
+    // in-flight flag is held across the load so a double click can't slip past.
+    inFlightRef.current = true;
+    let parsed;
+    try {
+      const { contactSchema } = await import("@/lib/contact-schema");
+      parsed = contactSchema.safeParse(form);
+    } catch {
+      inFlightRef.current = false;
+      toast.error("Couldn't send just now", { description: "Please check your connection and try again." });
+      return;
+    }
+    inFlightRef.current = false;
     if (!parsed.success) {
       const nextErrors = parsed.error.issues.reduce<ContactErrors>((acc, issue) => {
         const field = issue.path[0];
