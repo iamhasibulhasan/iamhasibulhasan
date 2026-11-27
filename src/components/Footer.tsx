@@ -29,8 +29,9 @@ const Footer = () => {
     scrollToHash(href);
   };
 
+  // The bottom padding grows by a phone's gesture bar / home indicator, which the page now runs under.
   return (
-    <footer className="relative z-10 pb-8 pt-12 sm:pt-16">
+    <footer className="relative z-10 pb-[calc(2rem+env(safe-area-inset-bottom))] pt-12 sm:pt-16">
       <div className="container-narrow">
         <SpotlightCard className="w-full">
           <div className="px-6 pb-6 pt-8 sm:px-10 sm:pt-10">

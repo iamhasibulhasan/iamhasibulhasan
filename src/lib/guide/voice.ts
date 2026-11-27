@@ -322,3 +322,187 @@ export function gameSound(kind: "jump" | "collect" | "crash") {
   osc.start(at);
   osc.stop(at + shape.length + 0.02);
 }
+
+/**
+ * Being petted: a soft bubbly "bloop", a touch different each time; a giggle
+ * is three quick bloops going up. Same switch and volume as the voice.
+ * Petting is a hover, which can't start audio by itself: it is heard once the
+ * visitor has clicked or typed anywhere, and silent until then.
+ */
+export function petSound(kind: "pet" | "giggle") {
+  if (!isEnabled() || typeof document === "undefined" || document.hidden || !activated()) return;
+  const context = audio();
+  if (!context || !master) return;
+  if (context.state !== "running") {
+    void unlock();
+    return;
+  }
+  const t = context.currentTime + 0.01;
+  const out = master;
+  if (kind === "giggle") {
+    [0, 1, 2].forEach((i) => bloop(context, out, t + i * 0.075, 430 + i * 120, 0.42));
+    return;
+  }
+  bloop(context, out, t, 380 + Math.random() * 60, 0.5);
+}
+
+/** A bubble popping: a quick upward sweep of a pure tone, gone in a blink. */
+function bloop(context: AudioContext, out: AudioNode, at: number, from: number, level: number) {
+  const osc = context.createOscillator();
+  const env = context.createGain();
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(from, at);
+  osc.frequency.exponentialRampToValueAtTime(from * 2.6, at + 0.07);
+  env.gain.setValueAtTime(0.0001, at);
+  env.gain.exponentialRampToValueAtTime(level, at + 0.012);
+  env.gain.exponentialRampToValueAtTime(0.0001, at + 0.14);
+  osc.connect(env);
+  env.connect(out);
+  osc.start(at);
+  osc.stop(at + 0.16);
+}
+
+/** The games menu's hover sounds, one per game (see GAMES in components/game/games.ts). */
+export type MenuSound = "hop" | "whoosh" | "blip" | "tock";
+
+/**
+ * A little sound for a game in the games menu, when its icon is pointed at: a
+ * springy hop-hop (Runner), a soft wing whoosh (Flight), a retro blip-blip
+ * (Trail), a ball knocking on bricks (Breaker). Each is re-pitched a touch
+ * every time, so pointing at it again is never an exact repeat. Quiet, on the
+ * voice's switch, and (a hover can't start audio) heard once the visitor has
+ * clicked or typed anywhere.
+ */
+export function menuSound(kind: MenuSound) {
+  if (!isEnabled() || typeof document === "undefined" || document.hidden || !activated()) return;
+  const context = audio();
+  if (!context || !master) return;
+  if (context.state !== "running") {
+    void unlock();
+    return;
+  }
+  const t = context.currentTime + 0.01;
+  const k = 0.94 + Math.random() * 0.12;
+  const out = master;
+  switch (kind) {
+    case "hop":
+      tone(context, out, "triangle", 300 * k, 640 * k, t, 0.09, 0.38);
+      tone(context, out, "triangle", 420 * k, 900 * k, t + 0.1, 0.08, 0.28);
+      break;
+    case "whoosh": {
+      const air = noiseSource(context, 0.3);
+      const band = context.createBiquadFilter();
+      band.type = "bandpass";
+      band.Q.value = 0.9;
+      band.frequency.setValueAtTime(500 * k, t);
+      band.frequency.exponentialRampToValueAtTime(2400 * k, t + 0.2);
+      const env = context.createGain();
+      env.gain.setValueAtTime(0.0001, t);
+      env.gain.exponentialRampToValueAtTime(0.55, t + 0.07);
+      env.gain.exponentialRampToValueAtTime(0.0001, t + 0.26);
+      air.connect(band);
+      band.connect(env);
+      env.connect(out);
+      air.start(t);
+      air.stop(t + 0.3);
+      tone(context, out, "sine", 520 * k, 860 * k, t + 0.02, 0.16, 0.12);
+      break;
+    }
+    case "blip":
+      tone(context, out, "square", 660 * k, 660 * k, t, 0.05, 0.1);
+      tone(context, out, "square", 990 * k, 990 * k, t + 0.065, 0.06, 0.1);
+      break;
+    case "tock":
+      tone(context, out, "triangle", 900 * k, 320 * k, t, 0.045, 0.5);
+      tone(context, out, "triangle", 760 * k, 260 * k, t + 0.09, 0.045, 0.36);
+      break;
+  }
+}
+
+/** One short note gliding `from` → `to` Hz, with a quick attack and a fade. */
+function tone(context: AudioContext, out: AudioNode, type: OscillatorType, from: number, to: number, at: number, length: number, level: number) {
+  const osc = context.createOscillator();
+  const env = context.createGain();
+  osc.type = type;
+  osc.frequency.setValueAtTime(from, at);
+  osc.frequency.exponentialRampToValueAtTime(to, at + length);
+  env.gain.setValueAtTime(0.0001, at);
+  env.gain.exponentialRampToValueAtTime(level, at + 0.006);
+  env.gain.exponentialRampToValueAtTime(0.0001, at + length);
+  osc.connect(env);
+  env.connect(out);
+  osc.start(at);
+  osc.stop(at + length + 0.02);
+}
+
+/**
+ * Changing shape: a cute robotic "vrooo-rooom", a little sports engine timed to
+ * the spin. It revs up, dips through a quick gear change, revs again and
+ * settles: a rumbly saw with a robotic fifth above it, through a resonant
+ * filter that opens with the revs, pulsing like an engine's beat. Once per
+ * change, on the voice's switch, and only once the visitor has clicked or typed.
+ */
+export function shapeSound() {
+  if (!isEnabled() || typeof document === "undefined" || document.hidden || !activated()) return;
+  const context = audio();
+  if (!context || !master) return;
+  if (context.state !== "running") {
+    void unlock();
+    return;
+  }
+  const t = context.currentTime + 0.01;
+  const k = 0.95 + Math.random() * 0.1;
+  // The revs: up, a dip for the gear change, up again, and down to idle.
+  const revs: [number, number][] = [[0, 105], [0.32, 320], [0.4, 235], [0.56, 300], [1, 150]];
+  const rev = (param: AudioParam, scale: number) => {
+    param.setValueAtTime(revs[0][1] * scale * k, t);
+    for (const [at, hz] of revs.slice(1)) param.exponentialRampToValueAtTime(hz * scale * k, t + at);
+  };
+
+  const filter = context.createBiquadFilter();
+  filter.type = "lowpass";
+  filter.Q.value = 7;
+  filter.frequency.setValueAtTime(500, t);
+  filter.frequency.exponentialRampToValueAtTime(2600, t + 0.32);
+  filter.frequency.exponentialRampToValueAtTime(1200, t + 0.4);
+  filter.frequency.exponentialRampToValueAtTime(2200, t + 0.56);
+  filter.frequency.exponentialRampToValueAtTime(700, t + 1);
+
+  // The engine's beat: the level pulses, faster as it revs.
+  const pulse = context.createGain();
+  pulse.gain.value = 0.7;
+  const beat = context.createOscillator();
+  beat.frequency.setValueAtTime(24, t);
+  beat.frequency.exponentialRampToValueAtTime(46, t + 0.32);
+  beat.frequency.exponentialRampToValueAtTime(30, t + 1);
+  const depth = context.createGain();
+  depth.gain.value = 0.3;
+  beat.connect(depth);
+  depth.connect(pulse.gain);
+
+  const env = context.createGain();
+  env.gain.setValueAtTime(0.0001, t);
+  env.gain.exponentialRampToValueAtTime(0.5, t + 0.06);
+  env.gain.setValueAtTime(0.5, t + 0.6);
+  env.gain.exponentialRampToValueAtTime(0.0001, t + 1.02);
+
+  const body = context.createOscillator();
+  body.type = "sawtooth";
+  rev(body.frequency, 1);
+  const robot = context.createOscillator();
+  robot.type = "square";
+  rev(robot.frequency, 1.5);
+  const robotLevel = context.createGain();
+  robotLevel.gain.value = 0.35;
+
+  body.connect(filter);
+  robot.connect(robotLevel);
+  robotLevel.connect(filter);
+  filter.connect(pulse);
+  pulse.connect(env);
+  env.connect(master);
+  for (const osc of [body, robot, beat]) {
+    osc.start(t);
+    osc.stop(t + 1.05);
+  }
+}

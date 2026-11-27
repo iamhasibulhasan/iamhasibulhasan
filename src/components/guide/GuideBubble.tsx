@@ -8,6 +8,7 @@ import { useLenisLock } from "@/hooks/useLenisLock";
 import { TIP_RULES } from "@/lib/guide/tips";
 import { GUIDE_NAME, OWNER_FIRST_NAME } from "@/lib/guide/identity";
 import { NAVBAR_CLEARANCE as NAVBAR } from "@/lib/scroll";
+import { safeAreaBottom } from "@/lib/safe-area";
 
 const BUBBLE_WIDTH = 360;
 /** A guess at the bubble's height before it has been measured. */
@@ -86,7 +87,7 @@ function useClose(showing: string, returnFocus: () => void) {
 
 function readViewport(): Viewport {
   if (typeof window === "undefined") return { width: 1440, height: 900, insetTop: NAVBAR, insetBottom: 0 };
-  return { width: document.documentElement.clientWidth, height: window.innerHeight, insetTop: NAVBAR, insetBottom: 0 };
+  return { width: document.documentElement.clientWidth, height: window.innerHeight, insetTop: NAVBAR, insetBottom: safeAreaBottom() };
 }
 
 function DesktopBubble({ anchorX, anchorY, anchorSize, prefer, spotKey, corner, visible, isMobile, activeSection, returnFocus, tourContent }: GuideBubbleProps) {

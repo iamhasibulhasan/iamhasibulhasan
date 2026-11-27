@@ -211,7 +211,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="fixed top-0 inset-x-0 z-[55] flex justify-center px-4 pt-[var(--nav-top)] pointer-events-none">
+      <div className="fixed top-0 inset-x-0 z-[55] flex justify-center pl-[max(1rem,env(safe-area-inset-left))] pr-[max(1rem,env(safe-area-inset-right))] pt-[var(--nav-top)] pointer-events-none">
         <nav
           aria-label="Main"
           className={`pointer-events-auto transition-all duration-500 rounded-2xl sm:rounded-full container-width flex items-center justify-between px-4 sm:px-6 h-[var(--nav-height)] border ${

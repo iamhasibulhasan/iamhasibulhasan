@@ -13,16 +13,20 @@ let hideTimer: ReturnType<typeof setTimeout> | null = null;
 let petStreak = 0;
 const listeners = new Set<() => void>();
 
-function set(next: string | null) {
+function set(next: string | null, quiet = false) {
   if (spoken === next) return;
   spoken = next;
-  if (next) speak(next);
+  if (next && !quiet) speak(next);
   listeners.forEach((listener) => listener());
 }
 
-/** Say a line for `ms`, replacing whatever was being said. */
-export function say(text: string, ms = 3200) {
-  set(text);
+/**
+ * Say a line for `ms`, replacing whatever was being said. `quiet` shows it
+ * without the voice (the hover line: hovering is petting, and the pet sound is
+ * the only sound then).
+ */
+export function say(text: string, ms = 3200, quiet = false) {
+  set(text, quiet);
   if (hideTimer) clearTimeout(hideTimer);
   hideTimer = setTimeout(() => set(null), ms);
 }

@@ -258,9 +258,10 @@ export function GuideTransit() {
       mood(cue, EXCITED_MS, gesture, "Let's play!");
     };
 
-    const sayLine = (text: string | null) => {
+    /** Shows a line in the bubble, and says it unless `quiet` (the menu's lines: its hover sounds are heard instead). */
+    const sayLine = (text: string | null, quiet = false) => {
       setLine(text);
-      if (text && text !== st.spoken) speak(text);
+      if (text && !quiet && text !== st.spoken) speak(text);
       st.spoken = text ?? "";
     };
 
@@ -304,14 +305,18 @@ export function GuideTransit() {
         if (st.mode !== "hidden" && !st.goingHome && !st.committed) st.target = atCursor(point);
       },
       say(text) {
-        if (st.mode !== "hidden" && !st.goingHome && !st.committed) sayLine(text);
+        if (st.mode !== "hidden" && !st.goingHome && !st.committed) sayLine(text, true);
       },
       cheer(text) {
         if (st.mode === "hidden" || st.goingHome || st.committed) return;
         const fresh = text !== st.spoken;
-        sayLine(text);
-        // A fresh happy reaction for each new game pointed at, not on every twitch of the pointer.
-        if (fresh) delight();
+        sayLine(text, true);
+        // A fresh happy reaction for each new game pointed at, not on every twitch of the
+        // pointer; and quiet, so the game's hover sound isn't talked over.
+        if (fresh) {
+          hushVoice();
+          delight();
+        }
       },
       commit() {
         if (st.mode === "hidden") return;

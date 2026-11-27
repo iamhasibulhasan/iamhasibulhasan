@@ -183,6 +183,10 @@
     position: relative;
     @apply bg-background text-foreground font-sans antialiased;
     overflow-wrap: break-word;
+    /* The page draws edge to edge (viewport-fit=cover, so the background runs under a
+       phone's system bars): keep the content itself clear of a notch at the side. */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
 }
 
@@ -883,8 +887,10 @@ html[data-restoring] body { visibility: hidden; animation: restore-failsafe 0s 0
 @media (prefers-reduced-motion: reduce) {
   .guide-zzz { animation: none; opacity: 0.8; }
 }
-/* While the guide naps on the sleep screen, the one in the page hides, so there is only one. */
-html[data-guide-napping] [data-guide-avatar] { opacity: 0; transition: opacity 0.4s; }
+/* While the guide naps on the sleep screen, the one in the page hides, so there is only one. At
+   once, with no fade: the sleep screen's guide starts (and ends) exactly where it is, in the
+   same pose, so a fade would only show the two of them at once. */
+html[data-guide-napping] [data-guide-avatar] { opacity: 0; }
 html[data-guide-napping] [data-guide-sleep-screen] [data-guide-avatar] { opacity: 1; }
 
 /* The guide's eyes close while it sleeps: the library has no closed-eye face, so its eyes are squashed to lines. */
@@ -894,7 +900,64 @@ html[data-guide-napping] [data-guide-sleep-screen] [data-guide-avatar] { opacity
   transform-origin: center;
   transition: transform 0.35s ease;
 }
+/* They close slowly, like dozing off, and open quickly when it wakes. */
 [data-guide-asleep] [data-part="left"],
 [data-guide-asleep] [data-part="right"] {
   transform: scaleY(0.12);
+  transition: transform 1.1s cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+/* ------------------------------------------------------------------------ */
+/* The navbar's gamepad, inviting a first game (GamesMenu): two soft circles  */
+/* pulse out from it and the pad gives a little buzz, then it rests a few     */
+/* seconds. It starts after the hero's intro, and stops once the menu has     */
+/* been opened.                                                               */
+/* ------------------------------------------------------------------------ */
+.game-invite-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  border: 1.5px solid hsl(var(--primary) / 0.75);
+  opacity: 0;
+  pointer-events: none;
+  animation: game-invite-ring 5s ease-out 3s infinite;
+}
+/* The second ring a beat behind the first. */
+.game-invite-ring + .game-invite-ring { animation-delay: 3.35s; }
+.game-invite-pad { animation: game-invite-buzz 5s ease-in-out 3s infinite; }
+
+@keyframes game-invite-ring {
+  0% { opacity: 0.9; transform: scale(1); }
+  24% { opacity: 0; transform: scale(1.55); }
+  100% { opacity: 0; transform: scale(1.55); }
+}
+@keyframes game-invite-buzz {
+  0%, 13%, 100% { transform: rotate(0deg); }
+  2.5% { transform: rotate(-12deg); }
+  5% { transform: rotate(10deg); }
+  7.5% { transform: rotate(-6deg); }
+  10% { transform: rotate(3deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .game-invite-ring,
+  .game-invite-pad { animation: none; }
+}
+
+/* Petting the guide (Petting.tsx): each stroke floats a heart up off its head, drifting a little. */
+.pet-heart {
+  opacity: 0;
+  animation: pet-heart 1.1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes pet-heart {
+  0% { opacity: 0; transform: translate(0, 6px) scale(0.4) rotate(0deg); }
+  20% { opacity: 1; transform: translate(calc(var(--heart-dx) * 0.3), -8px) scale(1.05) rotate(var(--heart-tilt)); }
+  100% { opacity: 0; transform: translate(var(--heart-dx), -34px) scale(0.85) rotate(var(--heart-tilt)); }
+}
+@keyframes pet-heart-still {
+  0% { opacity: 0; }
+  25% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pet-heart { animation-name: pet-heart-still; }
 }

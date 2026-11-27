@@ -2,7 +2,7 @@
  * Adapted from My-Next-Js-Portfolio-v2 by Nikunj Khitha (MIT).
  * See docs/THIRD_PARTY_NOTICES.md. @license MIT
  */
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { usePathname } from "@/lib/compat/navigation";
 import { animate, cancelFrame, frame as frameLoop, motion, useMotionValue, useReducedMotion } from "framer-motion";
 import GuideAvatar from "@/components/guide/GuideAvatar";
@@ -40,6 +40,9 @@ import { introPending, markAvatarDrawn } from "@/lib/hero-intro";
 import { useIsMobile, useTouchScreen } from "@/hooks/use-mobile";
 import { GUIDE_NAME, OWNER_FIRST_NAME } from "@/lib/guide/identity";
 import { useGuideHandover } from "@/lib/guide/transit";
+import { getIdleStage, subscribeGuide } from "@/lib/guide/store";
+import { safeAreaBottom } from "@/lib/safe-area";
+import { PetHearts, tintStyle, usePetting } from "@/components/guide/Petting";
 
 /** Straight ahead: how it faces while the flying guide hands back to it (lib/guide/transit.ts). */
 const FACE_FRONT: readonly [number, number] = [0, 0];
@@ -150,6 +153,10 @@ export default function GuideCompanion() {
   const companion = useCompanionState();
   // Coming home from a game or the games menu: face front, like the flyer landing on it.
   const handover = useGuideHandover();
+  // Getting sleepy (and asleep): it stops following the pointer and its head settles
+  // to the front, the pose the sleep screen's guide takes over from.
+  const drowsy = useSyncExternalStore(subscribeGuide, () => getIdleStage() >= 2, () => false);
+  const facingFront = handover || drowsy;
   const size = isMobile ? MOBILE_SIZE : SIZE;
   const { narrator, announcement: tourAnnouncement, touring } = useGuideTour(isMobile);
 
@@ -470,7 +477,7 @@ export default function GuideCompanion() {
     // frame the page moved in. A separate requestAnimationFrame could run
     // before Lenis and draw last frame's scroll.
     const tick = ({ timestamp: now }: { timestamp: number }) => {
-      const viewport: Viewport = { width: document.documentElement.clientWidth, height: window.innerHeight, insetTop: NAVBAR, insetBottom: 0 };
+      const viewport: Viewport = { width: document.documentElement.clientWidth, height: window.innerHeight, insetTop: NAVBAR, insetBottom: safeAreaBottom() };
 
       if (isHome) {
         // Section bounds in page coordinates, measured once per layout (the
@@ -836,7 +843,7 @@ export default function GuideCompanion() {
       // (short screens), wait; the next retry may find room as the page moves.
       // Resting in this section's dock, the tip is the dock's line: always room.
       const inDock = getCompanionState().dockSection === activeSection;
-      const viewport: Viewport = { width: document.documentElement.clientWidth, height: window.innerHeight, insetTop: NAVBAR, insetBottom: 0 };
+      const viewport: Viewport = { width: document.documentElement.clientWidth, height: window.innerHeight, insetTop: NAVBAR, insetBottom: safeAreaBottom() };
       // Phones: the tip card sits above the corner the guide; offer it only when
       // that strip covers no reading text right now (and never mid-scroll).
       if (isMobile) {
@@ -891,9 +898,11 @@ export default function GuideCompanion() {
     emitGuide({ type: "pet/click", now: Date.now() });
     sayPetLine();
   };
+  // Stroking it with the pointer pets it too (hearts, coos, giggles).
+  const petting = usePetting();
   const hover = (active: boolean) => {
     emitGuide({ type: "page/hover", active });
-    if (active && petMode && !getSpoken()) say(HOVER_LINE, 2400);
+    if (active && petMode && !getSpoken()) say(HOVER_LINE, 2400, true);
   };
 
   // Escape closes the bubble, then the panel.
@@ -934,7 +943,11 @@ export default function GuideCompanion() {
           onClick={toggle}
           onMouseDown={(event) => event.preventDefault()}
           onPointerEnter={() => hover(true)}
-          onPointerLeave={() => hover(false)}
+          onPointerMove={petting.onPointerMove}
+          onPointerLeave={() => {
+            hover(false);
+            petting.onPointerLeave();
+          }}
           onFocus={() => hover(true)}
           onBlur={() => hover(false)}
           aria-label={`${GUIDE_NAME}, ${OWNER_FIRST_NAME}'s guide. Activate for a reaction.`}
@@ -951,10 +964,11 @@ export default function GuideCompanion() {
           {lowPower ? (
             <StaticGuideMark size={size - 16} />
           ) : (
-            <span className="relative inline-flex">
-              <GuideAvatar size={size - 16} lookAt={handover ? FACE_FRONT : lookAt} followPointer={inHero && !handover} paused={!visible && !inHero} />
+            <span className="relative inline-flex" style={tintStyle(petting.tint)}>
+              <GuideAvatar size={size - 16} lookAt={facingFront ? FACE_FRONT : lookAt} followPointer={inHero && !facingFront} paused={!visible && !inHero} />
             </span>
           )}
+          <PetHearts hearts={petting.hearts} />
         </button>
       </motion.div>
 

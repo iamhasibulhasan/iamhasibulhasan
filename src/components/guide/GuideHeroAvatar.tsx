@@ -106,7 +106,7 @@ export function GuideHeroAvatar() {
           onClick={onClick}
           onPointerEnter={() => {
             emitGuide({ type: "page/hover", active: true });
-            if (!getSpoken()) say(HOVER_LINE, 2400);
+            if (!getSpoken()) sayLine(HOVER_LINE, 2400, true);
           }}
           onPointerLeave={() => emitGuide({ type: "page/hover", active: false })}
           onFocus={() => emitGuide({ type: "page/hover", active: true })}

@@ -5,7 +5,7 @@ import { readCharacter, type AvatarCharacter } from "@bible-strong/avatar-core";
 import round from "@/assets/guide/solvorn.avatar.json";
 import square from "@/assets/guide/solvorn-square.avatar.json";
 import { lookToward } from "@/lib/guide/gaze";
-import type { ViewportPoint } from "@/lib/guide/types";
+import type { AvatarCue, ViewportPoint } from "@/lib/guide/types";
 import { useGuideView } from "@/lib/guide/useGuideView";
 import { useSettings } from "@/lib/settings";
 import { guideColors } from "@/lib/appearance";
@@ -65,6 +65,8 @@ export type GuideAvatarProps = {
   settleAfterMs?: number;
   /** Stop the frame loop entirely (the avatar is hidden). */
   paused?: boolean;
+  /** This look instead of the guide's current one (the sleep screen: still drowsy while it drifts off). */
+  cue?: AvatarCue | null;
   className?: string;
 };
 
@@ -75,7 +77,7 @@ export type GuideAvatarProps = {
  * Gaze priority: a point the guide store asks every avatar to look at (tour
  * target, composer), then this instance's own `lookAt`, then the pointer.
  */
-export default function GuideAvatar({ size, followPointer = false, lookAt = null, settleAfterMs, paused = false, className }: GuideAvatarProps) {
+export default function GuideAvatar({ size, followPointer = false, lookAt = null, settleAfterMs, paused = false, cue = null, className }: GuideAvatarProps) {
   const { accent } = useSettings();
   const { shape, spinAt } = useGuideShape();
   const character = useMemo(() => characterFor(accent, shape), [accent, shape]);
@@ -115,6 +117,8 @@ export default function GuideAvatar({ size, followPointer = false, lookAt = null
 
   const pointGaze = view.pointAt && measured?.point === view.pointAt ? measured.gaze : null;
   const gaze = pointGaze ?? lookAt;
+  const state = cue ? cue.state : view.state;
+  const face = cue ? cue.face : view.face;
 
   return (
     <span
@@ -122,7 +126,7 @@ export default function GuideAvatar({ size, followPointer = false, lookAt = null
       aria-hidden="true"
       data-guide-avatar
       // Asleep: the eyes close (globals.css squashes them to lines).
-      data-guide-asleep={view.state === "sleeping" ? "" : undefined}
+      data-guide-asleep={state === "sleeping" ? "" : undefined}
       className={className}
       style={{ display: "inline-flex", width: size, height: size, pointerEvents: "none" }}
     >
@@ -130,8 +134,8 @@ export default function GuideAvatar({ size, followPointer = false, lookAt = null
         character={character}
         ref={ref}
         size={size}
-        state={view.state}
-        face={view.face}
+        state={state}
+        face={face}
         lookAt={gaze}
         followPointer={followPointer && !gaze}
         settleAfterMs={settleAfterMs}

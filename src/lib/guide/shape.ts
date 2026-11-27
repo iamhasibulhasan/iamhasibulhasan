@@ -1,5 +1,6 @@
 import { useSyncExternalStore } from "react";
 import { getIdleStage } from "@/lib/guide/store";
+import { shapeSound } from "@/lib/guide/voice";
 
 /**
  * The guide's shape. Now and then, at random, it changes: it spins, and
@@ -30,24 +31,44 @@ function emit() {
   listeners.forEach((listener) => listener());
 }
 
+/** The spin starts now (with its "vroom"); the shape switches mid-spin, and the next wait starts after it. */
+function change() {
+  window.clearTimeout(timer);
+  window.clearTimeout(swap);
+  spinAt = Date.now();
+  emit();
+  shapeSound();
+  swap = window.setTimeout(() => {
+    shape = shape === "round" ? "square" : "round";
+    emit();
+    schedule();
+  }, SPIN_LEAD_MS);
+}
+
+const reducedMotion = () => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+
 function schedule() {
   const [min, max] = CHANGE_EVERY_MS;
   window.clearTimeout(timer);
   timer = window.setTimeout(() => {
     // Not while it is away (see holdGuideShape), while nobody is looking, or while it
     // dozes (a sleeping guide doesn't spin).
-    if (held || document.hidden || getIdleStage() >= 2 || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+    if (held || document.hidden || getIdleStage() >= 2 || reducedMotion()) {
       schedule();
       return;
     }
-    spinAt = Date.now();
-    emit();
-    swap = window.setTimeout(() => {
-      shape = shape === "round" ? "square" : "round";
-      emit();
-      schedule();
-    }, SPIN_LEAD_MS);
+    change();
   }, min + Math.random() * (max - min));
+}
+
+/**
+ * Changes shape now (a reaction to being petted), unless it is away, mid-change
+ * already, or the visitor prefers reduced motion. Whether it changed.
+ */
+export function changeGuideShape(): boolean {
+  if (typeof window === "undefined" || held || reducedMotion() || Date.now() - spinAt < SPIN_LEAD_MS + 50) return false;
+  change();
+  return true;
 }
 
 function subscribe(listener: () => void) {

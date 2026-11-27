@@ -18,9 +18,13 @@ export interface GuideVisitController {
   summon(point: Point, line: string): void;
   /** Follow the cursor while summoned. */
   follow(point: Point): void;
-  /** Change what it is saying. */
+  /** Change what it is saying (in its bubble only: the menu's own sounds are what is heard). */
   say(line: string): void;
-  /** Say this with a random happy reaction: the visitor is pointing at a game. */
+  /**
+   * Say this with a random happy reaction: the visitor is pointing at a game.
+   * In its bubble only, and it stops any line it was still saying: the game's
+   * hover sound is the one sound then.
+   */
   cheer(line: string): void;
   /** A game was picked: stay put until `into` takes it there (the menu closing must not send it home). */
   commit(): void;
