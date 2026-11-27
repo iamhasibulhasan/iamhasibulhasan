@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { Menu, X, Download, Search, SlidersHorizontal } from "lucide-react";
 import SettingsPanel from "./SettingsPanel";
 import GameDialog from "./game/GameDialog";
+import { SoundToggle } from "./SoundToggle";
 import { GamesMenu } from "./game/GamesMenu";
 import { GAMES, GAME_IDS, lastGame, rememberGame, type GameId } from "./game/games";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
@@ -251,6 +252,7 @@ const Navbar = () => {
               <Search className="h-3 w-3" />
               <kbd className="font-sans">⌘K</kbd>
             </button>
+            <SoundToggle className="p-2" />
             <button
               type="button"
               onClick={() => setSettingsOpen(true)}
@@ -271,17 +273,21 @@ const Navbar = () => {
             </a>
           </div>
 
-          <button
-            ref={menuButtonRef}
-            type="button"
-            onClick={() => (isOpen ? closeMenu() : setIsOpen(true))}
-            className="md:hidden flex h-11 w-11 items-center justify-center rounded-xl glass-subtle border border-foreground/10 hover:bg-foreground/10 transition-colors active:scale-95"
-            aria-label="Toggle menu"
-            aria-expanded={isOpen}
-            aria-controls="mobile-navigation"
-          >
-            {isOpen ? <X className="w-5 h-5 text-foreground" /> : <Menu className="w-5 h-5 text-foreground" />}
-          </button>
+          {/* Phones: sound on/off at hand, beside the menu. */}
+          <div className="flex items-center gap-2 md:hidden">
+            <SoundToggle className="h-11 w-11 rounded-xl border border-foreground/10 glass-subtle" />
+            <button
+              ref={menuButtonRef}
+              type="button"
+              onClick={() => (isOpen ? closeMenu() : setIsOpen(true))}
+              className="flex h-11 w-11 items-center justify-center rounded-xl glass-subtle border border-foreground/10 hover:bg-foreground/10 transition-colors active:scale-95"
+              aria-label="Toggle menu"
+              aria-expanded={isOpen}
+              aria-controls="mobile-navigation"
+            >
+              {isOpen ? <X className="w-5 h-5 text-foreground" /> : <Menu className="w-5 h-5 text-foreground" />}
+            </button>
+          </div>
         </nav>
       </div>
 

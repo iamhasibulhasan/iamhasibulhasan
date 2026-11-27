@@ -46,15 +46,39 @@ export function setGuideVoice(on: boolean) {
   }
 }
 
+const subscribe = (listener: () => void) => {
+  listeners.add(listener);
+  return () => {
+    listeners.delete(listener);
+  };
+};
+
 export function useGuideVoice() {
-  return useSyncExternalStore(
-    (listener) => {
-      listeners.add(listener);
-      return () => listeners.delete(listener);
-    },
-    isEnabled,
-    () => false
-  );
+  return useSyncExternalStore(subscribe, isEnabled, () => false);
+}
+
+/**
+ * What a visitor actually hears: "off" (turned off), "waiting" (on, but the
+ * browser holds all sound until the first click, tap or key press: a scroll
+ * doesn't count) or "on".
+ */
+export type GuideSound = "off" | "waiting" | "on";
+const soundNow = (): GuideSound => (!isEnabled() ? "off" : ctx?.state === "running" ? "on" : "waiting");
+
+export function useGuideSound(): GuideSound {
+  return useSyncExternalStore<GuideSound>(subscribe, soundNow, () => "off");
+}
+
+/**
+ * The navbar's sound button: turns the sound off if it was playing, and
+ * otherwise on, or (on but still waiting) starts it now. `seen` is what the
+ * button showed when pressed: the press itself, as the visitor's first, starts
+ * the sound before the click arrives, so the state by then would say "on".
+ * Called from the click, which is what lets the browser start the sound; it
+ * says hello to show it works.
+ */
+export function toggleGuideSound(seen: GuideSound) {
+  setGuideVoice(seen !== "on");
 }
 
 let ctx: AudioContext | null = null;
@@ -69,6 +93,8 @@ function audio(): AudioContext | null {
     const Ctor = window.AudioContext ?? (window as unknown as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
     if (!Ctor) return null;
     ctx = new Ctor();
+    // The sound button shows whether the browser has let the sound start yet.
+    ctx.addEventListener("statechange", () => listeners.forEach((listener) => listener()));
     master = ctx.createGain();
     master.gain.value = VOLUME;
     master.connect(ctx.destination);
