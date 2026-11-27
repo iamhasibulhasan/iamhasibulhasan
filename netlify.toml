@@ -9,16 +9,17 @@
 # rule would mask missing static assets (like a not-yet-uploaded CV PDF) by
 # silently serving the homepage HTML in their place instead of a clean 404.
 #
-# The only client-side routes are /work and /work/<slug> (the case studies),
-# so exactly those two are rewritten to the app, with status 200 so search
-# engines and link previews treat them as real pages. An unknown slug under
-# /work/ is answered by the app's own 404 page; anything else stays a real 404.
+# The build writes a page for each route (vite-plugins/seo-pages.ts):
+# dist/work/index.html and dist/work/<slug>/index.html, each with its own
+# title, description and canonical link. These rules point the routes at those
+# files (status 200: real pages). An unknown slug has no file, so it gets the
+# site's 404.html with a real 404 status, as does anything else.
 [[redirects]]
   from = "/work"
-  to = "/index.html"
+  to = "/work/index.html"
   status = 200
 
 [[redirects]]
-  from = "/work/*"
-  to = "/index.html"
+  from = "/work/:slug"
+  to = "/work/:slug/index.html"
   status = 200

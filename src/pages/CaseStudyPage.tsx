@@ -13,7 +13,8 @@ import { SpotlightCard } from "@/components/ui/spotlight-card";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import NotFound from "@/pages/NotFound";
-import { useDocumentTitle } from "@/lib/useDocumentTitle";
+import { usePageMeta } from "@/lib/usePageMeta";
+import { CASE_STUDY_META, NOT_FOUND_META } from "@/lib/seo";
 
 const sectionId = (heading: string) =>
   heading
@@ -29,7 +30,7 @@ const sectionId = (heading: string) =>
 const CaseStudyPage = () => {
   const { slug = "" } = useParams();
   const study = caseStudyBySlug.get(slug);
-  useDocumentTitle(study ? study.title : "Page not found");
+  usePageMeta(CASE_STUDY_META.get(slug) ?? NOT_FOUND_META);
 
   if (!study) return <NotFound />;
 

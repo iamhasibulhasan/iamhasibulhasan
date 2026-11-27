@@ -117,11 +117,13 @@ export function GuideHeroAvatar() {
           {/* Out past the live disc (it is drawn larger than the stage), so the ring shows round it. */}
           <GuideRing outset="8%" />
           <span aria-hidden="true" className="pointer-events-none absolute inset-[7%] rounded-full guide-disc" />
-          {/* The intro's sleeping z's and its wake pulse (animated by HeroIntro). */}
+          {/* The intro's sleeping z's and its wake pulse (animated by HeroIntro). The letters
+              are drawn by CSS (data-z), not text: this sits inside the h1, which should
+              read "Hasibul Hasan" to search engines, not "Hasibul zzZ Hasan". */}
           <span aria-hidden="true" data-hero-part="zz" className="pointer-events-none absolute right-[14%] top-[10%] z-20 opacity-0">
-            <span className="hero-z absolute font-mono text-base font-bold text-primary-text">z</span>
-            <span className="hero-z absolute left-4 -top-5 font-mono text-xl font-bold text-primary-text [animation-delay:600ms]">z</span>
-            <span className="hero-z absolute left-9 -top-11 font-mono text-2xl font-bold text-primary-text [animation-delay:1200ms]">Z</span>
+            <span data-z="z" className="hero-z absolute font-mono text-base font-bold text-primary-text" />
+            <span data-z="z" className="hero-z absolute left-4 -top-5 font-mono text-xl font-bold text-primary-text [animation-delay:600ms]" />
+            <span data-z="Z" className="hero-z absolute left-9 -top-11 font-mono text-2xl font-bold text-primary-text [animation-delay:1200ms]" />
           </span>
           <span aria-hidden="true" data-hero-part="pulse" className="pointer-events-none absolute inset-[12%] rounded-full border-2 border-primary/80 opacity-0" />
           {/* Until the live the guide sits here (`html[data-guide-in-hero]`), and on phones. */}

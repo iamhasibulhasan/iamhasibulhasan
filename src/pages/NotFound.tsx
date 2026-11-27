@@ -1,9 +1,11 @@
 import { useEffect } from "react";
 import Link from "@/lib/compat/link";
-import { useDocumentTitle } from "@/lib/useDocumentTitle";
+import { usePageMeta } from "@/lib/usePageMeta";
+import { NOT_FOUND_META } from "@/lib/seo";
 
 export default function NotFound() {
-  useDocumentTitle("Page not found");
+  // Kept out of search results: an unknown address is answered by this page.
+  usePageMeta(NOT_FOUND_META);
   // A page that doesn't exist must not be indexed.
   useEffect(() => {
     const meta = document.createElement("meta");

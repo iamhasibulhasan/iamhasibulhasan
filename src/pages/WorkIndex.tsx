@@ -5,7 +5,8 @@ import { caseStudies, caseStudiesByTheme } from "@/data/case-studies";
 import CaseStudyCard from "@/components/CaseStudyCard";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { useDocumentTitle } from "@/lib/useDocumentTitle";
+import { usePageMeta } from "@/lib/usePageMeta";
+import { WORK_META } from "@/lib/seo";
 
 /** Section label plus hairline rule, matching the homepage work section. */
 const GroupHeading = ({ label, count, blurb }: { label: string; count: number; blurb: string }) => (
@@ -22,7 +23,7 @@ const GroupHeading = ({ label, count, blurb }: { label: string; count: number; b
 );
 
 const WorkIndexPage = () => {
-  useDocumentTitle("Case Studies");
+  usePageMeta(WORK_META);
   return (
   <>
     <Navbar />

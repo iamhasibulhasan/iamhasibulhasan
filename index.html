@@ -3,18 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
     <!-- Primary SEO -->
-    <!-- SITE_URL: update every occurrence below if you move to a custom domain -->
+    <!-- SITE_URL: update every occurrence below (and in src/lib/seo.ts, public/robots.txt) if you move to a custom domain.
+         Each route's title, description, canonical and preview tags are set from src/lib/seo.ts at build time. -->
     <title>Hasibul Hasan — Software Engineer | .NET Core Developer</title>
     <meta
       name="description"
-      content="Hasibul Hasan is a Software Engineer in Dhaka, Bangladesh with 4.5+ years of experience building scalable backend systems with .NET Core, Entity Framework Core, and microservices architecture."
+      content="Hasibul Hasan, Software Engineer in Dhaka, Bangladesh: 4.5+ years building scalable backend systems with .NET Core, Entity Framework Core and microservices."
     />
     <meta name="keywords" content="Hasibul Hasan, Software Engineer, .NET Core Developer, Entity Framework Core, Backend Developer, Microservices, C# Developer, Dhaka Bangladesh, Fullstack Developer" />
     <meta name="author" content="Hasibul Hasan" />
     <meta name="robots" content="index, follow" />
+    <!-- Google Search Console ownership check for https://iamhasibulhasan.vercel.app/ (keep it: removing it un-verifies the site). -->
+    <meta name="google-site-verification" content="toupaYq8HE2ErtJsdXaktC8tQFzxyqhKEl_iU1qNCgM" />
     <link rel="canonical" href="https://iamhasibulhasan.vercel.app/" />
     <meta name="color-scheme" content="dark light" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0a0b09" />
@@ -26,9 +32,13 @@
     <meta property="og:title" content="Hasibul Hasan — Software Engineer | .NET Core Developer" />
     <meta
       property="og:description"
-      content="Software Engineer in Dhaka, Bangladesh with 4.5+ years of experience building scalable backend systems with .NET Core, Entity Framework Core, and microservices architecture."
+      content="Hasibul Hasan, Software Engineer in Dhaka, Bangladesh: 4.5+ years building scalable backend systems with .NET Core, Entity Framework Core and microservices."
     />
     <meta property="og:image" content="https://iamhasibulhasan.vercel.app/og-image.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Hasibul Hasan, Software Engineer: .NET Core developer portfolio" />
     <meta property="og:site_name" content="Hasibul Hasan — Portfolio" />
     <meta property="og:locale" content="en_US" />
 
@@ -38,39 +48,82 @@
     <meta name="twitter:title" content="Hasibul Hasan — Software Engineer | .NET Core Developer" />
     <meta
       name="twitter:description"
-      content="Software Engineer in Dhaka, Bangladesh with 4.5+ years of experience building scalable backend systems with .NET Core, Entity Framework Core, and microservices architecture."
+      content="Hasibul Hasan, Software Engineer in Dhaka, Bangladesh: 4.5+ years building scalable backend systems with .NET Core, Entity Framework Core and microservices."
     />
     <meta name="twitter:image" content="https://iamhasibulhasan.vercel.app/og-image.jpg" />
+    <meta name="twitter:image:alt" content="Hasibul Hasan, Software Engineer: .NET Core developer portfolio" />
 
     <!-- Structured data — helps Google understand this is a person/professional profile -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Hasibul Hasan",
-        "url": "https://iamhasibulhasan.vercel.app/",
-        "image": "https://iamhasibulhasan.vercel.app/og-image.jpg",
-        "jobTitle": "Software Engineer",
-        "worksFor": {
-          "@type": "Organization",
-          "name": "Cartup Ltd."
-        },
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Dhaka",
-          "addressCountry": "BD"
-        },
-        "email": "mailto:mdhasibulhasan.dev@gmail.com",
-        "sameAs": [
-          "https://github.com/iamhasibulhasan",
-          "https://www.linkedin.com/in/iam-hasibulhasan/",
-          "https://www.nuget.org/profiles/iamhasibulhasan",
-          "https://leetcode.com/iamhasibul/",
-          "https://www.hackerrank.com/Hasibul",
-          "https://www.instagram.com/iamtheridu/",
-          "https://www.facebook.com/iamtheridu/"
-        ],
-        "knowsAbout": [".NET Core", "Entity Framework Core", "C#", "Microservices", "SQL Server", "PostgreSQL", "React", "Tailwind CSS"]
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://iamhasibulhasan.vercel.app/#website",
+            "url": "https://iamhasibulhasan.vercel.app/",
+            "name": "Hasibul Hasan",
+            "alternateName": "Hasibul Hasan — Portfolio",
+            "description": "Hasibul Hasan, Software Engineer in Dhaka, Bangladesh: 4.5+ years building scalable backend systems with .NET Core, Entity Framework Core and microservices.",
+            "inLanguage": "en",
+            "publisher": {
+              "@id": "https://iamhasibulhasan.vercel.app/#person"
+            }
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://iamhasibulhasan.vercel.app/#profile",
+            "url": "https://iamhasibulhasan.vercel.app/",
+            "name": "Hasibul Hasan — Software Engineer | .NET Core Developer",
+            "isPartOf": {
+              "@id": "https://iamhasibulhasan.vercel.app/#website"
+            },
+            "mainEntity": {
+              "@id": "https://iamhasibulhasan.vercel.app/#person"
+            },
+            "inLanguage": "en"
+          },
+          {
+            "@type": "Person",
+            "@id": "https://iamhasibulhasan.vercel.app/#person",
+            "name": "Hasibul Hasan",
+            "alternateName": "Md. Hasibul Hasan",
+            "url": "https://iamhasibulhasan.vercel.app/",
+            "image": "https://iamhasibulhasan.vercel.app/profile.png",
+            "description": "Hasibul Hasan, Software Engineer in Dhaka, Bangladesh: 4.5+ years building scalable backend systems with .NET Core, Entity Framework Core and microservices.",
+            "jobTitle": "Software Engineer",
+            "worksFor": {
+              "@type": "Organization",
+              "name": "Cartup Ltd.",
+              "url": "https://cartup.com"
+            },
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Dhaka",
+              "addressCountry": "BD"
+            },
+            "email": "mailto:mdhasibulhasan.dev@gmail.com",
+            "sameAs": [
+              "https://github.com/iamhasibulhasan",
+              "https://www.linkedin.com/in/iam-hasibulhasan/",
+              "https://www.nuget.org/profiles/iamhasibulhasan",
+              "https://leetcode.com/iamhasibul/",
+              "https://www.hackerrank.com/Hasibul",
+              "https://www.instagram.com/iamtheridu/",
+              "https://www.facebook.com/iamtheridu/"
+            ],
+            "knowsAbout": [
+              ".NET Core",
+              "Entity Framework Core",
+              "C#",
+              "Microservices",
+              "SQL Server",
+              "PostgreSQL",
+              "React",
+              "Tailwind CSS"
+            ]
+          }
+        ]
       }
     </script>
 

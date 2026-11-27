@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/work", "destination": "/index.html" },
-    { "source": "/work/:path*", "destination": "/index.html" }
+    { "source": "/work", "destination": "/work/index.html" },
+    { "source": "/work/:slug", "destination": "/work/:slug/index.html" }
   ]
 }

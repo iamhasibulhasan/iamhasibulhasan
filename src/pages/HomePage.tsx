@@ -8,10 +8,11 @@ import { caseStudies, featuredCaseStudies } from "@/data/case-studies";
 import SkillsSection from "@/components/SkillsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
-import { useDocumentTitle } from "@/lib/useDocumentTitle";
+import { usePageMeta } from "@/lib/usePageMeta";
+import { HOME_META } from "@/lib/seo";
 
 export default function HomePage() {
-  useDocumentTitle(null);
+  usePageMeta(HOME_META);
   return (
     <>
       <Navbar />

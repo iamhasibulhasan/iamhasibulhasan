@@ -862,6 +862,8 @@ html[data-restoring] body { visibility: hidden; animation: restore-failsafe 0s 0
 
 /* The sleeping z's drift up and fade, one after another. */
 .hero-z { opacity: 0; animation: hero-z 1800ms ease-out infinite; }
+/* The letter itself (GuideHeroAvatar): drawn, not text, so the hero's h1 reads only the name. */
+.hero-z::before { content: attr(data-z); }
 @keyframes hero-z {
   0% { opacity: 0; transform: translate(0, 0) scale(0.6); }
   25% { opacity: 0.9; }
