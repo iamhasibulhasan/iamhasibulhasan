@@ -293,3 +293,32 @@ function syllables(text: string): Blip[] {
   }
   return blips;
 }
+
+/**
+ * Short sound effects for the games, in the same voice (and muted with
+ * it from the customizer): a rising hop, a bright pick-up, a falling crash.
+ */
+export function gameSound(kind: "jump" | "collect" | "crash") {
+  if (!isEnabled()) return;
+  const context = audio();
+  if (!context || !master) return;
+  if (context.state !== "running") void unlock();
+  const at = context.currentTime + 0.01;
+  const osc = context.createOscillator();
+  const env = context.createGain();
+  const shape = {
+    jump: { type: "triangle" as OscillatorType, from: 360, to: 720, length: 0.12, level: 0.5 },
+    collect: { type: "sine" as OscillatorType, from: 880, to: 1320, length: 0.14, level: 0.45 },
+    crash: { type: "sawtooth" as OscillatorType, from: 300, to: 70, length: 0.32, level: 0.35 },
+  }[kind];
+  osc.type = shape.type;
+  osc.frequency.setValueAtTime(shape.from, at);
+  osc.frequency.exponentialRampToValueAtTime(shape.to, at + shape.length);
+  env.gain.setValueAtTime(0.0001, at);
+  env.gain.exponentialRampToValueAtTime(shape.level, at + 0.008);
+  env.gain.exponentialRampToValueAtTime(0.0001, at + shape.length);
+  osc.connect(env);
+  env.connect(master);
+  osc.start(at);
+  osc.stop(at + shape.length + 0.02);
+}

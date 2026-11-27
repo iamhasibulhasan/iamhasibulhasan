@@ -140,6 +140,12 @@ export function reduceGuide(model: GuideModel, event: GuideEvent): GuideModel {
       if (isBusy(model) || model.transient) return awake;
       return withPoke(withTransient(awake, WAKING, TRANSIENT_MS.waking), "nod");
     }
+    case "guide/mood": {
+      // Over everything else (it is a transient), and wide awake for it.
+      const now = { ...model, now: event.now, introAsleep: false, idle: 0 as const };
+      const next = event.cue ? withTransient(now, event.cue, event.ms ?? 3000, event.caption) : { ...now, transient: null };
+      return event.poke ? withPoke(next, event.poke) : next;
+    }
     case "pet/click":
       return pet({ ...model, introAsleep: false }, event.now);
     case "page/hover":
@@ -220,8 +226,8 @@ function wake(model: GuideModel): GuideModel {
   return model.idle >= 2 ? withTransient(next, WAKING, TRANSIENT_MS.waking) : next;
 }
 
-function withTransient(model: GuideModel, cue: AvatarCue, ms: number): GuideModel {
-  const transient: Transient = { ...cue, until: model.now + ms };
+function withTransient(model: GuideModel, cue: AvatarCue, ms: number, caption?: string): GuideModel {
+  const transient: Transient = { ...cue, until: model.now + ms, caption };
   return { ...model, transient };
 }
 
@@ -244,7 +250,7 @@ export function selectGuideView(model: GuideModel): GuideView {
   const view = (cue: AvatarCue, caption: string): GuideView => ({ ...base, state: cue.state, face: cue.face, caption });
 
   if (model.transient) {
-    return view(model.transient, captionForTransient(model.transient.state));
+    return view(model.transient, model.transient.caption ?? captionForTransient(model.transient.state));
   }
 
   switch (model.phase) {
@@ -290,6 +296,10 @@ function captionForTransient(state: string) {
       return "Tour complete";
     case "happy":
       return "Got it";
+    case "excited":
+      return "Let's play!";
+    case "sad":
+      return "That was fun";
     default:
       return "Ready to help";
   }

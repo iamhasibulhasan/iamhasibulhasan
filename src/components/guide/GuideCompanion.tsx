@@ -39,6 +39,10 @@ import { getSpoken, hush, say, sayPetLine } from "@/lib/guide/spoken";
 import { introPending, markAvatarDrawn } from "@/lib/hero-intro";
 import { useIsMobile, useTouchScreen } from "@/hooks/use-mobile";
 import { GUIDE_NAME, OWNER_FIRST_NAME } from "@/lib/guide/identity";
+import { useGuideHandover } from "@/lib/guide/transit";
+
+/** Straight ahead: how it faces while the flying guide hands back to it (lib/guide/transit.ts). */
+const FACE_FRONT: readonly [number, number] = [0, 0];
 import { NAVBAR_CLEARANCE as NAVBAR } from "@/lib/scroll";
 
 const SIZE = 68;
@@ -144,6 +148,8 @@ export default function GuideCompanion() {
   const touch = useTouchScreen();
   const reduceMotion = Boolean(useReducedMotion());
   const companion = useCompanionState();
+  // Coming home from a game or the games menu: face front, like the flyer landing on it.
+  const handover = useGuideHandover();
   const size = isMobile ? MOBILE_SIZE : SIZE;
   const { narrator, announcement: tourAnnouncement, touring } = useGuideTour(isMobile);
 
@@ -911,6 +917,7 @@ export default function GuideCompanion() {
   return (
     <>
       <motion.div
+        data-guide-companion-layer
         // Anchored to the page (hero socket, footer slot) it is page content:
         // it scrolls under the navbar like the rest of the footer (z-40, the
         // navbar is z-50), never over it. Fixed (the corner) it stays on top.
@@ -945,7 +952,7 @@ export default function GuideCompanion() {
             <StaticGuideMark size={size - 16} />
           ) : (
             <span className="relative inline-flex">
-              <GuideAvatar size={size - 16} lookAt={lookAt} followPointer={inHero} paused={!visible && !inHero} />
+              <GuideAvatar size={size - 16} lookAt={handover ? FACE_FRONT : lookAt} followPointer={inHero && !handover} paused={!visible && !inHero} />
             </span>
           )}
         </button>

@@ -53,12 +53,14 @@ export type GuideEvent =
   | { type: "intro/sleep" }
   /** ...and wakes up. `now` makes timing testable. */
   | { type: "intro/wake"; now: number }
+  /** A timed mood (the games: excited at the menu, sad after one); `cue: null` ends it. A gesture can go with it. */
+  | { type: "guide/mood"; cue: AvatarCue | null; ms?: number; poke?: GestureName; caption?: string; now: number }
   | { type: "tick"; now: number };
 
 export type AvatarCue = { state: string; face?: string };
 
 /** A short-lived expression that wins over everything else until it expires. */
-export type Transient = AvatarCue & { until: number };
+export type Transient = AvatarCue & { until: number } & { /** What the caption says while it shows, when not the state's usual line. */ caption?: string };
 
 export type GuideModel = {
   phase: ChatPhase;

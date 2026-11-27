@@ -842,6 +842,13 @@ html[data-hero-intro="play"] #hero [data-hero-name] {
 html[data-hero-intro="play"] #hero [data-hero-still] { visibility: hidden; }
 /* The one live the guide is sitting in the hero's socket: its still stand-in steps aside. */
 html[data-guide-in-hero] .guide-socket-still { visibility: hidden; }
+/* The guide has left the page for the cursor or a game (lib/guide/transit.ts): the page keeps
+   its empty sockets until it is back. Opacity, not visibility: the avatar library marks parts
+   of its drawing visible, which would show through a parent hidden with visibility. */
+html[data-guide-away] [data-guide-companion-layer],
+html[data-guide-away] .guide-socket-still { opacity: 0 !important; }
+html[data-guide-away] [data-guide-companion-layer],
+html[data-guide-away] [data-guide-companion-layer] * { pointer-events: none !important; }
 @keyframes hero-failsafe-show { to { opacity: 1; } }
 /* A reload partway down the page: hidden until the browser has restored the
    scroll (see PLAY_SCRIPT), with the same kind of CSS failsafe. */

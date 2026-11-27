@@ -8,6 +8,7 @@ import { SmoothScroll } from "@/components/SmoothScroll";
 import ScrollProgress from "@/components/ScrollProgress";
 import { QuietBoundary } from "@/components/QuietBoundary";
 import { GuideCompanionMount } from "@/components/guide/GuideCompanionMount";
+import { GuideTransit } from "@/components/guide/GuideTransit";
 import HomePage from "@/pages/HomePage";
 
 // The other pages are their own chunks, so the homepage doesn't download them.
@@ -60,6 +61,7 @@ export default function App() {
             <CommandPalette />
           </QuietBoundary>
         </SmoothScroll>
+        <GuideTransit />
         <Toaster />
       </MotionConfig>
     </SettingsProvider>

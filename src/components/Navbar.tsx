@@ -2,6 +2,9 @@ import Link from "@/lib/compat/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Menu, X, Download, Search, SlidersHorizontal } from "lucide-react";
 import SettingsPanel from "./SettingsPanel";
+import GameDialog from "./game/GameDialog";
+import { GamesMenu } from "./game/GamesMenu";
+import { GAMES, GAME_IDS, lastGame, rememberGame, type GameId } from "./game/games";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import LogoMark from "@/components/LogoMark";
 import { personalInfo } from "@/data/portfolio";
@@ -14,6 +17,14 @@ import { SECTION_LINKS } from "@/data/site-links";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [gameOpen, setGameOpen] = useState(false);
+  const [game, setGame] = useState<GameId>(lastGame);
+  /** Opens the games dialog on a given game (the hover menu's cards). */
+  const playGame = useCallback((id: GameId) => {
+    setGame(id);
+    rememberGame(id);
+    setGameOpen(true);
+  }, []);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
@@ -200,7 +211,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="fixed top-0 inset-x-0 z-50 flex justify-center px-4 pt-[var(--nav-top)] pointer-events-none">
+      <div className="fixed top-0 inset-x-0 z-[55] flex justify-center px-4 pt-[var(--nav-top)] pointer-events-none">
         <nav
           aria-label="Main"
           className={`pointer-events-auto transition-all duration-500 rounded-2xl sm:rounded-full container-width flex items-center justify-between px-4 sm:px-6 h-[var(--nav-height)] border ${
@@ -228,6 +239,8 @@ const Navbar = () => {
               </a>
             ))}
             <div className="w-px h-4 bg-foreground/10 mx-2" />
+            {/* Hover (or focus, or tap) for the games menu; a card opens that game. */}
+            <GamesMenu onPlay={playGame} />
             {/* Discoverability for the shortcut — most visitors never guess it exists. */}
             <button
               type="button"
@@ -313,6 +326,32 @@ const Navbar = () => {
                   {link.label}
                 </a>
               ))}
+              {/* The games, as on the desktop's gamepad menu: an icon and a name each. */}
+              <div className="mt-2 border-t border-foreground/5 pt-4">
+                <p className="px-1 pb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">Play a game</p>
+                <div className="grid grid-cols-4 gap-1.5">
+                  {GAME_IDS.map((id) => {
+                    const Icon = GAMES[id].icon;
+                    return (
+                      <button
+                        key={id}
+                        type="button"
+                        onClick={() => {
+                          closeMenu(false);
+                          playGame(id);
+                        }}
+                        aria-label={`Play ${GAMES[id].title}`}
+                        className="flex flex-col items-center gap-1.5 rounded-xl px-1 py-2 text-muted-foreground transition-colors hover:bg-primary/10 hover:text-primary-text active:scale-95"
+                      >
+                        <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary-text">
+                          <Icon className="h-4 w-4" />
+                        </span>
+                        <span className="text-[0.7rem] font-semibold text-foreground">{GAMES[id].label}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
               <div className="flex items-center justify-between mt-2 pt-4 border-t border-foreground/5">
                 <div className="flex items-center gap-1">
                   <ThemeToggle />
@@ -344,6 +383,7 @@ const Navbar = () => {
         )}
       </AnimatePresence>
       <SettingsPanel open={settingsOpen} onOpenChange={setSettingsOpen} />
+      <GameDialog open={gameOpen} onOpenChange={setGameOpen} game={game} />
     </>
   );
 };

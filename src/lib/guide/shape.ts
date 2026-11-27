@@ -22,6 +22,7 @@ let spinAt = 0;
 let snapshot: { shape: GuideShape; spinAt: number } = { shape, spinAt };
 let timer = 0;
 let swap = 0;
+let held = false;
 const listeners = new Set<() => void>();
 
 function emit() {
@@ -31,9 +32,11 @@ function emit() {
 
 function schedule() {
   const [min, max] = CHANGE_EVERY_MS;
+  window.clearTimeout(timer);
   timer = window.setTimeout(() => {
-    // Not while nobody is looking, or while it dozes (a sleeping guide doesn't spin).
-    if (document.hidden || getIdleStage() >= 2 || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+    // Not while it is away (see holdGuideShape), while nobody is looking, or while it
+    // dozes (a sleeping guide doesn't spin).
+    if (held || document.hidden || getIdleStage() >= 2 || window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
       schedule();
       return;
     }
@@ -57,6 +60,23 @@ function subscribe(listener: () => void) {
       window.clearTimeout(swap);
     }
   };
+}
+
+/**
+ * While the guide is away from its place (at the games menu, flying, inside a
+ * game) it keeps the shape it left in: a game draws it in that shape, and it
+ * comes home in it. Once home, the next change is a fresh random wait away, so
+ * it never changes the moment it lands.
+ */
+export function holdGuideShape(on: boolean) {
+  if (held === on) return;
+  held = on;
+  if (!on && listeners.size > 0) schedule();
+}
+
+/** The shape now, for drawing outside React (the games' canvas). */
+export function getGuideShape(): GuideShape {
+  return shape;
 }
 
 const serverSnapshot = { shape: "round" as GuideShape, spinAt: 0 };

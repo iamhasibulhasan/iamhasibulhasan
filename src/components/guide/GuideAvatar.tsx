@@ -9,7 +9,7 @@ import type { ViewportPoint } from "@/lib/guide/types";
 import { useGuideView } from "@/lib/guide/useGuideView";
 import { useSettings } from "@/lib/settings";
 import { guideColors } from "@/lib/appearance";
-import { useGuideShape, type GuideShape } from "@/lib/guide/shape";
+import { SPIN_LEAD_MS, useGuideShape, type GuideShape } from "@/lib/guide/shape";
 
 /*
  * The renderer reads `window` while rendering, so this module is only ever
@@ -40,6 +40,21 @@ function characterFor(accent: string, shape: GuideShape): Character {
   return character;
 }
 
+/**
+ * A change of shape, around the spin: the guide draws in a little and dims as it
+ * turns, the shape switches at the smallest point (SPIN_LEAD_MS in), and the new
+ * shape grows back out with a soft overshoot. The switch itself is one frame;
+ * this way it happens small, faint and mid-turn, where it reads as a morph.
+ */
+const SHAPE_SHIFT_MS = 820;
+const SHAPE_SHIFT: Keyframe[] = [
+  { transform: "scale(1)", opacity: 1, easing: "cubic-bezier(0.45, 0, 0.55, 1)" },
+  { transform: "scale(0.8)", opacity: 0.6, offset: (SPIN_LEAD_MS - 30) / SHAPE_SHIFT_MS },
+  { transform: "scale(0.8)", opacity: 0.6, offset: (SPIN_LEAD_MS + 70) / SHAPE_SHIFT_MS, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
+  { transform: "scale(1.04)", opacity: 1, offset: 0.78, easing: "cubic-bezier(0.45, 0, 0.55, 1)" },
+  { transform: "scale(1)", opacity: 1 },
+];
+
 export type GuideAvatarProps = {
   size: number;
   /** Follow the pointer with the head. Measured by the library from this avatar's centre. */
@@ -66,15 +81,17 @@ export default function GuideAvatar({ size, followPointer = false, lookAt = null
   const character = useMemo(() => characterFor(accent, shape), [accent, shape]);
   const view = useGuideView();
   const ref = useRef<AvatarHandle>(null);
+  const boxRef = useRef<HTMLSpanElement>(null);
 
-  // A change of shape: spin now; the shape switches mid-spin (see shape.ts).
+  // A change of shape: spin now, drawing in around the switch (see SHAPE_SHIFT);
+  // the shape switches mid-spin (see shape.ts).
   const lastSpin = useRef(spinAt);
   useEffect(() => {
     if (spinAt === lastSpin.current) return;
     lastSpin.current = spinAt;
     ref.current?.poke("spin");
+    boxRef.current?.animate(SHAPE_SHIFT, { duration: SHAPE_SHIFT_MS });
   }, [spinAt]);
-  const boxRef = useRef<HTMLSpanElement>(null);
   const lastPoke = useRef(view.poke?.nonce ?? 0);
   // Measured gaze, remembered with the point it was measured for.
   const [measured, setMeasured] = useState<{ point: ViewportPoint; gaze: readonly [number, number] } | null>(null);

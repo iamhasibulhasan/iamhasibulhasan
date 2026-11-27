@@ -22,6 +22,27 @@ export const OFFLINE: AvatarCue = { state: "sleeping", face: "sleepy" };
 export const SLEEPING: AvatarCue = { state: "sleeping", face: "sleepy" };
 export const WAKING: AvatarCue = { state: "waking", face: "happy" };
 export const CELEBRATE: AvatarCue = { state: "celebrate", face: "happy" };
+/** The games: thrilled while the visitor picks one, sad when a game ends. */
+export const EXCITED: AvatarCue = { state: "excited", face: "happy" };
+export const SAD: AvatarCue = { state: "sad", face: "sad" };
+/**
+ * Its reactions at the games menu, picked at random each time: always an
+ * excited, happy face, in one of these moods, with one of these moves.
+ * ("celebrate" is left out: its clip turns the whole head round, and it can
+ * still be turned away when it lands back home.)
+ */
+export const DELIGHT_CUES: AvatarCue[] = [
+  EXCITED,
+  { state: "happy", face: "happy" },
+  { state: "laughing", face: "happy" },
+  { state: "playful", face: "happy" },
+];
+export const DELIGHT_GESTURES = ["nod", "spin", "bounce"] as const;
+/**
+ * On its way home from a menu left unused: still smiling, but settled. A plain
+ * idle clip, so it has settled to facing front by the time it lands.
+ */
+export const HOMEWARD: AvatarCue = { state: "listening", face: "happy" };
 
 /** Each portfolio tool gets the catalogue state that best reads as that kind of work. */
 export const TOOL_CUES: Record<string, AvatarCue> = {
