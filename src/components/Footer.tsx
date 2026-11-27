@@ -104,7 +104,7 @@ const Footer = () => {
             </div>
 
             <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-foreground/10 pt-5 text-xs text-muted-foreground">
-              <p>© {new Date().getFullYear()} {personalInfo.fullName}</p>
+              <p>© {new Date().getFullYear()} {personalInfo.fullName}. All rights reserved.</p>
               <Link
                 href="/"
                 onClick={(event) => {

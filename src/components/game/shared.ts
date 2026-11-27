@@ -133,6 +133,9 @@ const SHAPE_PARTS = {
  * the whole time it is away, see holdGuideShape), so the one that flies into a
  * game is the one the game draws. `x, y` is the top-left of a `size` box;
  * `tilt` is in radians.
+ *
+ * Solvorn © 2026 Md. Hasibul Hasan, all rights reserved: this drawing is not
+ * covered by this repository's MIT License (see NOTICE.md).
  */
 export function drawSolvorn(
   ctx: CanvasRenderingContext2D,
