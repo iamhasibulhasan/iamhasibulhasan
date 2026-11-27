@@ -118,8 +118,10 @@ export function GamesMenu({ onPlay }: { onPlay: (id: GameId) => void }) {
       onPointerEnter={(event) => event.pointerType === "mouse" && show({ x: event.clientX, y: event.clientY })}
       onPointerMove={(event) => event.pointerType === "mouse" && open && guideVisit.follow(underMenu({ x: event.clientX, y: event.clientY }))}
       onPointerLeave={(event) => event.pointerType === "mouse" && hideSoon()}
-      onFocus={() => {
-        if (!open) show(besideButton());
+      // From the keyboard only: a tap focuses the button too, and then its click toggles
+      // the menu (opened here first, the click would close it straight away).
+      onFocus={(event) => {
+        if (!open && (event.target as HTMLElement).matches(":focus-visible")) show(besideButton());
       }}
       onBlur={(event) => {
         if (!rootRef.current?.contains(event.relatedTarget as Node | null)) hideSoon();

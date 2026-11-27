@@ -1,10 +1,10 @@
-import { Fragment, lazy, Suspense, useCallback, useRef, useState, type ComponentType, type LazyExoticComponent } from "react";
+import { Fragment, lazy, Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore, type ComponentType, type LazyExoticComponent, type ReactNode } from "react";
 import { GAMES, type GameId } from "@/components/game/games";
 import { FIELD_CLASS, type GameProps } from "@/components/game/shared";
 import { guideVisit, type Rect } from "@/lib/guide/transit";
 import { GUIDE_NAME } from "@/lib/guide/identity";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { X } from "lucide-react";
+import { RotateCw, X } from "lucide-react";
 import { useLenisLock } from "@/hooks/useLenisLock";
 import { cn } from "@/lib/utils";
 
@@ -18,6 +18,80 @@ const VIEWS: Record<GameId, LazyExoticComponent<ComponentType<GameProps>>> = {
 
 const focusSurface = () =>
   window.setTimeout(() => document.querySelector<HTMLElement>("[data-game-surface]")?.focus({ preventScroll: true }), 60);
+
+/**
+ * A phone (a touch screen that is narrow, or short because it is turned
+ * sideways): the game takes the whole screen. Desktops and tablets keep the
+ * dialog.
+ */
+const PHONE_QUERY = "(pointer: coarse) and (max-width: 639px), (pointer: coarse) and (max-height: 520px)";
+const subscribePhone = (listener: () => void) => {
+  const query = window.matchMedia(PHONE_QUERY);
+  query.addEventListener("change", listener);
+  return () => query.removeEventListener("change", listener);
+};
+const usePhonePlay = () => useSyncExternalStore(subscribePhone, () => window.matchMedia(PHONE_QUERY).matches, () => false);
+
+/**
+ * Full screen on a phone: the browser's own bars hide too where it allows a
+ * page to (Android; an iPhone keeps them, and the dialog still fills the
+ * screen), from opening the game until it closes.
+ */
+function useFullscreen(on: boolean) {
+  useEffect(() => {
+    if (!on) return;
+    const root = document.documentElement;
+    if (!document.fullscreenElement && root.requestFullscreen) root.requestFullscreen({ navigationUI: "hide" }).catch(() => {});
+    return () => {
+      if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    };
+  }, [on]);
+}
+
+/**
+ * The play area as large as the screen allows: the field keeps its shape
+ * (FIELD_CLASS: 16:9, or 4:3 below `sm`), so it is as wide as fits both the
+ * width and the height left under the title.
+ */
+function FitField({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState<number | null>(null);
+  useLayoutEffect(() => {
+    const box = ref.current;
+    if (!box) return;
+    const fit = () => {
+      const aspect = window.innerWidth >= 640 ? 16 / 9 : 4 / 3;
+      setWidth(Math.floor(Math.min(box.clientWidth, box.clientHeight * aspect)));
+    };
+    fit();
+    const observer = new ResizeObserver(fit);
+    observer.observe(box);
+    return () => observer.disconnect();
+  }, []);
+  return (
+    <div ref={ref} className="flex min-h-0 flex-1 items-center justify-center">
+      <div style={{ width: width ?? "100%" }}>{children}</div>
+    </div>
+  );
+}
+
+/** On a phone, one line for touch instead of the keys, and (held upright) a tip to turn it. */
+function TouchHint({ game }: { game: GameId }) {
+  return (
+    <div className="mt-3 flex flex-col items-center gap-1.5 text-center text-xs text-muted-foreground">
+      <p className="flex flex-wrap items-center justify-center gap-1.5">
+        <span className="text-foreground/85">{GAMES[game].touch}</span>
+        <span className="text-muted-foreground/50">·</span>
+        <X className="h-3.5 w-3.5 text-foreground/85" aria-label="close" />
+        <span>to exit</span>
+      </p>
+      <p className="inline-flex items-center gap-1.5 text-muted-foreground/80 landscape:hidden">
+        <RotateCw className="h-3.5 w-3.5" aria-hidden="true" />
+        Turn your phone sideways for a bigger game
+      </p>
+    </div>
+  );
+}
 
 const KEYCAP = "rounded border border-foreground/15 bg-foreground/5 px-1.5 py-0.5 font-mono text-[0.7rem] text-foreground/85";
 
@@ -70,6 +144,8 @@ function Manual({ game }: { game: GameId }) {
 export default function GameDialog({ open, onOpenChange, game }: { open: boolean; onOpenChange: (open: boolean) => void; game: GameId }) {
   const [announcement, setAnnouncement] = useState("");
   const announce = useCallback((text: string) => setAnnouncement(text), []);
+  const phone = usePhonePlay();
+  useFullscreen(open && phone);
   // Hand wheel control back to the browser so the page does not scroll behind the game.
   useLenisLock(open);
 
@@ -108,6 +184,11 @@ export default function GameDialog({ open, onOpenChange, game }: { open: boolean
 
   const current = GAMES[game];
   const Game = VIEWS[game];
+  const field = (
+    <Suspense fallback={<div className={cn(FIELD_CLASS, "w-full animate-pulse rounded-2xl border border-foreground/10 bg-foreground/5")} />}>
+      {open && <Game key={game} onAnnounce={announce} present={present} autoEnter={!present && guideVisit.isVisiting()} onEnter={enter} spriteRectRef={spriteRectRef} />}
+    </Suspense>
+  );
 
   return (
     <DialogPrimitive.Root open={open} onOpenChange={handleOpenChange}>
@@ -121,13 +202,16 @@ export default function GameDialog({ open, onOpenChange, game }: { open: boolean
             focusSurface();
           }}
           className={cn(
-            "fixed left-1/2 top-1/2 z-[120] max-h-[calc(100dvh-1.5rem)] w-[calc(100vw-1.5rem)] max-w-3xl -translate-x-1/2 -translate-y-1/2 overflow-y-auto",
-            "rounded-3xl border border-foreground/10 p-4 glass-strong glass-overlay shadow-accent-card outline-none sm:p-6",
-            "data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
+            "z-[120] glass-strong glass-overlay outline-none",
+            "data-[state=closed]:animate-out data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
+            phone
+              ? // The whole screen, clear of the notch and the system bars.
+                "fixed inset-0 flex h-[100dvh] w-full flex-col overflow-hidden pb-[max(0.75rem,env(safe-area-inset-bottom))] pl-[max(0.75rem,env(safe-area-inset-left))] pr-[max(0.75rem,env(safe-area-inset-right))] pt-[max(0.75rem,env(safe-area-inset-top))]"
+              : "fixed left-1/2 top-1/2 max-h-[calc(100dvh-1.5rem)] w-[calc(100vw-1.5rem)] max-w-3xl -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-3xl border border-foreground/10 p-4 shadow-accent-card sm:p-6 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
           )}
         >
-          <div className="mb-4 flex items-center justify-between gap-4">
-            <DialogPrimitive.Title className="truncate font-display text-xl font-semibold text-foreground">{current.title}</DialogPrimitive.Title>
+          <div className={cn("flex items-center justify-between gap-4", phone ? "mb-2" : "mb-4")}>
+            <DialogPrimitive.Title className={cn("truncate font-display font-semibold text-foreground", phone ? "text-lg" : "text-xl")}>{current.title}</DialogPrimitive.Title>
             <DialogPrimitive.Description className="sr-only">{current.blurb}</DialogPrimitive.Description>
             <DialogPrimitive.Close
               aria-label="Close game"
@@ -138,11 +222,17 @@ export default function GameDialog({ open, onOpenChange, game }: { open: boolean
           </div>
 
           {/* While a game's code loads, an empty field of the same size holds its place. */}
-          <Suspense fallback={<div className={cn(FIELD_CLASS, "w-full animate-pulse rounded-2xl border border-foreground/10 bg-foreground/5")} />}>
-            {open && <Game key={game} onAnnounce={announce} present={present} autoEnter={!present && guideVisit.isVisiting()} onEnter={enter} spriteRectRef={spriteRectRef} />}
-          </Suspense>
-
-          <Manual game={game} />
+          {phone ? (
+            <>
+              <FitField>{field}</FitField>
+              <TouchHint game={game} />
+            </>
+          ) : (
+            <>
+              {field}
+              <Manual game={game} />
+            </>
+          )}
           <p className="sr-only" role="status" aria-live="polite">
             {announcement}
           </p>

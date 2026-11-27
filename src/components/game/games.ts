@@ -7,7 +7,7 @@ export type GameId = "runner" | "flight" | "trail" | "breaker";
 
 export const GAME_IDS: GameId[] = ["runner", "flight", "trail", "breaker"];
 
-/** One line of a game's controls: the keys (shown as keycaps, "or" between them) and what they do. */
+/** One line of a game's controls: the keys (shown as keycaps, "or" between them) and what they do. `touch` (in GAMES) is the same for a phone, in one line. */
 export type Control = { keys: string[]; does: string };
 
 /**
@@ -15,7 +15,7 @@ export type Control = { keys: string[]; does: string };
  * the guide picks from then, a different one each time), the dialog's title
  * and manual, and where its best score is kept.
  */
-export const GAMES: Record<GameId, { label: string; icon: typeof Plane; title: string; blurb: string; sound: MenuSound; cheers: string[]; controls: Control[]; goal: string; bestKey: string }> = {
+export const GAMES: Record<GameId, { label: string; icon: typeof Plane; title: string; blurb: string; sound: MenuSound; cheers: string[]; controls: Control[]; touch: string; goal: string; bestKey: string }> = {
   runner: {
     label: "Runner",
     icon: Footprints,
@@ -27,6 +27,7 @@ export const GAMES: Record<GameId, { label: string; icon: typeof Plane; title: s
       { keys: ["Space", "↑"], does: "jump, hold for higher (or tap)" },
       { keys: ["P"], does: "pause" },
     ],
+    touch: "Tap to jump, hold for higher",
     goal: "Jump the bugs, nulls and red builds, stay low under throw, and grab commits for +25.",
     bestKey: "solvorn-runner-best",
   },
@@ -41,6 +42,7 @@ export const GAMES: Record<GameId, { label: string; icon: typeof Plane; title: s
       { keys: ["Space", "↑"], does: "fly up (or tap)" },
       { keys: ["P"], does: "pause" },
     ],
+    touch: "Tap to fly up",
     goal: "Fly through the open port in each firewall. Commits in a port are worth +3.",
     bestKey: "solvorn-flight-best",
   },
@@ -56,6 +58,7 @@ export const GAMES: Record<GameId, { label: string; icon: typeof Plane; title: s
       { keys: ["Space"], does: "start (or tap)" },
       { keys: ["P"], does: "pause" },
     ],
+    touch: "Tap to start, swipe to steer",
     goal: "Eat commits to grow your trail; a bug that turns up is worth +50. Don't hit the walls or yourself.",
     bestKey: "solvorn-trail-best",
   },
@@ -71,6 +74,7 @@ export const GAMES: Record<GameId, { label: string; icon: typeof Plane; title: s
       { keys: ["Space"], does: "launch (or tap)" },
       { keys: ["P"], does: "pause" },
     ],
+    touch: "Drag to move, tap to launch",
     goal: `Bounce ${GUIDE_NAME} into the code smells and clear the wall. Legacy blocks take two hits; three lives.`,
     bestKey: "solvorn-breaker-best",
   },
