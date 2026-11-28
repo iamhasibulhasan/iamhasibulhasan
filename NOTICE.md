@@ -34,8 +34,7 @@ any other project.
 
 - My name, likeness and personal details, wherever they appear.
 - My résumé: `public/Md_Hasibul_Hasan_CV.pdf`.
-- Photos and images of me: `public/profile.png`, `public/profile/` and
-  `public/og-image.jpg`.
+- Photos and images of me: `public/profile/` and `public/og-image.jpg`.
 - Project screenshots: `public/images/projects/`.
 - The written content: the text in `src/data/` (bio, experience, projects,
   case studies, skills and contact details), `README.md` and its images in

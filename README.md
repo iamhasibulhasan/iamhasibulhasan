@@ -77,6 +77,6 @@
 
 <!-- Profile photo, hidden. Remove the comment markers to show it again.
 <p align="center">
-<a href="https://iamhasibulhasan.vercel.app/"><img src="public/profile.png" width="20%" alt="Hasibul Hasan"/></a>
+<a href="https://iamhasibulhasan.vercel.app/"><img src="public/profile/photo.jpg" width="20%" alt="Hasibul Hasan"/></a>
 </p>
 -->
