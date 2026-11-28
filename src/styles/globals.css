@@ -963,3 +963,46 @@ html[data-guide-napping] [data-guide-sleep-screen] [data-guide-avatar] { opacity
 @media (prefers-reduced-motion: reduce) {
   .pet-heart { animation-name: pet-heart-still; }
 }
+
+/*
+ * The H logo drawing itself (LogoMark, animated): a glowing line traces the
+ * ribbon, then the face and sides fill in and the line fades. Once when it
+ * appears, and again on hover of its link (a second keyframe name restarts it).
+ */
+.logo-mark__trace {
+  fill: none;
+  stroke: hsl(var(--accent-light));
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 100 100;
+  stroke-dashoffset: 100;
+  opacity: 0;
+  filter: drop-shadow(0 0 1.5px hsl(var(--primary))) drop-shadow(0 0 4px hsl(var(--primary)));
+}
+.logo-mark--draw .logo-mark__trace { animation: logo-trace 1.9s ease-in-out both; }
+.logo-mark--draw .logo-mark__solid { animation: logo-solid 1.9s ease-in-out both; }
+.group:hover .logo-mark--draw .logo-mark__trace { animation-name: logo-trace-again; }
+.group:hover .logo-mark--draw .logo-mark__solid { animation-name: logo-solid-again; }
+@keyframes logo-trace {
+  0% { stroke-dashoffset: 100; opacity: 1; animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1); }
+  60% { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes logo-trace-again {
+  0% { stroke-dashoffset: 100; opacity: 1; animation-timing-function: cubic-bezier(0.45, 0, 0.25, 1); }
+  60% { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+@keyframes logo-solid {
+  0%, 50% { opacity: 0; transform: translateY(3px); }
+  80%, 100% { opacity: 1; transform: none; }
+}
+@keyframes logo-solid-again {
+  0%, 50% { opacity: 0; transform: translateY(3px); }
+  80%, 100% { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-mark--draw .logo-mark__trace { animation: none; opacity: 0; }
+  .logo-mark--draw .logo-mark__solid { animation: none; opacity: 1; }
+}

@@ -47,6 +47,7 @@ import { PetHearts, tintStyle, usePetting } from "@/components/guide/Petting";
 /** Straight ahead: how it faces while the flying guide hands back to it (lib/guide/transit.ts). */
 const FACE_FRONT: readonly [number, number] = [0, 0];
 import { NAVBAR_CLEARANCE as NAVBAR } from "@/lib/scroll";
+import { NAV_FLIGHT_MS, NAV_GAMES, NAV_PLAYS, NAV_PLAY_EVENT, NAV_PLAY_SIZE, navPlayOffset, type NavGame } from "@/lib/guide/nav-play";
 
 const SIZE = 68;
 const MOBILE_SIZE = 56;
@@ -315,6 +316,45 @@ export default function GuideCompanion() {
     visibleRef.current = visible;
     touringRef.current = touring;
   }, [touring, visible]);
+
+  /**
+   * Now and then the guide flies up to the navbar's H and plays with it
+   * (lib/guide/nav-play.ts): out (shrinking to the logo's size), a game, and
+   * back to its spot. Only when it is out on the page on its own: not in the
+   * hero, the footer or the corner, not talking, not on touch screens, and
+   * never with reduced motion. The pose is drawn by the frame loop below.
+   */
+  const navVisitRef = useRef<{ kind: NavGame; start: number; started: boolean } | null>(null);
+  const [visiting, setVisiting] = useState(false);
+  useEffect(() => {
+    if (reduceMotion) return;
+    let timer = 0;
+    const wait = () => {
+      timer = window.setTimeout(() => {
+        const state = getCompanionState();
+        const logo = document.querySelector<HTMLElement>("[data-nav-logo]")?.getBoundingClientRect();
+        const free =
+          !document.hidden && visibleRef.current && !touringRef.current && !panelOpenRef.current && !isMobileRef.current && !touchRef.current &&
+          !inHeroRef.current && !inSocketRef.current && !landingRef.current && !landedRef.current && kindRef.current === "ride" &&
+          state.bubble === "none" && !navVisitRef.current && Boolean(logo && logo.width > 0 && logo.top >= 0);
+        if (free) {
+          navVisitRef.current = { kind: NAV_GAMES[Math.floor(Math.random() * NAV_GAMES.length)], start: performance.now(), started: false };
+          setVisiting(true);
+        }
+        wait();
+      }, 25_000 + Math.random() * 35_000);
+    };
+    wait();
+    return () => window.clearTimeout(timer);
+  }, [reduceMotion]);
+  // In development, `__solvornPlay("hop")` in the console sends it now (if it is free to go).
+  useEffect(() => {
+    if (!import.meta.env.DEV) return;
+    (window as unknown as { __solvornPlay?: (kind?: NavGame) => void }).__solvornPlay = (kind) => {
+      navVisitRef.current = { kind: kind ?? NAV_GAMES[Math.floor(Math.random() * NAV_GAMES.length)], start: performance.now(), started: false };
+      setVisiting(true);
+    };
+  }, []);
 
   useEffect(() => {
     mountedAtRef.current = performance.now();
@@ -760,6 +800,43 @@ export default function GuideCompanion() {
           opacity.set(Math.max(opacity.get(), 1));
         }
       }
+      // A visit to the navbar's H, last: out to the logo (shrinking), the game around it, then back
+      // to wherever its spot is now. Anything that needs the guide (the panel, the tour) ends it at once.
+      const visit = navVisitRef.current;
+      if (visit) {
+        const logo = document.querySelector<HTMLElement>("[data-nav-logo]")?.getBoundingClientRect();
+        const play = NAV_PLAYS[visit.kind];
+        const playMs = play.seconds * 1000;
+        const elapsed = now - visit.start;
+        if (!logo || panelOpenRef.current || touringRef.current || elapsed >= NAV_FLIGHT_MS * 2 + playMs) {
+          navVisitRef.current = null;
+          setVisiting(false);
+        } else {
+          const small = NAV_PLAY_SIZE / size;
+          // Where the small guide sits for a moment of the game: its offset from the logo, as the layer's top-left.
+          const at = (t: number) => {
+            const o = navPlayOffset(visit.kind, t);
+            return { x: logo.left + o.x + NAV_PLAY_SIZE / 2 - size / 2, y: logo.top + o.y + NAV_PLAY_SIZE / 2 - size / 2 };
+          };
+          if (elapsed < NAV_FLIGHT_MS) {
+            const hop = routeTravelFrame({ t: elapsed / NAV_FLIGHT_MS, from: point, to: at(0), fromScale: scale.get(), toScale: small });
+            point = hop.position;
+            scale.set(hop.scale);
+          } else if (elapsed < NAV_FLIGHT_MS + playMs) {
+            if (!visit.started) {
+              visit.started = true;
+              window.dispatchEvent(new CustomEvent(NAV_PLAY_EVENT, { detail: { kind: visit.kind } }));
+            }
+            point = at((elapsed - NAV_FLIGHT_MS) / playMs);
+            scale.set(small);
+          } else {
+            const hop = routeTravelFrame({ t: (elapsed - NAV_FLIGHT_MS - playMs) / NAV_FLIGHT_MS, from: at(1), to: point, fromScale: small, toScale: scale.get() });
+            point = hop.position;
+            scale.set(hop.scale);
+          }
+          opacity.set(1);
+        }
+      }
       drawnPoseRef.current = { point, scale: scale.get(), chrome: chrome.get() };
       posX.set(Math.round(point.x * 2) / 2);
       posY.set(Math.round(point.y * 2) / 2);
@@ -930,7 +1007,8 @@ export default function GuideCompanion() {
         // Anchored to the page (hero socket, footer slot) it is page content:
         // it scrolls under the navbar like the rest of the footer (z-40, the
         // navbar is z-50), never over it. Fixed (the corner) it stays on top.
-        className={"pointer-events-none left-0 top-0 " + (anchored ? "absolute z-40" : "fixed z-50")}
+        // Visiting the navbar's H it rises above the navbar (z-[55]) to play with it.
+        className={"pointer-events-none left-0 top-0 " + (visiting ? "fixed z-[60]" : anchored ? "absolute z-40" : "fixed z-50")}
         style={{ x: posX, y: posY, scale, opacity, width: size, height: size, transformOrigin: "50% 50%" }}
         aria-hidden={!visible}
       >

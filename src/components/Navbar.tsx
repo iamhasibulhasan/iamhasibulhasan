@@ -7,7 +7,7 @@ import { SoundToggle } from "./SoundToggle";
 import { GamesMenu } from "./game/GamesMenu";
 import { GAMES, GAME_IDS, lastGame, rememberGame, type GameId } from "./game/games";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import LogoMark from "@/components/LogoMark";
+import NavLogo from "@/components/NavLogo";
 import { personalInfo } from "@/data/portfolio";
 import { ThemeToggle } from "./ThemeToggle";
 import { useLenisLock } from "@/hooks/useLenisLock";
@@ -220,7 +220,7 @@ const Navbar = () => {
           }`}
         >
           <Link href="/" onClick={handleHomeClick} aria-label={`${personalInfo.name}: go to the top of the homepage`} className="flex min-h-11 min-w-11 items-center justify-center group">
-            <LogoMark size={32} className="h-7 w-7 sm:h-8 sm:w-8 transition-transform duration-300 group-hover:scale-110 pointer-events-none" />
+            <NavLogo />
           </Link>
 
           <div className="hidden md:flex items-center gap-1.5">
