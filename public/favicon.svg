@@ -1,30 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 100 100">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="64" height="64" viewBox="0 0 100 100">
   <defs>
-    <linearGradient id="face" x1="0" y1="1" x2="1" y2="0">
-      <stop offset="0" stop-color="#15803d" />
-      <stop offset="0.55" stop-color="#22c55e" />
-      <stop offset="1" stop-color="#86efac" />
-    </linearGradient>
-    <linearGradient id="face2" x1="0" y1="1" x2="1" y2="0">
-      <stop offset="0" stop-color="#16a34a" />
-      <stop offset="0.6" stop-color="#34d96f" />
-      <stop offset="1" stop-color="#bbf7d0" />
-    </linearGradient>
+    <path id="r" d="M19 10 H35 Q39 10 39 14 V29 Q39 39 49 39 H51 Q61 39 61 29 V14 Q61 10 65 10 H81 Q85 10 85 14 V77 Q85 81 81 81 H65 Q61 81 61 77 V69 Q61 59 51 59 H49 Q39 59 39 69 V77 Q39 81 35 81 H19 Q15 81 15 77 V14 Q15 10 19 10 Z"/>
+    <clipPath id="in"><use href="#r"/></clipPath>
+    <linearGradient id="face" gradientUnits="userSpaceOnUse" x1="15" y1="81" x2="85" y2="10"><stop offset="0" stop-color="#15803d"/><stop offset="0.45" stop-color="#22c55e"/><stop offset="1" stop-color="#86efac"/></linearGradient>
+    <linearGradient id="rim" gradientUnits="userSpaceOnUse" x1="15" y1="81" x2="85" y2="10"><stop offset="0" stop-color="#4ade80"/><stop offset="1" stop-color="#dcfce7"/></linearGradient>
+    <linearGradient id="side" gradientUnits="userSpaceOnUse" x1="0" y1="10" x2="0" y2="96"><stop offset="0" stop-color="#14532d"/><stop offset="1" stop-color="#052e16"/></linearGradient>
   </defs>
-  <rect width="100" height="100" rx="24" fill="#0a0b09" />
-  <g transform="translate(50 50) scale(0.74) translate(-51 -50)">
-    <!-- back pills: extrusion -->
-    <rect x="13" y="12" width="30" height="77" rx="15" fill="#052e16" />
-    <rect x="59" y="12" width="30" height="77" rx="15" fill="#052e16" />
-    <!-- back pills: front face -->
-    <rect x="13" y="12" width="30" height="68" rx="15" fill="url(#face)" />
-    <rect x="59" y="12" width="30" height="68" rx="15" fill="url(#face)" />
-    <!-- slots -->
-    <rect x="25" y="22" width="9" height="42" rx="4.5" fill="#052e16" />
-    <rect x="69" y="22" width="9" height="42" rx="4.5" fill="#052e16" />
-    <!-- front arch: extrusion -->
-    <path d="M30.500 88 V66 Q30.500 44 52 44 Q71 44 71 66 V88" fill="none" stroke="#052e16" stroke-width="11" />
-    <!-- front arch: face -->
-    <path d="M30.500 78 V58 Q30.500 43.500 46 43.500 H55 Q71 43.500 71 58 V78" fill="none" stroke="url(#face2)" stroke-width="11" />
+  <rect width="100" height="100" rx="22" fill="#0a0b09"/>
+  <g transform="translate(50 50) scale(0.9412) translate(-51.25 -52.5)">
+    <use href="#r" fill="url(#side)" transform="translate(2.52 14)"/><use href="#r" fill="url(#side)" transform="translate(2.34 13)"/><use href="#r" fill="url(#side)" transform="translate(2.16 12)"/><use href="#r" fill="url(#side)" transform="translate(1.98 11)"/><use href="#r" fill="url(#side)" transform="translate(1.80 10)"/><use href="#r" fill="url(#side)" transform="translate(1.62 9)"/><use href="#r" fill="url(#side)" transform="translate(1.44 8)"/><use href="#r" fill="url(#side)" transform="translate(1.26 7)"/><use href="#r" fill="url(#side)" transform="translate(1.08 6)"/><use href="#r" fill="url(#side)" transform="translate(0.90 5)"/><use href="#r" fill="url(#side)" transform="translate(0.72 4)"/><use href="#r" fill="url(#side)" transform="translate(0.54 3)"/><use href="#r" fill="url(#side)" transform="translate(0.36 2)"/><use href="#r" fill="url(#side)" transform="translate(0.18 1)"/>
+    <use href="#r" fill="url(#face)"/>
+    <g clip-path="url(#in)">
+      <use href="#r" fill="none" stroke="#000" stroke-width="10" stroke-opacity="0.18"/>
+      <use href="#r" fill="none" stroke="url(#face)" stroke-width="8.4"/>
+      <use href="#r" fill="none" stroke="url(#rim)" stroke-width="7" stroke-opacity="0.5"/>
+      <use href="#r" fill="none" stroke="url(#rim)" stroke-width="2.2" stroke-opacity="0.95"/>
+    </g>
   </g>
 </svg>
